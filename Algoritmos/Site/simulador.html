@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VagasIQ</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="container">
+            <div class="titulo"><h1>VagasIQ</h1></div>
+            <div class="navbar">
+                <a href="">SOBRE NÓS</a>
+                <a href="">SOLUÇÕES</a>
+                <a href="#">SIMULADOR</a>
+                <a href="">CONTATO</a>
+                <a href="" style="color: #ffc714"><u>LOGIN</u></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="simulador">
+        <div class="container">
+            <h1>Simule aqui seus resultados!</h1>
+            <span>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</span>
+            <div class="interface">
+                <div class="box">
+                    <span> teste </span>
+                </div>
+                <div class="grafico1">
+                    <canvas id="myChart1" ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+        <div class="tituloF"> <h1>VagasIQ</h1> </div>
+        <div class="traco"></div>
+        <span class="descricaoF"> Explore todo o potencial do seu negócio com o poder da tomada de decisão estratégica <br> baseada em informações relevantes! </span>
+  </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    const ctx = document.getElementById('myChart1');
+
+      new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['janeiro', 'fevereiro', 'março', 'abril'],
+      datasets: [{
+        label: 'Temperatura Média',
+        data: [22, 24, 27, 23, 20, 18],
+        borderWidth: 1,
+        backgroundColor: "#fe6383"
+      },
+      {
+        label: 'Umidade Média',
+        data: [90, 89, 93, 87, 88, 82],
+        borderWidth: 1,
+        backgroundColor: "#37a2ea"
+      }
+    ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+</script>
