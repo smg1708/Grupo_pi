@@ -28,7 +28,49 @@
             <span>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</span>
             <div class="interface">
                 <div class="box">
-                    <span> teste </span>
+                    <div class="dados">
+                      <p> Informe o logradouro que deseja verificar </p>
+                      <input type="text" id="inp_logradouro">
+
+                      <p> Informe o bairro que deseja verificar </p>
+                      <input type="text" id="inp_bairro">
+
+                      <p> Informe a cidade que deseja verificar </p>
+                      <select id="select_cidade">
+
+                        <option disabled selected> Selecione uma opção </option>
+                        <option>AC</option>
+                        <option>AL</option>
+                        <option>AP</option>
+                        <option>AM</option>
+                        <option>BA</option>
+                        <option>CE</option>
+                        <option>DF</option>
+                        <option>ES</option>
+                        <option>GO</option>
+                        <option>MA</option>
+                        <option>MT</option>
+                        <option>MS</option>
+                        <option>MG</option>
+                        <option>PA</option>
+                        <option>PB</option>
+                        <option>PR</option>
+                        <option>PE</option>
+                        <option>PI</option>
+                        <option>RJ</option>
+                        <option>RN</option>
+                        <option>RS</option>
+                        <option>RO</option>
+                        <option>RR</option>
+                        <option>SC</option>
+                        <option>SP</option>
+                        <option>SE</option>
+                        <option>TO</option>
+
+                      </select> <br> <br>
+
+                      <button onclick="analisar()">Calcular</button>
+                    </div>
                 </div>
                 <div class="grafico1">
                     <canvas id="myChart1" ></canvas>
@@ -50,33 +92,55 @@
 
 <script>
 
-    const ctx = document.getElementById('myChart1');
+    function analisar() {
+      const ctx = document.getElementById('myChart1');
+      var logradouro = inp_logradouro.value
+      var bairro = inp_bairro.value
+      var cidade = select_cidade.value
 
-      new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['janeiro', 'fevereiro', 'março', 'abril'],
-      datasets: [{
-        label: 'Temperatura Média',
-        data: [22, 24, 27, 23, 20, 18],
-        borderWidth: 1,
-        backgroundColor: "#fe6383"
-      },
-      {
-        label: 'Umidade Média',
-        data: [90, 89, 93, 87, 88, 82],
-        borderWidth: 1,
-        backgroundColor: "#37a2ea"
-      }
-    ]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+      if (cidade == "Selecione uma opção") {
+        alert("Selecione uma cidade")
+      } else if (logradouro == "" && bairro == "") {
+        alert("Informe o logradouro e o bairro")
+      } else if (logradouro == "") {
+        alert("Informe o logradouro")
+      } else if (bairro == "") {
+        alert("Informe o bairro")
+      } else {
+            new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['18 a 25', '25 a 40', '40 a 55', '55 a 70', 'mais de 70'],
+            datasets: [{
+              label: 'Mulheres',
+              data: [9, 9, 7, 4, 2, 0],
+              borderWidth: 1,
+              backgroundColor: "#fe6383"
+            },
+            {
+              label: 'Homens',
+              data: [10, 8, 5, 2, 3, 1],
+              borderWidth: 1,
+              backgroundColor: "#37a2ea"
+            }
+          ]
+          },
+          options: {
+             plugins: {
+                  title: {
+                      display: true,
+                      text: `Ocupação diaria: ${logradouro}`,
+                      font: {size: 18}
+                  }
+              },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
       }
     }
-  });
 
 </script>

@@ -115,3 +115,33 @@ body {
     margin-top: 80px;
     width: 40%;
 }
+
+.dados {
+    padding-top: 40px;
+    padding-left: 60px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.dados input {
+    border-color: white;
+    height: 35px;
+    border-width: 0px;
+    width: 450px;
+}
+
+.dados button {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: black;
+    border-radius: 10px;
+    border-color: white;
+    width: 450px;
+    height: 45px;
+    margin-top: 5px;
+}
+
+.dados select {
+    width: 150px;
+}
