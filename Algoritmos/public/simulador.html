@@ -15,7 +15,7 @@
             <div class="navbar">
                 <a href="">SOBRE NÓS</a>
                 <a href="">SOLUÇÕES</a>
-                <a href="#">SIMULADOR</a>
+                <a href="">SIMULADOR</a>
                 <a href="">CONTATO</a>
                 <a href="" style="color: #ffc714"><u>LOGIN</u></a>
             </div>
@@ -26,53 +26,19 @@
         <div class="container">
             <h1>Simule aqui seus resultados!</h1>
             <span>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</span>
-            <div class="interface">
-                <div class="box">
-                    <div class="dados">
+            <div class="sinterface">
+                <div class="sbox">
+                    <div class="sdados">
                       <p> Informe o logradouro que deseja verificar </p>
                       <input type="text" id="inp_logradouro">
 
                       <p> Informe o bairro que deseja verificar </p>
                       <input type="text" id="inp_bairro">
 
-                      <p> Informe a cidade que deseja verificar </p>
-                      <select id="select_cidade">
-
-                        <option disabled selected> Selecione uma opção </option>
-                        <option>AC</option>
-                        <option>AL</option>
-                        <option>AP</option>
-                        <option>AM</option>
-                        <option>BA</option>
-                        <option>CE</option>
-                        <option>DF</option>
-                        <option>ES</option>
-                        <option>GO</option>
-                        <option>MA</option>
-                        <option>MT</option>
-                        <option>MS</option>
-                        <option>MG</option>
-                        <option>PA</option>
-                        <option>PB</option>
-                        <option>PR</option>
-                        <option>PE</option>
-                        <option>PI</option>
-                        <option>RJ</option>
-                        <option>RN</option>
-                        <option>RS</option>
-                        <option>RO</option>
-                        <option>RR</option>
-                        <option>SC</option>
-                        <option>SP</option>
-                        <option>SE</option>
-                        <option>TO</option>
-
-                      </select> <br> <br>
-
                       <button onclick="analisar()">Calcular</button>
                     </div>
                 </div>
-                <div class="grafico1">
+                <div class="sgrafico1">
                     <canvas id="myChart1" ></canvas>
                 </div>
             </div>
@@ -96,11 +62,8 @@
       const ctx = document.getElementById('myChart1');
       var logradouro = inp_logradouro.value
       var bairro = inp_bairro.value
-      var cidade = select_cidade.value
 
-      if (cidade == "Selecione uma opção") {
-        alert("Selecione uma cidade")
-      } else if (logradouro == "" && bairro == "") {
+      if (logradouro == "" && bairro == "") {
         alert("Informe o logradouro e o bairro")
       } else if (logradouro == "") {
         alert("Informe o logradouro")
