@@ -146,7 +146,7 @@ body {
 .sdados select {
     width: 10%;
 }
-/*  */
+/* Dashboard */
 
 .dashboard-container {
     display: flex;
@@ -411,9 +411,23 @@ body {
 .dashboard-body .dashboard-principal-direita button{
     width: 248px;
     height: 35px;
-    border: none;
     border-radius: 5px;
     font-weight: bolder;
+    font-size: 11px;
+}
+
+.dashboard-body .button-email {
+    background-color: #fff;
+    border: 1px solid #1e1e1e;
+    text-align: center;
+    color: #1e1e1e;
+} 
+
+.dashboard-body .button-pdf {
+    background-color: #1e1e1e;
+    text-align: center;
+    color: #fff;
+    border: none;
 }
 
 .dashboard-body .dashboard-avisos {
