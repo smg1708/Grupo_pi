@@ -147,50 +147,57 @@ body {
     width: 150px;
 }
 
-.container-dashboard {
+/*  */
+
+.dashboard-container {
     display: flex;
     flex-direction: row;
     height: 100vh;
     width: 98vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 }
 
-.container-dashboard .navbar-lateral {
-    height: 100%;
-    width: 180px;
+.dashboard-container .navbar-lateral {
     display: flex;
     flex-direction: column;
     background-color: #1e1e1e;
     color: #808080;
-    padding: 15px;
+    justify-content: space-between;
 }
 
-.container-dashboard .navbar-lateral .topo {
+.dashboard-container .navbar-lateral .lateral-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.dashboard-container .navbar-lateral .topo {
     display: flex;
     align-items: center;
     gap: 0 10px;
-    padding: 6px 12px;
-    
+    padding: 15px 48px 15px 20px;
+    border-bottom: 1px solid #808080;
 }
 
-.container-dashboard .navbar-lateral .topo .credenciais {
+.dashboard-container .navbar-lateral .topo .credenciais {
     display: flex;
     flex-direction: column;
-    gap: 3px 0;
 }
 
-.container-dashboard .navbar-lateral .topo .credenciais h4 {
+.dashboard-container .navbar-lateral .topo .credenciais h4 {
     font-size: 15px;
     margin: 0;
     font-weight: normal;
     color: #F7FFF7;
 }
 
-.container-dashboard .navbar-lateral .topo .credenciais p {
+.dashboard-container .navbar-lateral .topo .credenciais p {
     font-size: 10px;
     margin: 0;
 }
 
-.container-dashboard .navbar-lateral .topo span {
+.dashboard-container .navbar-lateral .topo span {
     background-color: #ffc714;
     display: flex;
     color: #F7FFF7;
@@ -201,20 +208,47 @@ body {
     border-radius: 100%;
 }
 
-.container-dashboard .container {
+.dashboard-container .navbar-lateral .opcoes {
     display: flex;
     flex-direction: column;
-    width: 85%;
+    gap: 25px;
+    padding-left: 35px;
 }
 
-.container-dashboard .container .dashboard-navbar{
+.dashboard-container .navbar-lateral .opcoes .opcao {
     display: flex;
     align-items: center;
-    padding: 0px 20px 0 50px;
-    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: bolder;
 }
 
-.container-dashboard .container .dashboard-navbar span {
+.dashboard-container .navbar-lateral .exit {
+    display: flex;
+    padding: 20px 28px;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #808080;
+    
+}
+
+.dashboard-container .container {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.dashboard-container .container .dashboard-navbar{
+    display: flex;
+    align-items: center;
+    width: 81vw;
+    padding: 0px 20px 3px 50px;
+    justify-content: space-between;
+    border-bottom: 1px solid #808080;    
+}
+
+.dashboard-container .container .dashboard-navbar span {
     background-color: #1e1e1e;
     display: flex;
     color: #F7FFF7;
@@ -225,9 +259,110 @@ body {
     border-radius: 100%;
 }
 
-.container-dashboard .container .dashboard-navbar h1 {
+.dashboard-container .container .dashboard-navbar h1 {
     font-size: 28px;
     font-weight: 100px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     width: 10%;
+}
+
+.dashboard-body {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    gap: 45px;
+}
+
+.dashboard-body h1{
+    font-size: 19px;
+    color: #1e1e1e;
+    margin: 0;
+}
+
+.dashboard-body p {
+    font-size: 12px;
+    color: #5C5C5C;
+    margin: 0;
+}
+
+.dashboard-body span {
+    background-color: #F5F5F5;
+    display: flex;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+.dashboard-body .saudacoes {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.dashboard-body .metricas-gerais {
+    display: flex;
+    gap: 90px;
+}
+
+.dashboard-body .metricas-gerais .metrica {
+    display: flex;
+    gap: 12px;
+}
+
+.dashboard-body .dashboard-principal{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dashboard-body .dashboard-principal h2{
+    font-size: 16px;
+    font-weight: normal;
+    color: #5C5C5C;
+    font-style: italic;
+    margin: 0;
+}
+
+.dashboard-body .dashboard-principal h1 {
+    font-size: 16px;
+}
+
+.dashboard-body .dashboard-principal-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.dashboard-body .dashboard-principal-direita {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dashboard-body .dashboard-principal-direita .acoes-rapidas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dashboard-body .dashboard-principal-direita button{
+    width: 248px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.dashboard-body .dashboard-avisos {
+    background-color: #ffc714;
+    padding: 20px;
+}
+
+.dashboard-body .dashboard-avisos div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-self: center;
 }
