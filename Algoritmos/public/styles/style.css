@@ -93,12 +93,12 @@ body {
     font-size: 14px;
 }
 
-.box {
+.sbox {
     margin-top: 80px;
     margin-left: 120px;
     margin-bottom: 80px;
-    width: 600px;
-    height: 400px;
+    width: 50%;
+    height: 320px;
     border-radius: 10px;
     background-color: #f4f4f4;
     -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
@@ -106,32 +106,32 @@ body {
     box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
 }
 
-.interface {
+.sinterface {
     display: flex;
     gap: 7%;
 }
 
-.grafico1 {
+.sgrafico1 {
     margin-top: 10%;
     margin-right: 10%;
     width: 50%;
 }
 
-.dados {
+.sdados {
     padding-top: 40px;
     padding-left: 60px;
     font-size: 16px;
     text-align: justify;
 }
 
-.dados input {
+.sdados input {
     border-color: white;
     height: 35px;
     border-width: 0px;
     width: 85%;
 }
 
-.dados button {
+.sdados button {
     color: white;
     font-weight: bold;
     font-size: 15px;
@@ -140,13 +140,12 @@ body {
     border-color: white;
     width: 85%;
     height: 45px;
-    margin-top: 5px;
+    margin-top: 25px;
 }
 
-.dados select {
-    width: 150px;
+.sdados select {
+    width: 10%;
 }
-
 /*  */
 
 .dashboard-container {
@@ -262,6 +261,68 @@ body {
 .dashboard-container .container .dashboard-navbar h1 {
     font-size: 28px;
     font-weight: 100px;
+}
+/* Calculadora */
+
+.calculadora {
+    text-align: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.calculadora h1 {
+    font-size: 36px;
+}
+
+.calculadora span{
+    font-size: 14px;
+}
+
+.cbox {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 380px;
+    width: 50%;
+    height: 320px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+}
+
+.cinterface {
+    display: flex;
+    gap: 7%;
+}
+
+.cdados {
+    padding-top: 40px;
+    padding-left: 60px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.cdados input {
+    border-color: white;
+    height: 35px;
+    border-width: 0px;
+    width: 85%;
+}
+
+.cdados button {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: black;
+    border-radius: 10px;
+    border-color: white;
+    width: 85%;
+    height: 45px;
+    margin-top: 25px;
+}
+
+.dados select {
     width: 10%;
 }
 

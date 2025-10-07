@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    font-family: 'ubuntu', sans-serif;
+}
+
+.header {
+    color: black;
+    -webkit-box-shadow: -1px -7px 24px -7px rgba(8, 8, 8, 1);
+    -moz-box-shadow: -1px -7px 24px -7px rgba(8, 8, 8, 1);
+    box-shadow: -1px -7px 24px -7px rgba(8, 8, 8, 1);
+    font-weight: bold;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+.titulo {
+    font-size: 16px;
+    padding-left: 40px;
+}
+
+.navbar {
+    display: flex;
+    gap: 40px;
+}
+
+.navbar a{
+    color: black;
+    font-size: 14px;
+    outline: none;
+    text-decoration: none;
+}
+
+.navbar li {
+    list-style: none;
+}
+
+.footer {
+    width: 100%;
+    height: 220px;
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: flex-start;
+    border-radius: 5px;
+
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 90px;
+    padding-bottom: 50px;
+}
+
+.tituloF {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+.traco {
+    background-color: #ffc714;
+    width: 90px;
+    height: 2px;
+    margin-bottom: 30px;
+
+}
+
+.descricaoF {
+    font-size: 14px;
+}
+
+/* Simulador */
+
+.simulador {
+    text-align: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.simulador h1 {
+    font-size: 36px;
+}
+
+.simulador span{
+    font-size: 14px;
+}
+
+.sbox {
+    margin-top: 80px;
+    margin-left: 120px;
+    margin-bottom: 80px;
+    width: 50%;
+    height: 320px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+}
+
+.sinterface {
+    display: flex;
+    gap: 7%;
+}
+
+.sgrafico1 {
+    margin-top: 10%;
+    margin-right: 10%;
+    width: 50%;
+}
+
+.sdados {
+    padding-top: 40px;
+    padding-left: 60px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.sdados input {
+    border-color: white;
+    height: 35px;
+    border-width: 0px;
+    width: 85%;
+}
+
+.sdados button {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: black;
+    border-radius: 10px;
+    border-color: white;
+    width: 85%;
+    height: 45px;
+    margin-top: 25px;
+}
+
+.sdados select {
+    width: 10%;
+}
+
+/* Calculadora */
+
+.calculadora {
+    text-align: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.calculadora h1 {
+    font-size: 36px;
+}
+
+.calculadora span{
+    font-size: 14px;
+}
+
+.cbox {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 380px;
+    width: 50%;
+    height: 320px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+}
+
+.cinterface {
+    display: flex;
+    gap: 7%;
+}
+
+.cdados {
+    padding-top: 40px;
+    padding-left: 60px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.cdados input {
+    border-color: white;
+    height: 35px;
+    border-width: 0px;
+    width: 85%;
+}
+
+.cdados button {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: black;
+    border-radius: 10px;
+    border-color: white;
+    width: 85%;
+    height: 45px;
+    margin-top: 25px;
+}
+
+.cdados select {
+    width: 10%;
+}

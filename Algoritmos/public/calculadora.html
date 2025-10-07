@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VagasIQ</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="container">
+            <div class="titulo"><h1>VagasIQ</h1></div>
+            <div class="navbar">
+                <a href="">SOBRE NÓS</a>
+                <a href="">SOLUÇÕES</a>
+                <a href="#">SIMULADOR</a>
+                <a href="">CONTATO</a>
+                <a href="" style="color: #ffc714"><u>LOGIN</u></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="calculadora">
+        <div class="container">
+            <h1>Simule aqui seus resultados!</h1>
+            <span>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</span>
+            <div class="cinterface" style="display: block;" id="calculadora_part1">
+                <div class="cbox">
+                    <div class="cdados">
+                        
+                      <p> Informe o faturamento mensal </p>
+                      <input type="number" id="inp_mensal">
+                        
+                      <p> Informe o faturamento anual </p>
+                      <input type="number" id="inp_anual">
+
+                      <button onclick="analisar()">Calcular</button>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;" id="calculadora_part2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+        <div class="tituloF"> <h1>VagasIQ</h1> </div>
+        <div class="traco"></div>
+        <span class="descricaoF"> Explore todo o potencial do seu negócio com o poder da tomada de decisão estratégica <br> baseada em informações relevantes! </span>
+  </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+    function analisar() {
+
+      var mensal = inp_mensal.value
+      var anual = inp_anual.value
+
+      if (mensal == "" | anual == "") {
+        alert("Informe o valor mensal ou anual")
+      } else {
+           
+      }
+    }
+
+</script>
