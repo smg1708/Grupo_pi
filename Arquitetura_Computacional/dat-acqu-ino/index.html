@@ -101,6 +101,7 @@
                 .catch(error => console.error('Erro ao obter dados:', error));
         }
 
+        // definir o tempo de resposta para obtenção de dados, com um intervalo de 1000 milisegundos entre eles
         setInterval(() => {
             //obterDados(sensorAnalogico, 'analogico');
             obterDados(sensorDigital, 'digital');
