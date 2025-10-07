@@ -145,3 +145,43 @@ body {
 .dados select {
     width: 150px;
 }
+
+.container-dashboard {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container-dashboard .navbar-lateral {
+    height: 100%;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    color: #808080;
+}
+
+.container-dashboard .container {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.container-dashboard .container .dashboard-navbar{
+    display: flex;
+    align-items: center;
+    padding: 0px 20px 0 50px;
+    justify-content: space-between;
+}
+
+.container-dashboard .container .dashboard-navbar span {
+    background-color: #1e1e1e;
+    display: flex;
+    color: #F7FFF7;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
