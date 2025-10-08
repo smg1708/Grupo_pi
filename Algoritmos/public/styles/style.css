@@ -151,7 +151,6 @@ body {
 .dashboard-container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
     width: 98vw;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
@@ -222,8 +221,6 @@ body {
     font-weight: bolder;
 }
 
-.selecionada
-
 .dashboard-container .navbar-lateral .exit {
     display: flex;
     padding: 20px 28px;
@@ -235,14 +232,13 @@ body {
 .dashboard-container .container {
     display: flex;
     flex-direction: column;
-    
+    width: 100%;
 
 }
 
 .dashboard-container .container .dashboard-navbar{
     display: flex;
     align-items: center;
-    width: 81vw;
     padding: 0px 20px 3px 50px;
     justify-content: space-between;
     border-bottom: 1px solid #808080;    
@@ -378,6 +374,45 @@ body {
     align-items: center;
     gap: 15px;
     justify-self: center;
+}
+
+.dashboard-principal-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dashboard-body .dashboard-principal-esquerda .grafico-um {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    width: 700px;
+}
+
+.dashboard-body .dashboard-principal-esquerda .graficos {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.dashboard-body .dashboard-principal-esquerda .graficos .grafico-dois {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #F5F5F5;
+    padding: 10px 20px;
+    width: 250px;
+}
+
+.dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #F5F5F5;
+    padding: 10px 20px;
+    width: 400px;
 }
 
 /* Calculadora */
