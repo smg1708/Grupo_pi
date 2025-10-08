@@ -164,10 +164,10 @@ body {
 }
 
 .cbox {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 60px;
-    margin-left: 380px;
-    width: 50%;
+    margin-left: 35%;
+    width: 30%;
     height: 320px;
     border-radius: 10px;
     background-color: #f4f4f4;
@@ -207,6 +207,10 @@ body {
     margin-top: 25px;
 }
 
-.cdados select {
+.cdados p {
+    margin-right: 70px;
+}
+
+.dados select {
     width: 10%;
 }

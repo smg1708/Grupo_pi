@@ -23,12 +23,12 @@
     </div>
 
     <div class="calculadora">
-        <div class="container">
+        <div class="p1-container" style="display: block;" id="calculadora_part1">
             <h1>Simule aqui seus resultados!</h1>
             <span>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</span>
-            <div class="cinterface" style="display: block;" id="calculadora_part1">
-                <div class="cbox">
-                    <div class="cdados">
+            <div class="p1-calculadora-interface">
+                <div class="p1-calculadora-box">
+                    <div class="p1-calculadora-dados">
                         
                       <p> Informe o faturamento mensal </p>
                       <input type="number" id="inp_mensal">
@@ -40,8 +40,19 @@
                     </div>
                 </div>
             </div>
-            <div style="display: none;" id="calculadora_part2">
+        </div>
+        <div class="p2-container" style="display: none;" id="calculadora_part2">
+                <h1>Aqui esta seus resultados!</h1>
+                <span> Com base em dados de uma pesquisa feita pela <b>MIT Sloan study.</b> <br> Seguradoras podem perder de 15 a 25% da receita total, pela <br> falta de dados ou por dados de baixa qualidade </span>
+            <div class="p2-calculadora-interface">
+                <div class="p2-calculadora-box">
+                    <div class="p2-calculadora-dados">
+                        
+                        <p id="p_dados"></p>
 
+                        <button onclick="voltar()">Voltar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -59,16 +70,55 @@
 
 <script>
 
+    var mensagem = ""
+
+    function exibir() {
+        p_dados.innerHTML = mensagem
+    }
+
     function analisar() {
 
       var mensal = inp_mensal.value
       var anual = inp_anual.value
 
-      if (mensal == "" | anual == "") {
-        alert("Informe o valor mensal ou anual")
+      if (mensal != "" || anual != "") {
+
+        mensal = Number(mensal)
+        anual = Number(anual)
+        var lucro_m = mensal * 0.20
+        var lucro_a = anual * 0.20
+
+        calculadora_part1.style.display = "none"
+        calculadora_part2.style.display = "block"
+
+        if ((mensal != 0 && anual == 0) || (mensal != 0 && anual != 0)) {
+            lucro_a = lucro_m * 12
+            mensagem = `
+                Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
+                <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
+                <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
+                Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b>, baseada nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!!
+                `
+        } else if (anual != 0 && mensal == 0) {
+            lucro_m = lucro_a / 12
+            mensagem = `
+                Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br>
+                <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
+                <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
+                Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b>, baseada nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                Implemente agora nossa <b>solução</b> e tenha acesso agora a nossa rede de dados!!!
+                `
+        }
       } else {
-           
+        alert("Informe o valor mensal ou anual")
       }
+      exibir()
+    }
+
+    function voltar() {
+        calculadora_part1.style.display = "block"
+        calculadora_part2.style.display = "none"
     }
 
 </script>
