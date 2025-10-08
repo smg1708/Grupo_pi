@@ -534,3 +534,15 @@ body {
 .p2-calculadora-dados select {
     width: 10%;
 }
+
+/* Aqui começa a tela de cadastro */
+.cadastro .container {
+    font-family: Ubuntu, sans sans-serif;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.titulo {
+    text-align: center;
+}
