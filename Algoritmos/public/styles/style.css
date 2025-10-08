@@ -222,13 +222,14 @@ body {
     font-weight: bolder;
 }
 
+.selecionada
+
 .dashboard-container .navbar-lateral .exit {
     display: flex;
     padding: 20px 28px;
     align-items: center;
     gap: 8px;
     border-top: 1px solid #808080;
-    
 }
 
 .dashboard-container .container {
