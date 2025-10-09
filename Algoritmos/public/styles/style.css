@@ -79,6 +79,163 @@ body {
 
 /* Começo da Home index.html*/
 
+.banner {
+    width: 100%;
+    height: 620px;
+    background-image: url('../assets/imagem-fundo.png');
+    background-size: cover;
+    border-bottom: 5px solid #ffc714;
+}
+
+.banner .header {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.banner .header .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 0;
+    height: 200px;
+    width: 100%;
+}
+
+.banner .header .container .titulo {
+    padding-left: 0;
+    padding-top: 20px;
+}
+
+.banner .header .container .navbar {
+    padding-left: 0;
+    width: 45%;
+    padding-top: 35px;
+}
+
+.banner .header .container .titulo h1 {
+    font-size: 30px;
+} 
+
+.banner a {
+    color: #F7FFF7;
+}
+
+.banner .container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-left: 90px;
+}
+
+.banner .container h1 {
+    color: #F7FFF7;
+    font-weight: bolder;
+    font-size: 40px;
+    margin: 0;
+}
+
+.banner .container p {
+    color: #F7FFF7;
+    font-size: 16px;
+}
+
+.body {
+    width: 100%;
+    height: 980px;
+}
+
+.body h1 {
+    font-size: 40px;
+}
+
+.body .sobreNos {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.body .sobreNos p {
+    width: 50%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.body .valores {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    background-color: #ffc714;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.body .valores h1 {
+    margin-bottom: 0px;
+    font-weight: bolder;
+}
+
+.boxes {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.box h4 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #F7FFF7;
+}
+
+.box p {
+    font-size: 20px;
+    width: 80%;
+    text-align: center;
+    height: 20%;
+}
+
+.circle {
+    width: 230px;
+    height: 230px;
+    border-radius: 150px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img_inovacao {
+    height: 190px;
+    width: 190px;    
+}
+
+#img_sustentabilidade {
+    height: 160px;
+    width: 160px;
+}
+
+#img_seguranca {
+    height: 170px;
+    width: 170px;
+}
 
 #div_container-solucao #div_conjunto-cards {
     display: flex;
