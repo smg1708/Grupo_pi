@@ -28,7 +28,7 @@ body {
     gap: 40px;
 }
 
-.navbar a{
+.navbar a {
     color: black;
     font-size: 14px;
     outline: none;
@@ -77,6 +77,140 @@ body {
     font-size: 14px;
 }
 
+/* Começo da Home index.html*/
+
+
+#div_container-solucao #div_conjunto-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_container-home .div_titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    flex-direction: column;
+}
+
+.div_container-home .div_titulo h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.div_container-home .div_traco {
+    background-color: #ffc714;
+    width: 110px;
+    height: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+}
+
+#div_conjunto-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 35px;
+    gap: 60px;
+
+}
+
+.div_card {
+    padding-top: 100px;
+    width: 23rem;
+    background-color: #ffc714;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.div_card h1 {
+    font-size: 50px;
+    color: #F5F5F5;
+    margin: 0;
+    font-family: Unbounded;
+}
+
+.div_card h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.div_card h4 {
+    font-weight: normal;
+    width: 20rem;
+    
+}
+
+.div_card h3,
+h4 {
+    color: #0c0c0c;
+    font-family: 'Ubuntu';
+}
+
+.div_container-parceiros .div_container-img {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.div_container-contato .div-conteudo {
+    display: flex;
+    background-color: #F5F5F5;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 50px;
+    margin-top: 35px;
+    gap: 50px;
+}
+
+#img-carros-home{
+    height: 34rem;
+    border-radius: 10px;
+
+}
+.div_container-contato .div-conteudo .div_forms {
+    font-family: 'Ubuntu';
+    padding: 30px;
+    width: 35%;
+    height: 30rem;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+}
+
+.div_forms .input_campo, .input_campo-msg, .button-forms{
+    border: 0px;
+    border-radius: 5px;
+    width: 36rem;
+}
+
+ .input_campo{
+    height: 50px;
+}
+
+.div_forms .input_campo-msg{
+    height: 100px;
+    margin-bottom: 5%;
+}
+
+.div_forms .button-forms{
+    height: 50px;
+    background-color: #0c0c0c;
+    color: #f4f4f4;
+    font-size: 15px;
+}
+/* Fim da Home index.html*/
+
 /* Simulador */
 
 .simulador {
@@ -89,7 +223,7 @@ body {
     font-size: 36px;
 }
 
-.simulador span{
+.simulador span {
     font-size: 14px;
 }
 
@@ -146,6 +280,7 @@ body {
 .simulador-dados select {
     width: 10%;
 }
+
 /* Dashboard */
 
 .dashboard-container {
@@ -236,12 +371,12 @@ body {
 
 }
 
-.dashboard-container .container .dashboard-navbar{
+.dashboard-container .container .dashboard-navbar {
     display: flex;
     align-items: center;
     padding: 0px 20px 3px 50px;
     justify-content: space-between;
-    border-bottom: 1px solid #808080;    
+    border-bottom: 1px solid #808080;
 }
 
 .dashboard-container .container .dashboard-navbar span {
@@ -267,7 +402,7 @@ body {
     gap: 45px;
 }
 
-.dashboard-body h1{
+.dashboard-body h1 {
     font-size: 19px;
     color: #1e1e1e;
     margin: 0;
@@ -305,13 +440,13 @@ body {
     gap: 12px;
 }
 
-.dashboard-body .dashboard-principal{
+.dashboard-body .dashboard-principal {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.dashboard-body .dashboard-principal h2{
+.dashboard-body .dashboard-principal h2 {
     font-size: 16px;
     font-weight: normal;
     color: #5C5C5C;
@@ -342,7 +477,7 @@ body {
     gap: 10px;
 }
 
-.dashboard-body .dashboard-principal-direita button{
+.dashboard-body .dashboard-principal-direita button {
     width: 248px;
     height: 35px;
     border-radius: 5px;
@@ -355,7 +490,7 @@ body {
     border: 1px solid #1e1e1e;
     text-align: center;
     color: #1e1e1e;
-} 
+}
 
 .dashboard-body .button-pdf {
     background-color: #1e1e1e;
@@ -427,7 +562,7 @@ body {
     font-size: 36px;
 }
 
-.calculadora span{
+.calculadora span {
     font-size: 14px;
 }
 
@@ -558,7 +693,7 @@ body {
     margin-bottom: 20px;
 }
 
-.titulo h2{
+.titulo h2 {
     margin: 0;
     font-size: 35px;
 }
