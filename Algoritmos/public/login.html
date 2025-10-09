@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VagasIQ</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <div class="titulo">
+                <h1>VagasIQ</h1>
+            </div>
+            <div class="navbar">
+                <a href="">SOBRE NÓS</a>
+                <a href="">SOLUÇÕES</a>
+                <a href="#">SIMULADOR</a>
+                <a href="">CONTATO</a>
+                <a href="" style="color: #ffc714"><u>LOGIN</u></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_container-login">
+    <div class="login-container">
+
+        <div class="titulo-login">
+            <h2>Acesse sua conta Institucional</h2>
+            <h6>Entre com suas credencias para analisar as informações</h6>
+        </div>
+        <div class="interface-login">
+            <div class="campo">
+                <p>Email</p>
+                <input type="text" id="input_email" placeholder="exemplo@gmail.com">
+            </div>
+            <div class="campo">
+                <p>Senha</p>
+                <input type="password" id="input_senha">
+            </div>
+            <button onclick="entrar()" id="btn_entrar"> Entre</button>
+            <span>Esqueceu sua senha? <a href="">Clique aqui</a></span>
+            <span>Não possui uma conta? <a href="">Clique aqui</a></span>
+        </div>
+
+
+    </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="tituloF">
+                <h1>VagasIQ</h1>
+            </div>
+            <div class="traco"></div>
+            <span class="descricaoF"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
+                estratégica <br> baseada em informações relevantes! </span>
+        </div>
+</body>
+</html>
+<script>
+    function entrar() {
+        var email = input_email.value
+        var senha = input_senha.value
+        var vagasIQ = 'fernando.brandao@empresa.com'
+        var vagasIQsenha = 'urubu100'
+
+        if (email == vagasIQ && senha == vagasIQsenha) {
+            window.location.href = `dashboard.html`
+        } else { 
+            alert('Email ou senha incorretos! Tente novamente')
+        }
+    }
+</script>

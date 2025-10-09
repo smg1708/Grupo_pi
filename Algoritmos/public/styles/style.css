@@ -913,3 +913,69 @@ h4 {
     color: #0c0c0c;
     margin: 0;
 }
+
+/* Aqui começa a tela de login */
+
+.titulo-login h2 {
+    text-align: center;
+}
+
+.titulo-login h6 {
+    text-align: center;
+}
+
+.div_container-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.interface-login {
+    padding: 30px 100px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    background-color: #f4f4f4;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1); 
+}
+
+.interface-login .campo p {
+    color: #0c0c0c;
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.interface-login .campo input {
+    border: none;
+    width: 406px;
+    height: 38px;
+    border-radius: 5px;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.interface-login button {
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 5px;
+    width: 420px;
+    height: 40px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.interface-login span {
+    font-size: 10px;
+    color: #0c0c0c;
+}
+
+.interface-login span a {
+    color: #0c0c0c;
+    margin: 0;
+}
