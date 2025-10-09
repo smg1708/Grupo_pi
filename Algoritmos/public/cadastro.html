@@ -6,7 +6,7 @@
     <title>Cadastro</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
-<body>
+<body class="tela-cadastro">
     
     <div class="header">
         <div class="container">
@@ -21,31 +21,42 @@
         </div>
     </div>
 
-    <div class="cadastro">
-        <div class="container">
+    <div class="cadastro-container">
+        
             <div class="titulo">
                 <h2>Crie a sua conta</h2>
-                    <h6>Crie uma conta para sua Instituição e tenha acesso a infomações relevantes para o seu negócio</h6>
+                    <h6>Crie uma conta para sua Instituição e tenha acesso a<br> infomações relevantes para o seu negócio</h6>
+                </div>
                     <div class="interface">
-                        <ul>
-                            <li>Nome</li>
-                            <input type="text" id="input_nome"> <br><br>
-                            <li>CNPJ</li>
-                            <input type="text" id="input_cnpj"> <br><br>
-                            <li>Email</li>
-                            <input type="text" id="input_email" placeholder="exemplo@gmail"> <br><br>
-                            <li>Telefone</li>
-                            <input type="text" id="input_telefone" placeholder="1145678952"> <br><br>
-                            <li>Senha</li>
-                            <input type="password" id="input_senha"> <br><br>
-                            <li>Confirme a senha</li>
-                            <input type="password" id="input_senha2"> <br><br><br>
-                            <button onclick="criar()">Crie a sua conta</button>
-                            <li><h6>Já possui uma conta? <a href="./login.html">Clique aqui</a></h6></li>
-                        </ul>
+                        <div class="campo">
+                            <p>Nome</p>
+                            <input type="text" id="input_nome">
+                        </div>
+                        <div class="campo">
+                            <p>CNPJ</p>
+                            <input type="text" id="input_cnpj">
+                        </div>
+                        <div class="campo">
+                            <p>Email</p>
+                            <input type="text" id="input_email" placeholder="exemplo@gmail.com">
+                        </div>
+                        <div class="campo">
+                            <p>Telefone</p>
+                            <input type="text" id="input_telefone" placeholder="1145678952">
+                        </div>
+                        <div class="campo">
+                            <p>Senha</p>
+                            <input type="text" id="input_senha">
+                        </div>
+                        <div class="campo">
+                            <p>Confirme a senha</p>
+                            <input type="text" id="input_confirme">
+                        </div>
+                        <button onclick="criar()">Crie</button>
+                        <span>Já possui uma conta? <a href="">Clique aqui</a></span>
+                        
                     </div>
-            </div>
-        </div>
+        
         
     </div>
 
