@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'ubuntu', sans-serif;
+    overflow-x: hidden;
 }
 
 .header {
@@ -87,6 +88,12 @@ body {
     border-bottom: 5px solid #ffc714;
 }
 
+.banner-text {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: brightness(60%);
+}
+
 .banner .header {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -109,7 +116,6 @@ body {
 }
 
 .banner .header .container .navbar {
-    padding-left: 0;
     width: 45%;
     padding-top: 35px;
 }
@@ -203,6 +209,7 @@ body {
     font-size: 24px;
     margin-bottom: 10px;
     color: #F7FFF7;
+    font-family: 'Ubuntu';
 }
 
 .box p {
@@ -331,7 +338,7 @@ h4 {
 #img-carros-home{
     height: 34rem;
     border-radius: 10px;
-
+    filter: brightness(60%);
 }
 .div_container-contato .div-conteudo .div_forms {
     font-family: 'Ubuntu';
@@ -348,7 +355,7 @@ h4 {
 .div_forms .input_campo, .input_campo-msg, .button-forms{
     border: 0px;
     border-radius: 5px;
-    width: 36rem;
+    width: 100%;
 }
 
  .input_campo{
