@@ -1,0 +1,18 @@
+Nomeação das classes e Ids:
+
+
+divs Pai: se forem uma que engloba todo o site fica como Id(#),
+
+Se forem para seções especificas na pagina, como contato, etc, fica como class(.)
+
+A nomeação é a seguinte:
+
+Pais
+
+nomedoelemento_conteudo-lugar   ex: div_conteudo-home
+
+
+Filhos
+
+
+nomedoelemento_container-lugar    ex: div_container-sobrenos
