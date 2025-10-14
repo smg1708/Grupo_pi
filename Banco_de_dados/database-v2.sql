@@ -61,8 +61,7 @@ CREATE TABLE sensor (
 
 CREATE TABLE registro (
 	id_registro INT PRIMARY KEY AUTO_INCREMENT,
-	registro_entrada DATETIME,
-	registro_saida DATETIME,
+	dt_registro DATETIME,
 	situacao TINYINT,
 	fk_sensor INT,
 	CONSTRAINT fk_sensor 
@@ -93,10 +92,10 @@ INSERT INTO seguradora (nome, senha, cnpj, email, telefone) VALUES
 	('SeguroPorto', '87654321', '84765433233103', 'contato@seguroporto.com', '11912345678');
     
 INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
-	('Av. Paulista', 'SP', 'Bela Vista'),
-	('Rua Augusta', 'SP', 'Consolação'),
-	('Av. Faria Lima', 'SP', 'Itaim Bibi'),
-	('Rua dos Três Irmãos', 'SP', 'Vila Madalena');
+	('Av. Paulista', 'São Paulo', 'Bela Vista'),
+	('Rua Augusta', 'São Paulo', 'Consolação'),
+	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi'),
+	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena');
     
 INSERT INTO vaga (nome, fk_local) VALUES
 	('1', 1),
@@ -107,19 +106,19 @@ INSERT INTO vaga (nome, fk_local) VALUES
 	('6', 4);
 
 INSERT INTO sensor (estado_sensor, fk_vaga) VALUES
-	('livre', 1),
-	('ocupado', 2),
-	('livre', 3),
-	('ocupado', 4),
-	('livre', 5),
-	('livre', 6);
+	('Ativo', 1),
+	('Ativo', 2),
+	('Ativo', 3),
+	('Ativo', 4),
+	('Ativo', 5),
+	('Ativo', 6);
     
-INSERT INTO registro (registro_entrada, registro_saida, situacao, fk_sensor, fk_usuario) VALUES
-	('2025-10-14 08:15:00', '2025-10-14 10:30:00', 0, 2, 1),
-	('2025-10-14 09:00:00', NULL, 1, 4, 2),
-	('2025-10-14 07:45:00', '2025-10-14 09:15:00', 0, 1, 3),
-	('2025-10-14 11:00:00', NULL, 1, 5, 4),
-	('2025-10-14 08:40:00', '2025-10-14 09:50:00', 0, 3, 5),
-	('2025-10-14 12:10:00', NULL, 1, 6, 1);
+INSERT INTO registro (dt_registro, situacao, fk_sensor, fk_usuario) VALUES
+	('2025-10-14 08:15:00', 0, 2, 1),
+	('2025-10-14 09:00:00', 1, 4, 2),
+	('2025-10-14 07:45:00', 0, 1, 3),
+	('2025-10-14 11:00:00', 1, 5, 4),
+	('2025-10-14 08:40:00', 0, 3, 5),
+	('2025-10-14 12:10:00', 1, 6, 1);
 
 SHOW TABLES;
