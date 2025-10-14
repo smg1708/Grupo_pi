@@ -1,68 +1,125 @@
-CREATE DATABASE vagasIQ;
-USE vagasIQ;
+CREATE DATABASE VagasIQ;
 
-CREATE TABLE condutor(
-id_condutor INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-sobrenome VARCHAR(45),
-genero CHAR(1),
-dt_nasc DATE,
-CONSTRAINT chkGenero CHECK(genero IN('M', 'F', 'N'))
+USE VagasIQ;
+
+CREATE TABLE condutor (
+	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(45),
+	sobrenome VARCHAR(45),
+	genero CHAR(1) NOT NULL,
+	CONSTRAINT cnk_genero 
+		CHECK (genero IN ('M', 'F')),
+	dt_nasc DATE NOT NULL
 );
 
-CREATE TABLE veiculo(
-id_veiculo INT,
-fk_condutor INT,
-ano YEAR,
-modelo VARCHAR(45),
-tipo VARCHAR(45),
-seguro TINYINT,
-PRIMARY KEY (id_veiculo, fk_condutor),
-CONSTRAINT chkSeguro CHECK(seguro IN(0, 1)),
-FOREIGN KEY (fk_condutor)
-	REFERENCES condutor(id_condutor)
+CREATE TABLE veiculo (
+	id_veiculo INT AUTO_INCREMENT,
+	fk_condutor INT,
+    primary key (id_veiculo, fk_condutor),
+	ano YEAR NOT NULL,
+	modelo VARCHAR(45) NOT NULL,
+	tipo VARCHAR(45),
+	seguro TINYINT,
+	CONSTRAINT fk_condutor 
+		FOREIGN KEY (fk_condutor)
+		REFERENCES condutor(id_condutor)
+);
+    
+CREATE TABLE seguradora (
+	id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(80),
+	senha CHAR(8) NOT NULL,
+	cnpj CHAR(14) UNIQUE NOT NULL,
+	email VARCHAR(80) UNIQUE NOT NULL,
+	telefone VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE localizacao(
-id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
-logradouro VARCHAR(45),
-cidade VARCHAR(45),
-bairro VARCHAR(45)
+CREATE TABLE localizacao (
+	id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
+	logradouro VARCHAR(80) NOT NULL,
+	cidade CHAR(2) NOT NULL,
+	bairro VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE vagas(
-id_vaga INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100),
-fk_local INT,
-FOREIGN KEY (fk_local)
-	REFERENCES localizacao(id_localizacao)
+CREATE TABLE vaga (
+	id_vaga INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(100) NOT NULL,
+	fk_local INT,
+	CONSTRAINT fk_local 
+		FOREIGN KEY (fk_local)
+		REFERENCES localizacao(id_localizacao)
 );
 
-CREATE TABLE sensor(
-id_sensor INT PRIMARY KEY AUTO_INCREMENT,
-estado_sensor VARCHAR(20),
-fk_vaga INT,
-FOREIGN KEY (fk_vaga)
-	REFERENCES vagas(id_vaga)
+CREATE TABLE sensor (
+	id_sensor INT PRIMARY KEY AUTO_INCREMENT,
+	estado_sensor VARCHAR(20),
+	fk_vaga INT,
+	CONSTRAINT fk_vaga 
+		FOREIGN KEY (fk_vaga)
+		REFERENCES vaga(id_vaga)
 );
 
-CREATE TABLE registro(
-id_registro INT,
-situacao TINYINT,
-dt_registro DATETIME,
-fk_sensor INT,
-fk_condutor INT,
-FOREIGN KEY (fk_sensor)
-	REFERENCES sensor(id_sensor),
-FOREIGN KEY (fk_condutor)
-	REFERENCES condutor(id_condutor)
+CREATE TABLE registro (
+	id_registro INT PRIMARY KEY AUTO_INCREMENT,
+	registro_entrada DATETIME,
+	registro_saida DATETIME,
+	situacao TINYINT,
+	fk_sensor INT,
+	CONSTRAINT fk_sensor 
+		FOREIGN KEY (fk_sensor)
+		REFERENCES sensor(id_sensor),
+	fk_usuario INT,
+	CONSTRAINT fk_usuario 
+		FOREIGN KEY (fk_usuario)
+		REFERENCES condutor(id_condutor)
 );
 
-CREATE TABLE seguradoras(
-id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(80),
-senha VARCHAR(20),
-cnpj CHAR(14),
-email VARCHAR(80),
-telefone VARCHAR(20)
-);
+INSERT INTO condutor (nome, sobrenome, genero, dt_nasc) VALUES
+	('João', 'Silva', 'M', '1990-05-12'),
+	('Maria', 'Souza', 'F', '1985-11-23'),
+	('Carlos', 'Pereira', 'M', '2000-02-14'),
+	('Ana', 'Oliveira', 'F', '1995-07-30'),
+	('Ricardo', 'Alves', 'M', '1988-12-01');
+    
+INSERT INTO veiculo (fk_condutor, ano, modelo, tipo, seguro) VALUES
+	(2, 2018, 'Onix', 'Hatch', 1),
+	(3, 2020, 'HB20', 'Sedan', 0),
+	(4, 2017, 'Fiesta', 'Hatch', 1),
+	(5, 2019, 'Civic', 'Sedan', 1),
+	(1, 2012, 'Palio', 'Compacto', 0); 
+
+INSERT INTO seguradora (nome, senha, cnpj, email, telefone) VALUES
+	('Taui Seguros', '12345678', '52865433233103', 'contato@tauiseguros.com', '11987654321'),
+	('SeguroPorto', '87654321', '84765433233103', 'contato@seguroporto.com', '11912345678');
+    
+INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
+	('Av. Paulista', 'SP', 'Bela Vista'),
+	('Rua Augusta', 'SP', 'Consolação'),
+	('Av. Faria Lima', 'SP', 'Itaim Bibi'),
+	('Rua dos Três Irmãos', 'SP', 'Vila Madalena');
+    
+INSERT INTO vaga (nome, fk_local) VALUES
+	('1', 1),
+	('2', 1),
+	('3', 2),
+	('4', 3),
+	('5', 3),
+	('6', 4);
+
+INSERT INTO sensor (estado_sensor, fk_vaga) VALUES
+	('livre', 1),
+	('ocupado', 2),
+	('livre', 3),
+	('ocupado', 4),
+	('livre', 5),
+	('livre', 6);
+    
+INSERT INTO registro (registro_entrada, registro_saida, situacao, fk_sensor, fk_usuario) VALUES
+	('2025-10-14 08:15:00', '2025-10-14 10:30:00', 0, 2, 1),
+	('2025-10-14 09:00:00', NULL, 1, 4, 2),
+	('2025-10-14 07:45:00', '2025-10-14 09:15:00', 0, 1, 3),
+	('2025-10-14 11:00:00', NULL, 1, 5, 4),
+	('2025-10-14 08:40:00', '2025-10-14 09:50:00', 0, 3, 5),
+	('2025-10-14 12:10:00', NULL, 1, 6, 1);
+
+SHOW TABLES;
