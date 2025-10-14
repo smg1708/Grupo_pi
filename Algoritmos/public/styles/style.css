@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'ubuntu', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     overflow-x: hidden;
 }
 
@@ -12,28 +12,17 @@ body {
     font-weight: bold;
 }
 
-.header .container {
+.header .div_container-navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 60px;
 }
 
-.header .container 
-.titulo-index {
-    font-size: 16px;
-    padding-left: 40px;
-}
 
-.header .titulo a {
+.header .div_logo a {
     text-decoration: none;
     color: black;
-}
-
-.header .titulo-index a {
-    text-decoration: none;
-    color: white;
-    font-size: 30px;
 }
 
 .navbar {
@@ -52,7 +41,7 @@ body {
     list-style: none;
 }
 
-.footer {
+.div_container-footer {
     width: 100%;
     height: 220px;
     background-color: #1e1e1e;
@@ -64,14 +53,14 @@ body {
 
 }
 
-.footer .container {
+.div_container-footer .div_conteudo-footer {
     display: flex;
     flex-direction: column;
     padding-left: 90px;
     padding-bottom: 50px;
 }
 
-.tituloF {
+.div_titulo-footer {
     color: white;
     font-weight: bold;
     font-size: 16px;
@@ -86,94 +75,64 @@ body {
 
 }
 
-.descricaoF {
+.div_descricao-footer {
     font-size: 14px;
 }
 
 /* Começo da Home index.html*/
 
-.banner {
+.index {
     width: 100%;
-    height: 700px;
-    background-image: url('../assets/imagem-fundo.png');
+    height: 750px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('../assets/imagem-fundo.png');
     background-size: cover;
     border-bottom: 5px solid #ffc714;
+    border-radius: 5px;
 }
 
-.banner-text {
-    height: 100%;
-    width: 100%;
-    backdrop-filter: brightness(60%);
+.index a{
+    color: #fff;
 }
 
-.banner .header {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+.index .div_logo a{ 
+    color: #fff;
 }
 
-.banner .header .container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-left: 90px;
+.header .div_slogan {
     height: 200px;
-    width: 100%;
-}
-
-.banner .header .container .titulo,
-.titulo-index {
-    padding-left: 0;
-    padding-top: 20px;
-    
-}
-
-.banner .header .container .navbar {
-    width: 45%;
-    padding-top: 35px;
-}
-
-.slogan{
-            padding-left: 90px;
-
-}
-.banner .header .container .titulo h1 {
-    font-size: 30px;
-
-}
-
-.banner a {
-    color: #F7FFF7;
-}
-
-.banner .container {
+    width: 100%;    
     display: flex;
-    width: 100%;
-    height: 100%;
     flex-direction: column;
+    align-items: flex-start;
+    padding-left: 90px;
+    padding-top: 150px;
+    color: #fff;
+
 }
 
-.banner .container h1 {
-    color: #F7FFF7;
-    font-weight: bolder;
+
+.header .div_slogan h1 {
     font-size: 40px;
     margin: 0;
+
 }
 
-.banner .container p {
-    color: #F7FFF7;
+.header .div_slogan  p {
     font-size: 18px;
+    margin-top: 20px;
+
 }
 
-.banner .container span {
+.header .div_slogan span {
     color: #ffc714;
-    font-weight: 500;
+
 }
 
 #div_conteudo-home {
     width: 100%;
     height: 980px;
+
 }
 
 #div_conteudo-home h1 {
@@ -187,6 +146,8 @@ body {
     flex-direction: column;
     font-size: 18px;
     padding: 80px 0px 90px 0px;
+        border-radius: 5px;
+
 }
 
 .div_container-sobrenos p {
@@ -200,6 +161,8 @@ body {
     text-align: center;
     padding: 40px;
     padding-bottom: 50px;
+        border-radius: 5px;
+
 
 }
 
@@ -237,11 +200,11 @@ body {
     font-size: 24px;
     margin-bottom: 10px;
     font-family: 'Ubuntu';
-        color: #f4f4f4;
+    color: #f4f4f4;
 
 }
 
-.div_valor   p {
+.div_valor p {
     font-size: 20px;
     width: 80%;
     text-align: center;
@@ -308,6 +271,7 @@ body {
 .div_container-solucao {
     padding: 80px 0px 40px 0px;
 }
+
 .div_conjunto-cards .div_card h1 {
     font-size: 50px;
     color: white;
@@ -328,7 +292,8 @@ body {
 
 }
 
-.div_card h3,h4 {
+.div_card h3,
+h4 {
     color: #0c0c0c;
     font-family: 'Ubuntu';
     font-size: 18px;
@@ -355,6 +320,8 @@ body {
     padding: 50px;
     margin-top: 35px;
     gap: 50px;
+        border-radius: 5px;
+
 }
 
 #img-carros-home {
@@ -398,79 +365,103 @@ body {
     background-color: #0c0c0c;
     color: #f4f4f4;
     font-size: 15px;
+    font-weight: bolder;
+
 }
 
 /* Fim da Home index.html*/
 
-/* Simulador */
 
-.simulador {
-    text-align: center;
+/* Calculadora */
+.p1-calculadora-interface, .p2-calculadora-interface{
+    display: flex;
     align-items: center;
-    margin-top: 90px;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 95px;
+}
+.div_container-calculadora .titulo{
+    text-align: center;
+        margin-top: 90px;
+    padding: 20px;
+    
 }
 
-.simulador h1 {
-    font-size: 36px;
+.div_container-calculadora .titulo h1{
+    margin: 0;
+    font-size: 35px;
+
 }
 
-.simulador span {
-    font-size: 14px;
-}
-
-.simulador-box {
-    margin-top: 80px;
-    margin-left: 120px;
-    margin-bottom: 80px;
-    width: 50%;
-    height: 320px;
+.p1-calculadora-box, .p2-calculadora-box {
+    padding:50px;
     border-radius: 10px;
     background-color: #f4f4f4;
     -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
     -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
     box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-}
+    margin-top: 20px;
+    margin-bottom: 20px;
+    }
 
-.simulador-interface {
+
+.p1-calculadora-dados {
+    font-size: 18px;
     display: flex;
-    gap: 7%;
+    flex-direction: column;
 }
 
-.simulador-grafico1 {
-    margin-top: 10%;
-    margin-right: 10%;
-    width: 50%;
+.p1-calculadora-dados input, button {
+    border: none;
+    width: 406px;
+    height: 38px;
+    border-radius: 5px;
+    font-size: 15px;
+
 }
 
-.simulador-dados {
-    padding-top: 40px;
-    padding-left: 60px;
-    font-size: 16px;
-    text-align: justify;
+.p1-calculadora-dados   button {
+    margin-top: 20px;
+    color: white;
+    background-color: black;
+    height: 50px;
+    }
+
+.p1-calculadora-dados p {
+    margin-right: 90px;
 }
 
-.simulador-dados input {
+
+.p2-calculadora-dados {
+
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+    justify-content: center ;
+}
+.p2-calculadora-dados input {
     border-color: white;
     height: 35px;
     border-width: 0px;
     width: 85%;
 }
 
-.simulador-dados button {
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: black;
-    border-radius: 10px;
-    border-color: white;
-    width: 85%;
-    height: 45px;
-    margin-top: 25px;
+
+
+.p2-calculadora-dados p  {
 }
 
-.simulador-dados select {
-    width: 10%;
-}
+.p2-calculadora-dados   button {
+    margin-top: 20px;
+    color: white;
+    background-color: black;
+    height: 50px;
+    }
+
+/*Fim Calculadora*/
+
 
 /* Dashboard */
 
@@ -746,163 +737,45 @@ body {
     width: 400px;
 }
 
-/* Calculadora */
 
-.calculadora {
-    text-align: center;
-    align-items: center;
-    margin-top: 90px;
-}
+/*Fim Dashboard*/
 
-.calculadora h1 {
-    font-size: 36px;
-}
 
-.calculadora span {
-    font-size: 14px;
-}
-
-.p1-calculadora-box {
-    margin-top: 30px;
-    margin-bottom: 89px;
-    margin-left: 35%;
-    width: 30%;
-    height: 320px;
-    border-radius: 10px;
-    background-color: #f4f4f4;
-    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-}
-
-.p1-calculadora-interface {
-    display: flex;
-    gap: 7%;
-}
-
-.p1-calculadora-dados {
-    padding-top: 40px;
-    padding-left: 60px;
-    font-size: 16px;
-    text-align: justify;
-}
-
-.p1-calculadora-dados input {
-    border-color: white;
-    height: 35px;
-    border-width: 0px;
-    width: 85%;
-}
-
-.p1-calculadora-dados button {
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: black;
-    border-radius: 10px;
-    border-color: white;
-    width: 85%;
-    height: 45px;
-    margin-top: 25px;
-}
-
-.p1-calculadora-dados p {
-    margin-right: 70px;
-}
-
-.p1-calculadora-dados select {
-    width: 10%;
-}
-
-.p2-calculadora-box {
-    margin-top: 30px;
-    margin-bottom: 89px;
-    margin-left: 35%;
-    width: 30%;
-    height: 320px;
-    border-radius: 10px;
-    background-color: #f4f4f4;
-    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-}
-
-.p2-calculadora-interface {
-    display: flex;
-    gap: 7%;
-}
-
-.p2-calculadora-dados {
-    padding-top: 10px;
-    padding-left: 60px;
-    font-size: 16px;
-    text-align: justify;
-}
-
-.p2-calculadora-dados input {
-    border-color: white;
-    height: 35px;
-    border-width: 0px;
-    width: 85%;
-}
-
-.p2-calculadora-dados button {
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: black;
-    border-radius: 10px;
-    border-color: white;
-    width: 85%;
-    height: 45px;
-    margin-top: 5px;
-}
-
-.p2-calculadora-dados p {
-    margin-right: 70px;
-}
-
-.p2-calculadora-dados select {
-    width: 10%;
-}
 
 /* Aqui começa a tela de cadastro */
-.tela-cadastro {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-}
 
-.cadastro-container {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+.div_conteudo-cadastro
+{
+    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 95px;
 }
 
-.cadastro-container .titulo {
-    text-align: center;
-
-
-    display: flex;
-    gap: 6px;
-    flex-direction: column;
-    margin-bottom: 20px;
+.div_conteudo-cadastro,
+.div_conteudo-login .titulo {
+    margin-bottom: 5px;
+    margin-top: 20px;
 }
 
 .titulo h2 {
     margin: 0;
     font-size: 35px;
+    text-align: center;
+
 }
 
-.titulo h6 {
+.titulo h3 {
     margin: 0;
-    font-size: 13px;
-    font-weight: normal;
+    margin-top: 10px;
+    font-weight: 400;
+    text-align: center;
 }
 
-.interface {
+.div_conteudo-cadastro .div_forms {
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -910,106 +783,81 @@ body {
     padding: 20px 35px;
     border-radius: 10px;
     background-color: #f4f4f4;
-}
-
-.interface .campo p {
-    color: #0c0c0c;
-    font-size: 14px;
-    margin: 0;
-    margin-bottom: 10px;
-}
-
-.interface .campo input {
-    border: none;
-    width: 406px;
-    height: 38px;
-    border-radius: 5px;
-    font-size: 12px;
-    padding-left: 10px;
-}
-
-.interface button {
-    background-color: #1e1e1e;
-    color: #fff;
-    border-radius: 5px;
-    width: 420px;
-    height: 40px;
-    font-weight: bolder;
-    font-size: 16px;
-}
-
-.interface span {
-    font-size: 10px;
-    color: #0c0c0c;
-}
-
-.interface span a {
-    color: #0c0c0c;
-    margin: 0;
-}
-
-/* Aqui começa a tela de login */
-
-.titulo-login h2 {
-    text-align: center;
-}
-
-.titulo-login h6 {
-    text-align: center;
-}
-
-.div_container-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.interface-login {
-    padding: 30px 100px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    align-items: center;
-    background-color: #f4f4f4;
-    margin-bottom: 30px;
     -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
     -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
     box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.interface-login .campo p {
+
+.div_forms .campo p {
     color: #0c0c0c;
     font-size: 14px;
     margin: 0;
     margin-bottom: 10px;
+        font-weight: bold;
+
 }
 
-.interface-login .campo input {
+.input_cad-log {
     border: none;
     width: 406px;
     height: 38px;
     border-radius: 5px;
     font-size: 12px;
     padding-left: 10px;
+    font-size: 15px;
+
 }
 
-.interface-login button {
-    background-color: #1e1e1e;
-    color: #fff;
-    border-radius: 5px;
-    width: 420px;
-    height: 40px;
-    font-weight: bolder;
-    font-size: 16px;
-}
 
-.interface-login span {
-    font-size: 10px;
-    color: #0c0c0c;
-}
-
-.interface-login span a {
+.div_forms h4 {
     color: #0c0c0c;
     margin: 0;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
+
+
 }
+
+.div_forms a {
+    color: #ffc714;
+    margin: 0;
+    font-weight: 600;
+}
+
+/*Fim cadastro*/
+
+/* Aqui começa a tela de login */
+
+
+
+.div_conteudo-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.div_conteudo-login    .div_forms {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px 35px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    margin-bottom: 68px;
+    
+}
+
+
+/*Fim Login*/

@@ -3,69 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>VagasIQ | Cadastro</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"rel="stylesheet">
+
 </head>
-<body class="tela-cadastro">
+<body >
     
     <div class="header">
-        <div class="container">
-            <div class="titulo"><h1><a href="index.html">VagasIQ</a></h1></div>
+        <div class="div_container-navbar">
+            <div class="div_logo"><h1><a href="index.html">VagasIQ</a></h1></div>
             <div class="navbar">
                 <a href="index.html#sobreNos">SOBRE NÓS</a>
                 <a href="index.html#solucao">SOLUÇÕES</a>
                 <a href="index.html#contato">CONTATO</a>
-                <a href="#">SIMULADOR</a>
+                <a href="calculadora.html">SIMULADOR</a>
                 <a href="login.html" style="color: #ffc714"><u>LOGIN</u></a>
             </div>
         </div>
     </div>
 
-    <div class="cadastro-container">
+    <div class="div_conteudo-cadastro">
         
             <div class="titulo">
                 <h2>Crie a sua conta</h2>
-                    <h6>Crie uma conta para sua Instituição e tenha acesso a<br> infomações relevantes para o seu negócio</h6>
+                    <h3>Crie uma conta para sua Instituição e tenha acesso a<br> infomações relevantes para o seu negócio</h3>
                 </div>
-                    <div class="interface">
+                    <div class="div_forms">
                         <div class="campo">
                             <p>Nome</p>
-                            <input type="text" id="input_nome" placeholder="Fernando Brandao">
+                            <input type="text" class="input_cad-log"  id="input_nome" placeholder="Seu Nome">
                         </div>
                         <div class="campo">
                             <p>CNPJ</p>
-                            <input type="number" id="input_cnpj" placeholder="01.020.304/0506-07">
+                            <input type="number"  class="input_cad-log" id="input_cnpj" placeholder="01.020.304/0506-07">
                         </div>
                         <div class="campo">
                             <p>Email</p>
-                            <input type="text" id="input_email" placeholder="exemplo@gmail.com">
+                            <input type="text"  class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
                         </div>
                         <div class="campo">
                             <p>Telefone</p>
-                            <input type="text" id="input_telefone" placeholder="(11) 12345-6789">
+                            <input type="text"  class="input_cad-log" id="input_telefone" placeholder="(11) 12345-6789">
                         </div>
                         <div class="campo">
                             <p>Senha</p>
-                            <input type="text" id="input_senha" placeholder="********">
+                            <input type="text"  class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                         <div class="campo">
                             <p>Confirme a senha</p>
-                            <input type="text" id="input_confirme" placeholder="********">
+                            <input type="text"  class="input_cad-log"  id="input_confirme" placeholder="********">
                         </div>
-                        <button onclick="criar()">Crie</button>
-                        <span>Já possui uma conta? <a href="login.html">Clique aqui</a></span>
+                        <button onclick="criar()" class="button-forms">Cadastrar</button>
+                        <h4>Já possui uma conta? <a href="login.html">Clique aqui</a></h4>
                         
                     </div>
         
         
     </div>
 
-    <div class="footer">
-        <div class="container">
-        <div class="tituloF"> <h1>VagasIQ</h1> </div>
-        <div class="traco"></div>
-        <span class="descricaoF"> Explore todo o potencial do seu negócio com o poder da tomada de decisão estratégica <br> baseada em informações relevantes! </span>
-  </div>
+    <div class="div_container-footer">
+
+        <div class="div_conteudo-footer">
+
+            <div class="div_titulo-footer">
+                <h1>VagasIQ</h1>
+            </div>
+
+            <div class="traco"></div>
+
+            <span class="div_descricao-footer"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
+            estratégica <br> baseada em informações relevantes! </span>
+
+    </div>
+
 </body>
 </html>
 
