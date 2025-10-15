@@ -28,7 +28,7 @@ CREATE TABLE veiculo (
 CREATE TABLE seguradora (
 	id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(80),
-	senha CHAR(8) NOT NULL,
+	senha VARCHAR(20) NOT NULL,
 	cnpj CHAR(14) UNIQUE NOT NULL,
 	email VARCHAR(80) UNIQUE NOT NULL,
 	telefone VARCHAR(20) NOT NULL
@@ -37,7 +37,7 @@ CREATE TABLE seguradora (
 CREATE TABLE localizacao (
 	id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
 	logradouro VARCHAR(80) NOT NULL,
-	cidade CHAR(2) NOT NULL,
+	cidade VARCHAR(45) NOT NULL,
 	bairro VARCHAR(45) NOT NULL
 );
 
@@ -98,12 +98,12 @@ INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
 	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena');
     
 INSERT INTO vaga (nome, fk_local) VALUES
-	('1', 1),
-	('2', 1),
-	('3', 2),
-	('4', 3),
-	('5', 3),
-	('6', 4);
+	('A1', 1),
+	('A2', 1),
+	('B3', 2),
+	('C4', 3),
+	('C5', 3),
+	('D6', 4);
 
 INSERT INTO sensor (estado_sensor, fk_vaga) VALUES
 	('Ativo', 1),
@@ -122,3 +122,14 @@ INSERT INTO registro (dt_registro, situacao, fk_sensor, fk_usuario) VALUES
 	('2025-10-14 12:10:00', 1, 6, 1);
 
 SHOW TABLES;
+
+-- Disponibilidade das vagas de determinada localização
+SELECT vaga.nome AS Vaga,
+	CASE
+		WHEN registro.situacao = 1 THEN 'Ocupado'
+        ELSE 'Livre'
+	END AS 'Situação'
+FROM localizacao JOIN vaga ON id_localizacao = fk_local
+    JOIN sensor ON id_vaga = fk_vaga
+    JOIN registro ON id_sensor = fk_sensor
+WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
