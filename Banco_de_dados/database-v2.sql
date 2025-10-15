@@ -133,3 +133,14 @@ FROM localizacao JOIN vaga ON id_localizacao = fk_local
     JOIN sensor ON id_vaga = fk_vaga
     JOIN registro ON id_sensor = fk_sensor
 WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
+
+-- Relação entre o condutor e o seu veículo
+SELECT condutor.nome AS Nome_Condutor,
+	condutor.genero AS Gênero,
+    condutor.dt_nasc AS Data_Nascimento,
+    veiculo.ano AS Ano_Veículo,
+    veiculo.modelo AS Modelo_Veículo,
+    veiculo.tipo AS Tipo_Veículo,
+    veiculo.seguro AS Seguro
+FROM condutor JOIN veiculo
+	ON condutor.id_condutor = veiculo.fk_condutor;
