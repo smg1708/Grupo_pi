@@ -141,6 +141,10 @@ SELECT condutor.nome AS Nome_Condutor,
     veiculo.ano AS Ano_Veículo,
     veiculo.modelo AS Modelo_Veículo,
     veiculo.tipo AS Tipo_Veículo,
-    veiculo.seguro AS Seguro
+    CASE
+		WHEN veiculo.seguro = '1'
+		THEN 'Tem seguro'
+		ELSE 'Não tem'
+    END AS 'Seguro'
 FROM condutor JOIN veiculo
 	ON condutor.id_condutor = veiculo.fk_condutor;
