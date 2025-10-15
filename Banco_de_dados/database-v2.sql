@@ -4,8 +4,6 @@ USE VagasIQ;
 
 CREATE TABLE condutor (
 	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(45),
-	sobrenome VARCHAR(45),
 	genero CHAR(1) NOT NULL,
 	CONSTRAINT cnk_genero 
 		CHECK (genero IN ('M', 'F')),
@@ -15,10 +13,12 @@ CREATE TABLE condutor (
 CREATE TABLE veiculo (
 	id_veiculo INT AUTO_INCREMENT,
 	fk_condutor INT,
-    primary key (id_veiculo, fk_condutor),
+    PRIMARY KEY (id_veiculo, fk_condutor),
 	ano YEAR NOT NULL,
 	modelo VARCHAR(45) NOT NULL,
 	tipo VARCHAR(45),
+		CONSTRAINT chk_tipo
+        CHECK (tipo IN('Carro', 'Moto', 'Caminhão')),
 	seguro TINYINT,
 	CONSTRAINT fk_condutor 
 		FOREIGN KEY (fk_condutor)
@@ -73,19 +73,19 @@ CREATE TABLE registro (
 		REFERENCES condutor(id_condutor)
 );
 
-INSERT INTO condutor (nome, sobrenome, genero, dt_nasc) VALUES
-	('João', 'Silva', 'M', '1990-05-12'),
-	('Maria', 'Souza', 'F', '1985-11-23'),
-	('Carlos', 'Pereira', 'M', '2000-02-14'),
-	('Ana', 'Oliveira', 'F', '1995-07-30'),
-	('Ricardo', 'Alves', 'M', '1988-12-01');
+INSERT INTO condutor (genero, dt_nasc) VALUES
+	('M', '1990-05-12'),
+	('F', '1985-11-23'),
+	('M', '2000-02-14'),
+	('F', '1995-07-30'),
+	('M', '1988-12-01');
     
 INSERT INTO veiculo (fk_condutor, ano, modelo, tipo, seguro) VALUES
-	(2, 2018, 'Onix', 'Hatch', 1),
-	(3, 2020, 'HB20', 'Sedan', 0),
-	(4, 2017, 'Fiesta', 'Hatch', 1),
-	(5, 2019, 'Civic', 'Sedan', 1),
-	(1, 2012, 'Palio', 'Compacto', 0); 
+	(2, 2018, 'Onix', 'Carro', 1),
+	(3, 2020, 'HB20', 'Carro', 0),
+	(4, 2017, 'Honda Biz', 'Moto', 1),
+	(5, 2019, 'Scania', 'Caminhão', 1),
+	(1, 2012, 'Avelloz', 'Moto', 0); 
 
 INSERT INTO seguradora (nome, senha, cnpj, email, telefone) VALUES
 	('Taui Seguros', '12345678', '52865433233103', 'contato@tauiseguros.com', '11987654321'),
@@ -135,9 +135,8 @@ FROM localizacao JOIN vaga ON id_localizacao = fk_local
 WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
 
 -- Relação entre o condutor e o seu veículo
-SELECT condutor.nome AS Nome_Condutor,
-	condutor.genero AS Gênero,
-    condutor.dt_nasc AS Data_Nascimento,
+SELECT condutor.genero AS Gênero_Condutor,
+    condutor.dt_nasc AS Data_Nascimento_Condutor,
     veiculo.ano AS Ano_Veículo,
     veiculo.modelo AS Modelo_Veículo,
     veiculo.tipo AS Tipo_Veículo,
