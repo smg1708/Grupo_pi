@@ -147,3 +147,13 @@ SELECT condutor.genero AS Gênero_Condutor,
     END AS 'Seguro'
 FROM condutor JOIN veiculo
 	ON condutor.id_condutor = veiculo.fk_condutor;
+
+-- Todas as vagas de uma determinada rua
+SELECT vaga.nome, 
+	logradouro, 
+    sensor.estado_sensor 
+FROM 
+	vaga JOIN localizacao
+    ON fk_local = id_localizacao 
+    JOIN sensor
+    ON id_vaga = fk_vaga;
