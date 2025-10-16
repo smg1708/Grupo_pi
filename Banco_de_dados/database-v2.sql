@@ -141,19 +141,17 @@ SELECT condutor.genero AS Gênero_Condutor,
     veiculo.modelo AS Modelo_Veículo,
     veiculo.tipo AS Tipo_Veículo,
     CASE
-		WHEN veiculo.seguro = '1'
-		THEN 'Tem seguro'
+		WHEN veiculo.seguro = '1' THEN 'Tem seguro'
 		ELSE 'Não tem'
     END AS 'Seguro'
 FROM condutor JOIN veiculo
 	ON condutor.id_condutor = veiculo.fk_condutor;
 
 -- Todas as vagas de uma determinada rua
-SELECT vaga.nome, 
-	logradouro, 
-    sensor.estado_sensor 
-FROM 
-	vaga JOIN localizacao
+SELECT vaga.nome AS vaga, 
+	logradouro
+FROM vaga JOIN localizacao
     ON fk_local = id_localizacao 
-    JOIN sensor
-    ON id_vaga = fk_vaga;
+    JOIN sensor ON id_vaga = fk_vaga
+    JOIN registro ON id_sensor = fk_sensor
+WHERE fk_local = 1;
