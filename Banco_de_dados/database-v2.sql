@@ -1,14 +1,12 @@
 CREATE DATABASE VagasIQ;
 
-drop database VagasIQ;
-
 USE VagasIQ;
 
 CREATE TABLE condutor (
 	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
 	genero CHAR(1) NOT NULL,
 	CONSTRAINT cnk_genero 
-		CHECK (genero IN ('M', 'F')),
+		CHECK (genero IN ('M', 'F','O')),
 	dt_nasc DATE NOT NULL
 );
 
@@ -77,7 +75,7 @@ CREATE TABLE registro (
 INSERT INTO condutor (genero, dt_nasc) VALUES
 	('M', '1990-05-12'),
 	('F', '1985-11-23'),
-	('M', '2000-02-14'),
+	('O', '2000-02-14'),
 	('F', '1995-07-30'),
 	('M', '1988-12-01');
     
@@ -157,7 +155,7 @@ FROM vagas JOIN localizacao
     JOIN registro ON id_sensor = fk_sensor
 WHERE fk_local = 1;
 
--- 
+-- Relação do condutor e as demais tabelas
 SELECT c.genero AS Genero,
 	c.dt_nasc AS Data_Nascimento,
 	v.modelo AS Veiculo,
@@ -191,3 +189,14 @@ SELECT c.genero AS 'Gênero',
     JOIN registro AS r 
     ON r.fk_condutor = c.id_condutor
     WHERE v.tipo = 'carro';
+
+-- Exibindo a relação entre o genêro e os registros
+SELECT CASE 
+	WHEN c.genero = 'M' THEN 'Homem'
+	WHEN c.genero ='F' THEN 'Mulher'
+	ELSE 'Outros'
+	END AS 'Gênero',
+	r.dt_registro AS 'Data do Registro'
+	FROM condutor AS c JOIN registro AS r
+	ON r.fk_condutor = c.id_condutor;
+
