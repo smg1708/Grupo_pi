@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #div_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #div_conteudo-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #div_conteudo-tela2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        display: none;
+        background-color: rgb(34, 0, 66);
+    }
+
+/*  #div_slider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #div_slider input[type= "range"] {
+        appearance: none;
+        background-color: rgb(255, 196, 0);
+        border-radius: 50px;
+        height: 10px;
+    } */
+</style>
+
+<body>
+    <div id="div_container">
+
+    <div id="div_tela-info">
+        <h1>Simulador de Valor Inteligente - VagasIQ</h1>
+        <h3>Descubra quanto sua seguradora pode estar perdendo por falta de dados precisos.</h3>
+
+        <div id="div_conteudo-left">
+            Qual é a sua receita anual?
+            <input type="text" id="input_rendaAnual">
+            Quantos segurados em área urbana você tem?
+            <input type="text" id="input_qntSeg">
+            Qual é o gasto mensal por sinistros (acidentes) urbanos?
+            <input type="text" id="input_gastoSinistros">
+            Seus dados permitem precificar riscos sem precisar corrigir informações?
+            <select id="">
+                <option value="#" id="primeiraOp">Selecione uma opção </option>
+                <option value="nunca">Nunca</option>
+                <option value="asVezes">Às vezes</option>
+                <option value="qSempre">Quase Sempre</option>
+                <option value="sempre">Sempre</option>
+
+            </select>
+            <button onclick="calcular()">Calcular Impacto</button>
+    </div>
+    <div id="div_tela-resultado">
+
+        <div id="div_conteudo-tela2">
+        </div>
+
+    </div>
+
+        
+<!-- 
+            <div id="div_slider">
+
+                <input type="range" id="slider_qualDados" min="0" max="100" value="50" oninput="slider()">
+                <div id="div_valorSlider">50%</div>
+            </div> -->
+            <button onclick="calcular()">Calcular</button>
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function calcular(){
+    // VALORES RECEBIDOS PELOS INPUTS
+        var rendaAnual = Number(input_rendaAnual.value);
+        var qntCliente = Number(input_qntSeg.value);
+        var gastoAcidentesMensal = Number(input_gastoSinistros.value);
+        var qualidadeDados = Number(input_qualidadeDados.value);
+
+    // VALORES CALCULADOS
+
+    // QUANTOS PORCENTO DA RECEITA A SEGURADORA PERDE DEVIDO A QUALIDADE ÁS VEZES DUVIDOSAS DOS DADOS ADQUIRIDOS
+    var perdaPercentual = 25 - ((qualidadeDados /100) * 10)
+
+    //QUANTO A SEGURADA PERDA DA SUA RECEITA UTILIZANDO A SUA RENDA ANUAL E A PERDA PERCENTUAL CALCULADA ANTES
+    var perdaAtual = rendadAnual * (perdaPercentual / 100)
+
+    //
+    var perdaComVagasIQ =
+    
+
+    
+    }
+/* 
+    function slider() {
+        var sliderElem = document.getElementById('slider_qualDados');
+        var valorAtual = slider_qualDados.value;
+        var valorMax = slider_qualDados.max;
+
+        var porcentagem = (valorAtual / valorMax)*100;
+
+
+        div_valorSlider.innerHTML =`${porcentagem.toFixed(2)}%`;
+    } */
+</script>
