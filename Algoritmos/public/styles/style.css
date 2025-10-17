@@ -619,12 +619,12 @@ h4 {
 
 .dashboard-body .metricas-gerais {
     display: flex;
-    gap: 90px;
+    gap: 50px;
 }
 
 .dashboard-body .metricas-gerais .metrica {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
 .dashboard-body .dashboard-principal {
@@ -737,6 +737,9 @@ h4 {
     width: 400px;
 }
 
+.dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres p {
+    font-size: 15px;
+}
 
 /*Fim Dashboard*/
 
