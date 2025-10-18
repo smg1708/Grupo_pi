@@ -38,7 +38,8 @@ CREATE TABLE localizacao (
 	id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
 	logradouro VARCHAR(80) NOT NULL,
 	cidade VARCHAR(45) NOT NULL,
-	bairro VARCHAR(45) NOT NULL
+	bairro VARCHAR(45) NOT NULL,
+    acidentes INT
 );
 
 CREATE TABLE vagas (
@@ -133,6 +134,7 @@ FROM localizacao JOIN vagas ON id_localizacao = fk_local
     JOIN registro ON id_sensor = fk_sensor
 WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
 
+
 -- Relação entre o condutor e o seu veículo
 SELECT condutor.genero AS Gênero_Condutor,
     condutor.dt_nasc AS Data_Nascimento_Condutor,
@@ -146,6 +148,7 @@ SELECT condutor.genero AS Gênero_Condutor,
 FROM condutor JOIN veiculo
 	ON condutor.id_condutor = veiculo.fk_condutor;
 
+
 -- Todas as vagas de uma determinada rua
 SELECT vagas.nome AS vaga, 
 	logradouro
@@ -154,6 +157,7 @@ FROM vagas JOIN localizacao
     JOIN sensor ON id_vaga = fk_vaga
     JOIN registro ON id_sensor = fk_sensor
 WHERE fk_local = 1;
+
 
 -- Relação do condutor e as demais tabelas
 SELECT c.genero AS Genero,
@@ -176,6 +180,7 @@ JOIN vagas AS vg
 	ON s.fk_vaga = vg.id_vaga
 JOIN localizacao AS l
 	ON vg.fk_local = l.id_localizacao;
+
     
 -- Relação do condutor e o veículo e registro com um tipo de veículo específico
 SELECT c.genero AS 'Gênero',
@@ -190,7 +195,8 @@ SELECT c.genero AS 'Gênero',
     ON r.fk_condutor = c.id_condutor
     WHERE v.tipo = 'carro';
 
--- Exibindo a relação entre o genêro e os registros
+
+-- Relação entre o genêro e os registros
 SELECT CASE 
 	WHEN c.genero = 'M' THEN 'Homem'
 	WHEN c.genero ='F' THEN 'Mulher'
@@ -199,4 +205,3 @@ SELECT CASE
 	r.dt_registro AS 'Data do Registro'
 	FROM condutor AS c JOIN registro AS r
 	ON r.fk_condutor = c.id_condutor;
-
