@@ -13,9 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"rel="stylesheet">
 
 </head>
 
@@ -23,9 +21,7 @@
 
     <div class="header">
         <div class="div_container-navbar">
-            <div class="div_logo">
-                <h1><a href="index.html">VagasIQ</a></h1>
-            </div>
+            <div class="div_logo"><h1><a href="index.html">VagasIQ</a></h1></div>
             <div class="navbar">
                 <a href="index.html#sobreNos">SOBRE NÓS</a>
                 <a href="index.html#solucao">SOLUÇÕES</a>
@@ -39,35 +35,42 @@
     <div class="div_container-login">
 
         <div class="div_conteudo-login">
-
-            <div class="titulo">
-                <h2>Acesse sua conta Institucional</h2>
-                <h3>Entre com suas credencias para analisar as informações!</h3>
-            </div>
-
-            <div class="div_forms">
-
-                <div class="campo">
-                    <p>Email</p>
-                    <input type="text" class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
+        
+                <div class="titulo">
+                    <h2>Acesse sua conta Institucional</h2>
+                    <h3>Entre com suas credencias para analisar as informações!</h3>
                 </div>
 
-                <div class="campo">
-                    <p>Senha</p>
-                    <input type="text" class="input_cad-log" id="input_senha" placeholder="********">
-                </div>
+                <div class="div_forms">
+                    <div id="div_campo1" style="display: block;">
 
-                <div class="error" id="div_mensagem"></div>
+                        <div class="campo">
+                            <p>Email</p>
+                            <input type="text" class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
+                        </div>
 
-                <button onclick="entrar()" class="button-forms">Entrar</button>
+                        <div class="campo">
+                            <p>Senha</p>
+                            <input type="text" class="input_cad-log" id="input_senha" placeholder="********">
+                        </div>
+                    
+                        <button onclick="entrar()" class="button-forms">Entrar</button>
+                        
+                    </div>
+                    
+                    <div id="div_campo2" style="display: none;">
 
-                <h4>Esqueceu a senha? <a href="">Clique aqui</a></h4>
-                <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
+                        <p>Você Errou a senha 5 vezes, aguarde um pouco e tente novamente</p>
+
+                    </div>
+
+                    <h4>Esqueceu a senha? <a href="">Clique aqui</a></h4>
+                    <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
 
             </div>
         </div>
-
-
+        
+        
     </div>
 
     <div class="div_container-footer">
@@ -81,32 +84,41 @@
             <div class="traco"></div>
 
             <span class="div_descricao-footer"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
-                estratégica <br> baseada em informações relevantes! </span>
+            estratégica <br> baseada em informações relevantes! </span>
 
-        </div>
-
+    </div>
+    
 </body>
-
 </html>
 
 <script>
+
+    var cont = 5
+
     function entrar() {
         var email = input_email.value
         var senha = input_senha.value
         var vagasIQ = 'fernando.brandao@empresa.com'
         var vagasIQsenha = 'urubu100'
-        var cont = 3;
 
-        if (email == vagasIQ && senha == vagasIQsenha) {
-            div_mensagem.innerHTML = window.location.href = `dashboard.html`;
-        } else {
-            cont--;
-            console.log("entrou")
-            if (cont > 0) {
-                div_mensagem.innerHTML = `Email ou senha incorretos! Tente novamente`;
-            } else {
-                div_mensagem.innerHTML = `Tente novamente mais tarde`;
+        while (cont > 0) {
+            cont --
+
+            if (email == vagasIQ && senha == vagasIQsenha) {
+                window.location.href = `dashboard.html`
+                break
+            } else { 
+                alert(`Email ou senha incorretos! Tente novamente\n Tentativas restantes ${cont}`)
+                break
             }
+
+
+            
+        }
+
+        if (cont <= 0) {
+            div_campo1.style.display = "none"
+            div_campo2.style.display = "block"
         }
     }
 </script>
