@@ -52,6 +52,9 @@
                             
                         <p> Informe o faturamento anual </p>
                         <input type="number" id="input_anual">
+                            
+                        <p> Informe o gasto com sinistros  anual </p>
+                        <input type="number" id="input_sinistros">
 
                         <button onclick="analisar()">Calcular</button>
 
@@ -114,6 +117,7 @@
 
     var mensal = input_mensal.value
     var anual = input_anual.value
+    var sinistro = input_sinistros.value
 
     if (mensal != "" || anual != "") {
 
@@ -121,25 +125,28 @@
         anual = Number(anual)
         var lucro_m = mensal * 0.20
         var lucro_a = anual * 0.20
-
+        var sinistro = (sinistro * 100) / anual
+        
         calculadora_part1.style.display = "none"
         calculadora_part2.style.display = "block"
 
-        if ((mensal != 0 && anual == 0) || (mensal != 0 && anual != 0)) {
+        if ((mensal != 0 && anual == 0) || (mensal != 0 && anual != 0) && (sinistro != "")) {
             lucro_a = lucro_m * 12
             mensagem = `
                 Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
                 <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
                 <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
-                Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b>, baseada nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                <b>Hoje em dia você perde ${sinistro.toFixed(2)}% com sinistros, mas isso pode mudar </b> <br> <br>
+                Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
                 Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!!
                 `
-        } else if (anual != 0 && mensal == 0) {
+        } else if (anual != 0 && mensal == 0 && sinistro != "") {
             lucro_m = lucro_a / 12
             mensagem = `
                 Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br>
                 <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
                 <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
+                <b>Hoje em dia você perde ${sinistro.toFixed(2)}%, mas isso pode mudar} </b> <br> <br>
                 Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b>, baseada nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
                 Implemente agora nossa <b>solução</b> e tenha acesso agora a nossa rede de dados!!!
                 `
