@@ -27,21 +27,21 @@
         align-items: center;
         flex-direction: column;
         gap: 10px;
-        display: none;
         background-color: rgb(34, 0, 66);
     }
+#div_fraseSelect{
+    font-weight: bolder;
+    
+}
+#div_fraseSelect p {
+    margin: 0;
+}
+#div_fraseErroReceita p{
+    margin: 0;
+    color:red;
+    font-weight: bolder;
 
-/*  #div_slider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #div_slider input[type= "range"] {
-        appearance: none;
-        background-color: rgb(255, 196, 0);
-        border-radius: 50px;
-        height: 10px;
-    } */
+}
 </style>
 
 <body>
@@ -52,41 +52,37 @@
         <h3>Descubra quanto sua seguradora pode estar perdendo por falta de dados precisos.</h3>
 
         <div id="div_conteudo-left">
+
             Qual é a sua receita anual?
             <input type="text" id="input_rendaAnual">
-            Quantos segurados em área urbana você tem?
-            <input type="text" id="input_qntSeg">
-            Qual é o gasto mensal por sinistros (acidentes) urbanos?
-            <input type="text" id="input_gastoSinistros">
-            Seus dados permitem precificar riscos sem precisar corrigir informações?
-            <select id="">
-                <option value="#" id="primeiraOp">Selecione uma opção </option>
+            <div id="div_fraseErroReceita"></div>
+
+            Quando você precisa avaliar riscos, seus dados estão confiáveis?”
+            <select id="select_dados">
+                <option value="#" id="#">Selecione uma opção </option>
                 <option value="nunca">Nunca</option>
                 <option value="asVezes">Às vezes</option>
-                <option value="qSempre">Quase Sempre</option>
+                <option value="quaseSempre">Quase Sempre</option>
                 <option value="sempre">Sempre</option>
-
             </select>
+            <div id="div_fraseSelect"></div>
+
             <button onclick="calcular()">Calcular Impacto</button>
     </div>
+            <div id="div_conteudo_tela2">
+            
+        </div>
+    </div>
+
     <div id="div_tela-resultado">
 
-        <div id="div_conteudo-tela2">
-        </div>
+       <h4>Fontes: MIT Sloan Management Review, Octo Telematics (2024), IMS / Carrot Insurance (2022), Fleet-HILS (UK, 2021).</h4>
+       <h4><p>Essas projeções foram baseadas em estudos da MIT Sloan Management Review sobre perda por dados ruins (15–25%) e benchmarks de seguradoras como Carrot Insurance e Octo Telematics, que reduziram entre 30% e 60% suas perdas com a integração de dados.</p></h4>
 
     </div>
 
         
-<!-- 
-            <div id="div_slider">
 
-                <input type="range" id="slider_qualDados" min="0" max="100" value="50" oninput="slider()">
-                <div id="div_valorSlider">50%</div>
-            </div> -->
-            <button onclick="calcular()">Calcular</button>
-        </div>
-
-    </div>
 </body>
 
 </html>
@@ -96,33 +92,89 @@
     function calcular(){
     // VALORES RECEBIDOS PELOS INPUTS
         var rendaAnual = Number(input_rendaAnual.value);
-        var qntCliente = Number(input_qntSeg.value);
-        var gastoAcidentesMensal = Number(input_gastoSinistros.value);
-        var qualidadeDados = Number(input_qualidadeDados.value);
+        var selectDados = select_dados.value;
+        var qualidadeDados = 0;
+
+        if(selectDados == '#'){
+            div_fraseSelect.innerHTML =`<p style="color:red">Escolha uma opção!</p>`
+        }
+        else if(selectDados =='nunca'){
+            qualidadeDados = 0;
+            div_fraseSelect.innerHTML =`<p>Quase sempre tenho que corrigir informações</p>`
+
+        }
+        else if(selectDados =='asVezes'){
+            qualidadeDados = 25;
+            div_fraseSelect.innerHTML =`<p>Algumas vezes preciso revisar os dados</p>`
+
+        }
+        else if(selectDados =='quaseSempre'){
+            qualidadeDados = 50;
+            div_fraseSelect.innerHTML =`<p>Raramente preciso revisar</p>`
+ 
+        }
+        else{
+            qualidadeDados = 100;
+            div_fraseSelect.innerHTML =`<p>Praticamente nunca preciso revisar</p>`
+
+        }
 
     // VALORES CALCULADOS
 
-    // QUANTOS PORCENTO DA RECEITA A SEGURADORA PERDE DEVIDO A QUALIDADE ÁS VEZES DUVIDOSAS DOS DADOS ADQUIRIDOS
-    var perdaPercentual = 25 - ((qualidadeDados /100) * 10)
+    // QUANTOS PORCENTOS DA RECEITA A SEGURADORA PERDE DEVIDO A QUALIDADE ÁS VEZES DUVIDOSAS DOS DADOS ADQUIRIDOS
+
+    /* 25 = perda quando a qualidade é 0 (pior caso).
+    e a qualidade for 0 -> perda = 25% (pior caso)
+
+    Se a qualidade for 100 -> perda = 15% (melhor caso)
+    Ou seja: quanto maior a qualidade, menor a perda. A diferença entre pior e melhor é 10 pontos percentuais (25 − 15 = 10).
+
+    qualidadeDados / 100 transforma o valor 0–100 em 0–1.
+    
+    o número 10 é multiplicado, pq ele é um parametro realista do quanto a empresa ainda pode perder independente se foi por dados ruins ou não
+
+    Subtrai de 25 -> quanto maior a qualidade, maior o valor subtraído, menor a perda. */
+
+        var perdaPercentual = 25 - ((qualidadeDados /100) * 10);
 
     //QUANTO A SEGURADA PERDA DA SUA RECEITA UTILIZANDO A SUA RENDA ANUAL E A PERDA PERCENTUAL CALCULADA ANTES
-    var perdaAtual = rendadAnual * (perdaPercentual / 100)
+        var perdaAtual = rendaAnual * (perdaPercentual / 100);
 
-    //
-    var perdaComVagasIQ =
+    //QUANTO A SEGURADORA NÃO VAI PERDER COM A INTEGRAÇÃO DO SISTEMA
+        var perdaComVagasIQ = rendaAnual * 0.08;
+
+    //A ECONOMIA QUE A SEGURADORA PODE TER COMPARANDO A SUA PERDA COM OQ ELE NÃO VAI PERDER COM O NOSSO PRODUTO
+        var economia = perdaAtual - perdaComVagasIQ;
+
+    // SÓ TRANSFORMANDO A VARIÁVEL ECONOMIA EM PORCENTAGEM
+        var economiaPercentual = (economia / perdaAtual) * 100;
+
     
+        if(input_rendaAnual.value != "" && selectDados !="#")
+        {
+
+            div_conteudo_tela2.innerHTML=`
+            💸 Perda Atual
+            <br>	    	   
+            R$ ${perdaAtual}	
+                <hr>                    
+            🚀 Com as VagasIQ a sua perda diminui em:
+            <br>
+            R$ ${perdaComVagasIQ}
+            <hr>                    
+            💰 No final, ao ano você economiza
+            <br>
+            R$ ${economia} 
+            (+${economiaPercentual.toFixed(2)}%)
+            
+            
+            `;
+        }
+        else{
+            div_fraseErroReceita.innerHTML=`<p>O campo não foi preenchido</p>` 
+        }
 
     
     }
-/* 
-    function slider() {
-        var sliderElem = document.getElementById('slider_qualDados');
-        var valorAtual = slider_qualDados.value;
-        var valorMax = slider_qualDados.max;
 
-        var porcentagem = (valorAtual / valorMax)*100;
-
-
-        div_valorSlider.innerHTML =`${porcentagem.toFixed(2)}%`;
-    } */
 </script>
