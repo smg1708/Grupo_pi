@@ -3,6 +3,7 @@
 
 <head>
     <title>Graphics</title>
+<!--     link para utilizar o chart js, sem ele não conseguimos usar-->   
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -14,7 +15,7 @@
             <canvas id="sensorAnalogico"></canvas>
         </div> -->
         <div style="width: 80%;">
-            <canvas id="sensorDigital"></canvas>
+            <canvas id="sensorDigital"></canvas> <!-- Uma tela em branco que vai exibir o gráfico -->
         </div>
     </div>
 
@@ -44,21 +45,23 @@
         //     }
         // });
 
+        // o gráfico funciona a partir de 0 ou 1, desligado e ligado ( por ser digital)
+        // essa váriavel sensorDigital cria o grafico e o exibe em um canvas com o ID sensorDigital
         var sensorDigital = new Chart(document.getElementById('sensorDigital').getContext('2d'), {
-            type: 'line',
+            type: 'line', // define o tipo do gráfico
             data: {
-                datasets: [{
-                    label: 'Digital',
+                datasets: [{ // configurações estéticas do gráfico, como legenda, cor de fundo da linha, etc ( basicamente são os valores que estão  exibidos na série principal do gráfico.)
+                    label: 'Digital', 
                     borderColor: '#63B1BC',
                     backgroundColor: '#0762C8'
                 }]
             },
             options: {
-                scales: {
-                    x: {
+                scales: { 
+                    x: {// define que no eixo X sempre comece em 0 para evitar distorções no gráfico
                         beginAtZero: true
                     },
-                    y: {
+                    y: { // legenda lateral no eixo Y
                         title: {
                             display: true,
                             text: '(0-1)'
@@ -72,13 +75,21 @@
         var paginacao = {};
         var tempo = {};
 
+    
         function obterDados(grafico, endpoint) {
+
+            /* faz uma requisição HTTP para a API e obter valores em formato JSON. */
+            // é daqui que o obtido os dados que vão para o gráfico
+            // esse https://localhost:3300 é o CORS da nossa API, basicamente um passaporte dele, que nos permite acessar os seus dados pelo index.html
+            // quando clicamos nesse endpoint, observamso um JSON com os valores armazenados em memória do sensor
             fetch('http://localhost:3300/sensores/' + endpoint)
                 .then(response => response.json())
                 .then(valores => {
+            /*  o paginacao[endpoint] serve para controlar a quantidade de dados exibidos no gráfico.*/   
                     if (paginacao[endpoint] == null) {
                         paginacao[endpoint] = 0;
                     }
+                    // o tempo endpoint indica o numero de segundos decorridos entre as leituras.
                     if (tempo[endpoint] == null) {
                             [endpoint] = 0;
                     }
@@ -87,6 +98,7 @@
                     paginacao[endpoint] = valores.length;
                     valores = valores.slice(ultimaPaginacao);
 
+                    // isso aqui vai percorrer todos os daods do sensor armazenados, eaí quando atingir 10 valores, ele 'tira' o valor mais antigo de exibição e acrescenta o novo valor
                     valores.forEach((valor) => {
                         if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
                             grafico.data.labels.shift();
@@ -98,7 +110,7 @@
                         grafico.update();
                     });
                 })
-                .catch(error => console.error('Erro ao obter dados:', error));
+                .catch(error => console.error('Erro ao obter dados:', error)); // caso houver algum probelma para acessar o CORS da API, irá exibir esse erro
         }
 
         // definir o tempo de resposta para obtenção de dados, com um intervalo de 1000 milisegundos entre eles
