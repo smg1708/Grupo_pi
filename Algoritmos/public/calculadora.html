@@ -1,237 +1,232 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <a href="index.html"><title>Vagas IQ | Home </title></a>
-    <link rel="icon" href="assets/VagasIQ.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <a href="index.html"><title>Vagas IQ | Home</title></a>
+    <link rel="icon" href="assets/VagasIQ.svg" />
 
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"rel="stylesheet">
-
-</head>
-<body>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="header">
-        <div class="div_container-navbar">
-            <div class="div_logo"><h1><a href="index.html">VagasIQ</a></h1></div>
-            <div class="navbar">
-                <a href="index.html#sobreNos">SOBRE NÓS</a>
-                <a href="index.html#solucao">SOLUÇÕES</a>
-                <a href="index.html#contato">CONTATO</a>
-                <a href="calculadora.html">SIMULADOR</a>
-                <a href="login.html" style="color: #ffc714"><u>LOGIN</u></a>
-            </div>
+      <div class="div_container-navbar">
+        <div class="div_logo">
+          <h1><a href="index.html">VagasIQ</a></h1>
         </div>
+        <div class="navbar">
+          <a href="index.html#sobreNos">SOBRE NÓS</a>
+          <a href="index.html#solucao">SOLUÇÕES</a>
+          <a href="index.html#contato">CONTATO</a>
+          <a href="calculadora.html">SIMULADOR</a>
+          <a href="login.html" style="color: #ffc714"><u>LOGIN</u></a>
+        </div>
+      </div>
     </div>
 
     <div class="div_container-calculadora">
-
-        <div class="p1-container" style="display: block;" id="calculadora_part1">
-
-            <div class="titulo">
-
-                <h1>Simule aqui seus resultados!</h1>
-                <h3>Utilize a calculadora para entender como a nossa solução <br> pode ajudar a sua empresa</h3>
-
-            </div>
-
-            <div class="p1-calculadora-interface">
-                <div class="p1-calculadora-box">
-
-                    <div class="p1-calculadora-dados">
-                        
-                        <p> Informe o faturamento mensal </p>
-                        <input type="number" id="input_mensal">
-                            
-                        <p> Informe o faturamento anual </p>
-                        <input type="number" id="input_anual">
-                            
-                        <p> Informe o gasto com sinistros  anual </p>
-                        <input type="number" id="input_sinistros">
-
-                        <p> Quando você precisa avaliar riscos, <br> seus dados estão confiáveis? </p>
-                        <select id="select_dados">
-                            <option value="#" id="#">Selecione uma opção </option>
-                            <option value="nunca">Nunca</option>
-                            <option value="asVezes">Às vezes</option>
-                            <option value="quaseSempre">Quase Sempre</option>
-                            <option value="sempre">Sempre</option>
-                        </select>
-
-                        <button onclick="analisar()">Calcular</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+      <div class="p1-container" style="display: block" id="calculadora_part1">
+        <div class="titulo">
+          <h1>Simule aqui seus resultados!</h1>
+          <h3>
+            Utilize a calculadora para entender como a nossa solução <br />
+            pode ajudar a sua empresa
+          </h3>
         </div>
 
-        <div class="p2-container" style="display: none;" id="calculadora_part2">
-            <div class="titulo">
-                <h1>Aqui esta seus resultados!</h1>
-                <h3> Com base em dados de uma pesquisa feita pela <b>MIT Sloan study.</b> <br> Seguradoras podem perder de 15 a 25% da receita total, pela <br> falta de dados ou por dados de baixa qualidade </h3>
-            </div>
-            
-            
-                <div class="p2-calculadora-interface">
-                <div class="p2-calculadora-box">
-                    <div class="p2-calculadora-dados">
-                        
-                        <p id="p_dados"></p>
+        <div class="p1-calculadora-interface">
+          <div class="p1-calculadora-box">
+            <div class="p1-calculadora-dados">
+              <!-- <p> Informe o faturamento mensal </p>
+                        <input type="number" id="input_mensal"> -->
 
-                        <button onclick="voltar()">Voltar</button>
-                    </div>
-                </div>
+              <p>Informe o faturamento anual</p>
+              <input type="number" id="input_anual" />
+
+              <p>Informe o gasto com sinistros anual</p>
+              <input type="number" id="input_sinistros" />
+
+              <p>
+                Quando você precisa avaliar os riscos, os dados <br> são confiáveis?
+              </p>
+              <select id="select_dados">
+                <option value="#" id="#">Selecione uma opção</option>
+                <option value="nunca">Nunca</option>
+                <option value="as vezes">Às vezes</option>
+                <option value="raramente">Raramente</option>
+                <option value="quase sempre">Quase sempre</option>
+                <option value="sempre">Sempre</option>
+              </select>
+
+              <button onclick="analisar()">Calcular</button>
             </div>
+          </div>
         </div>
+      </div>
+
+      <div class="p2-container" style="display: none" id="calculadora_part2">
+        <div class="titulo">
+          <h1>Aqui esta seus resultados!</h1>
+          <h3>
+            Com base em dados de uma pesquisa feita pela
+            <b>MIT Sloan study.</b> <br />
+            Seguradoras podem perder de 15 a 25% da receita total, pela <br />
+            falta de dados ou por dados de baixa qualidade
+          </h3>
+        </div>
+
+        <div class="p2-calculadora-interface">
+          <div class="p2-calculadora-box">
+            <div class="p2-calculadora-dados">
+              <p id="p_dados"></p>
+
+              <button onclick="voltar()">Voltar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="div_container-footer">
+      <div class="div_conteudo-footer">
+        <div class="div_titulo-footer">
+          <h1>VagasIQ</h1>
+        </div>
 
-        <div class="div_conteudo-footer">
+        <div class="traco"></div>
 
-            <div class="div_titulo-footer">
-                <h1>VagasIQ</h1>
-            </div>
-
-            <div class="traco"></div>
-
-            <span class="div_descricao-footer"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
-            estratégica <br> baseada em informações relevantes! </span>
-
+        <span class="div_descricao-footer">
+          Explore todo o potencial do seu negócio com o poder da tomada de
+          decisão estratégica <br />
+          baseada em informações relevantes!
+        </span>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>
 
 <script>
+  var mensagem = "";
 
-var mensagem = ""
+  function exibir() {
+    p_dados.innerHTML = mensagem;
+  }
 
-function exibir() {
-    p_dados.innerHTML = mensagem
-}
+  function analisar() {
+    // declaração de variaveis
 
-function analisar() {
-
-    var anual = Number(input_anual.value)
-    var mensal = Number(input_mensal.value)
-    var sinistro = Number(input_sinistros.value)
+    var anual = Number(input_anual.value);
+    var sinistro = Number(input_sinistros.value);
     var selectDados = select_dados.value;
+    var melhora = ""    
+    var taxaSinistralidade = ""
+    var sinistroLimite = anual * 0.75
     var qualidadeDados = 0;
-    
-    if (mensal != 0 || anual != 0 || sinistro != 0 || selectDados != "#") {
-        
-        var lucro_m = mensal * 0.20
-        var lucro_a = anual * 0.20
-        var sinistro_porc = 0
-        
-        calculadora_part1.style.display = "none"
-        calculadora_part2.style.display = "block"
-        
-        if(selectDados == '#'){
-        } else if(selectDados =='nunca'){
-            qualidadeDados = 0;
-        } else if(selectDados =='asVezes'){
-            qualidadeDados = 25;
-        } else if(selectDados =='quaseSempre'){
-            qualidadeDados = 50;
-        } else{
-            qualidadeDados = 100;
-        }
+    var perdaAtual = 0
+    var prejuizoAnual = 0    
+    var prejuizoMensal = 0    
+    // Verifica se todos os dados, esão preenchidos
 
-        if (anual == 0 ) {
-            anual = mensal * 12
-        }
-        
-        // VALORES CALCULADOS
-        
-        // QUANTOS PORCENTOS DA RECEITA A SEGURADORA PERDE DEVIDO A QUALIDADE ÁS VEZES DUVIDOSAS DOS DADOS ADQUIRIDOS
-        
-        /* 25 = perda quando a qualidade é 0 (pior caso).
-        e a qualidade for 0 -> perda = 25% (pior caso)
-        
-        Se a qualidade for 100 -> perda = 15% (melhor caso)
-        Ou seja: quanto maior a qualidade, menor a perda. A diferença entre pior e melhor é 10 pontos percentuais (25 − 15 = 10).
-        
-        qualidadeDados / 100 transforma o valor 0–100 em 0–1.
-        
-        o número 10 é multiplicado, pq ele é um parametro realista do quanto a empresa ainda pode perder independente se foi por dados ruins ou não
-        
-        Subtrai de 25 -> quanto maior a qualidade, maior o valor subtraído, menor a perda. */
-        
-        var perdaPercentual = 25 - ((qualidadeDados /100) * 10);
-        
-        //QUANTO A SEGURADA PERDA DA SUA RECEITA UTILIZANDO A SUA RENDA ANUAL E A PERDA PERCENTUAL CALCULADA ANTES
-        var perdaAtual = anual * (perdaPercentual / 100);
-        
-        //QUANTO A SEGURADORA NÃO VAI PERDER COM A INTEGRAÇÃO DO SISTEMA
-        var perdaComVagasIQ = anual * 0.08;
-        
-        //A ECONOMIA QUE A SEGURADORA PODE TER COMPARANDO A SUA PERDA COM OQ ELE NÃO VAI PERDER COM O NOSSO PRODUTO
-        var economia = perdaAtual - perdaComVagasIQ;
-        
-        // SÓ TRANSFORMANDO A VARIÁVEL ECONOMIA EM PORCENTAGEM
-        var economiaPercentual = (economia / perdaAtual) * 100;
-        
-        if ((mensal != 0 && anual == 0) || (mensal != 0 && anual != 0) && (sinistro != 0)) {
-            lucro_a = lucro_m * 12
-            sinistro_porc = (sinistro * 100) / (mensal * 12)
-            mensagem = `
-                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
-                        <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
-                        <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
-                        <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros </b> <br> <br>
-                        Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
-                        💸 Perda Atual: R$ ${perdaAtual} <br>             
-                        🚀 Com as VagasIQ a sua perda diminui em: R$ ${perdaComVagasIQ} <br>
-                        💰 No final, ao ano você economiza: R$ ${economia} (+${economiaPercentual.toFixed(2)}%) <br> <br>
-                        Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
-                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
-                    `
-        } else if (anual != 0 && mensal == 0 && sinistro != 0) {
-            sinistro_porc = (sinistro * 100) / anual
-            lucro_m = lucro_a / 12
-            mensagem = `
-                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br>
-                        <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
-                        <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
-                        <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros, mas isso pode mudar </b> <br> <br>
-                        Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
-                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
-                        Hoje seus ados são ${selectDados} confiaveis <br>
-                        💸 Perda Atual: R$ ${perdaAtual} <br>             
-                        🚀 Com as VagasIQ a sua perda diminui em: R$ ${perdaComVagasIQ} <br>
-                        💰 No final, ao ano você economiza: R$ ${economia} (+${economiaPercentual.toFixed(2)}%)
-                    `
-                }
+    if (anual != 0 && sinistro != 0 && selectDados != "#") {
+      var sinistroPorcentagem = 0;
 
+      // Muda a vizualização para tela de dados
+
+      calculadora_part1.style.display = "none";
+      calculadora_part2.style.display = "block";
+
+      // Faz a verifição de qualidade de dados
+
+      if (selectDados == "nunca") {
+        prejuizoAnual = anual * 0.25
+        melhora = "25%"
+        qualidadeDados = 0;
+    } else if (selectDados == "as vezes") {
+        prejuizoAnual = anual * 0.20
+        melhora = "20%"
+        qualidadeDados = 33;
+    } else if (selectDados == "raramente") {
+        prejuizoAnual = anual * 0.15
+        melhora = "15%"
+        qualidadeDados = 66;
+    } else {
+        if (sinistro < sinistroLimite) {
+          taxaSinistralidade = "Bom"
+        } else if (sinistro == sinistroLimite) {
+          taxaSinistralidade = "no limite"
         } else {
-            alert(`
+          taxaSinistralidade = "Ruim"
+        }
+        qualidadeDados = 100;
+      }
+
+      if (anual != 0 && sinistro != 0 && (selectDados != "sempre" && selectDados != "quase sempre")) {
+        prejuizoMensal = prejuizoAnual / 12
+        sinistroPorcentagem = (sinistro * 100) / anual;
+        perdaAtual = sinistro + prejuizoAnual 
+        Lucro = sinistro - prejuizoAnual
+        LucroPorcentagem = (Lucro * 100) / anual
+        mensagem = `
+                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
+                        <b>Lucro Mensal para R$: ${prejuizoMensal.toFixed(2)}</b> <br>
+                        <b>Lucro Anual para R$: ${prejuizoAnual.toFixed(2)}</b> <br> <br>
+                        <b>Hoje em dia você perde ${sinistroPorcentagem.toFixed(2)}% com sinistros </b> <br> <br>
+                        Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
+                        💸 Perda Atual: <b>R$ ${perdaAtual}</b> por ano <br>             
+                        🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${Lucro} </b> <br>
+                        💰 No final, ao ano você economiza <b>${LucroPorcentagem.toFixed(2)}%</b> <br> <br>
+                        Estes valores representam uma melhoria aproximada de <b>${melhora} na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+                    `;
+      } else if (anual != 0 && sinistro != 0 && (selectDados == "sempre" || selectDados == "quase sempre") && taxaSinistralidade != "Bom") {
+            sinistroPorcentagem = (sinistro * 100) / anual;
+            mensagem = `
+                        🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
+                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
+                        Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaSinistralidade}</b><br> baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 70% e sua porcentagem <br> esta em <b> ${sinistroPorcentagem}%. </b>. <br>
+                        Implemente agora nossa <b>solução</b> e venha ter acesso <br> agora a nossa rede de dados!!! <br> <br>
+                    `;
+      } else {
+            sinistroPorcentagem = (sinistro * 100) / anual;
+            mensagem = `
+                        🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
+                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaSinistralidade}</b>, baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 70%<br> e sua porcentagem esta em <b> ${sinistroPorcentagem}%. </b>. <br> <br>
+                        Então parabens, você esta acima da media. <br>
+                        Se quiser melhorar ainda mais. Implemente agora nossa <b>solução</b><br> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+                    `; 
+      
+      }
+    
+    } else {
+
+        alert(`
                 Erro: Credenciais faltando
                     Verifique se colocou o valor anual ou mensal 
                     Verifique se colocou o valor do sinistro 
                     Verifique se avaliou seus riscos
-            `)
-        }
-        
-        exibir()
+            `);
+      }
+
+      // Chama a função de exibição
+      exibir();
 
 }
-    
-function voltar() {
-    calculadora_part1.style.display = "block"
-    calculadora_part2.style.display = "none"
-}
-    
+
+  function voltar() {
+    calculadora_part1.style.display = "block";
+    calculadora_part2.style.display = "none";
+  }
 </script>
