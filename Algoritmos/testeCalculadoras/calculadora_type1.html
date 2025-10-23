@@ -96,26 +96,26 @@
         var qualidadeDados = 0;
 
         if(selectDados == '#'){
-            div_fraseSelect.innerHTML =`<p style="color:red">Escolha uma opção!</p>`
+            mensagem += `<p style="color:red">Escolha uma opção!</p>`
         }
         else if(selectDados =='nunca'){
             qualidadeDados = 0;
-            div_fraseSelect.innerHTML =`<p>Quase sempre tenho que corrigir informações</p>`
+            mensagem += `<p>Quase sempre tenho que corrigir informações</p>`
 
         }
         else if(selectDados =='asVezes'){
             qualidadeDados = 25;
-            div_fraseSelect.innerHTML =`<p>Algumas vezes preciso revisar os dados</p>`
+            mensagem += `<p>Algumas vezes preciso revisar os dados</p>`
 
         }
         else if(selectDados =='quaseSempre'){
             qualidadeDados = 50;
-            div_fraseSelect.innerHTML =`<p>Raramente preciso revisar</p>`
+            mensagem += `<p>Raramente preciso revisar</p>`
  
         }
         else{
             qualidadeDados = 100;
-            div_fraseSelect.innerHTML =`<p>Praticamente nunca preciso revisar</p>`
+            mensagem += `<p>Praticamente nunca preciso revisar</p>`
 
         }
 
@@ -153,7 +153,7 @@
         if(input_rendaAnual.value != "" && selectDados !="#")
         {
 
-            div_conteudo_tela2.innerHTML=`
+            mensagem +=`
             💸 Perda Atual
             <br>	    	   
             R$ ${perdaAtual}	
@@ -167,11 +167,9 @@
             R$ ${economia} 
             (+${economiaPercentual.toFixed(2)}%)
             
-            
-            `;
-        }
-        else{
-            div_fraseErroReceita.innerHTML=`<p>O campo não foi preenchido</p>` 
+            `
+        } else{
+            mensagem +=`<p>O campo não foi preenchido</p>` 
         }
 
     

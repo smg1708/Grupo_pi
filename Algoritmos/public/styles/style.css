@@ -412,7 +412,7 @@ h4 {
     flex-direction: column;
 }
 
-.p1-calculadora-dados input, button {
+.p1-calculadora-dados input, button, select {
     border: none;
     width: 406px;
     height: 38px;

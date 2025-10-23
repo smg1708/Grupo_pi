@@ -56,6 +56,15 @@
                         <p> Informe o gasto com sinistros  anual </p>
                         <input type="number" id="input_sinistros">
 
+                        <p> Quando você precisa avaliar riscos, <br> seus dados estão confiáveis? </p>
+                        <select id="select_dados">
+                            <option value="#" id="#">Selecione uma opção </option>
+                            <option value="nunca">Nunca</option>
+                            <option value="asVezes">Às vezes</option>
+                            <option value="quaseSempre">Quase Sempre</option>
+                            <option value="sempre">Sempre</option>
+                        </select>
+
                         <button onclick="analisar()">Calcular</button>
 
                     </div>
@@ -107,59 +116,122 @@
 
 <script>
 
-    var mensagem = ""
+var mensagem = ""
 
-    function exibir() {
-        p_dados.innerHTML = mensagem
-    }
+function exibir() {
+    p_dados.innerHTML = mensagem
+}
 
-    function analisar() {
+function analisar() {
 
-        var anual = Number(input_anual.value)
-        var mensal = Number(input_mensal.value)
-        var sinistro = Number(input_sinistros.value)
+    var anual = Number(input_anual.value)
+    var mensal = Number(input_mensal.value)
+    var sinistro = Number(input_sinistros.value)
+    var selectDados = select_dados.value;
+    var qualidadeDados = 0;
+    
+    if (mensal != 0 || anual != 0 || sinistro != 0 || selectDados != "#") {
         
-        if (mensal != 0 || anual != 0) {
-            
         var lucro_m = mensal * 0.20
         var lucro_a = anual * 0.20
         var sinistro_porc = 0
         
         calculadora_part1.style.display = "none"
         calculadora_part2.style.display = "block"
+        
+        if(selectDados == '#'){
+        } else if(selectDados =='nunca'){
+            qualidadeDados = 0;
+        } else if(selectDados =='asVezes'){
+            qualidadeDados = 25;
+        } else if(selectDados =='quaseSempre'){
+            qualidadeDados = 50;
+        } else{
+            qualidadeDados = 100;
+        }
 
+        if (anual == 0 ) {
+            anual = mensal * 12
+        }
+        
+        // VALORES CALCULADOS
+        
+        // QUANTOS PORCENTOS DA RECEITA A SEGURADORA PERDE DEVIDO A QUALIDADE ÁS VEZES DUVIDOSAS DOS DADOS ADQUIRIDOS
+        
+        /* 25 = perda quando a qualidade é 0 (pior caso).
+        e a qualidade for 0 -> perda = 25% (pior caso)
+        
+        Se a qualidade for 100 -> perda = 15% (melhor caso)
+        Ou seja: quanto maior a qualidade, menor a perda. A diferença entre pior e melhor é 10 pontos percentuais (25 − 15 = 10).
+        
+        qualidadeDados / 100 transforma o valor 0–100 em 0–1.
+        
+        o número 10 é multiplicado, pq ele é um parametro realista do quanto a empresa ainda pode perder independente se foi por dados ruins ou não
+        
+        Subtrai de 25 -> quanto maior a qualidade, maior o valor subtraído, menor a perda. */
+        
+        var perdaPercentual = 25 - ((qualidadeDados /100) * 10);
+        
+        //QUANTO A SEGURADA PERDA DA SUA RECEITA UTILIZANDO A SUA RENDA ANUAL E A PERDA PERCENTUAL CALCULADA ANTES
+        var perdaAtual = anual * (perdaPercentual / 100);
+        
+        //QUANTO A SEGURADORA NÃO VAI PERDER COM A INTEGRAÇÃO DO SISTEMA
+        var perdaComVagasIQ = anual * 0.08;
+        
+        //A ECONOMIA QUE A SEGURADORA PODE TER COMPARANDO A SUA PERDA COM OQ ELE NÃO VAI PERDER COM O NOSSO PRODUTO
+        var economia = perdaAtual - perdaComVagasIQ;
+        
+        // SÓ TRANSFORMANDO A VARIÁVEL ECONOMIA EM PORCENTAGEM
+        var economiaPercentual = (economia / perdaAtual) * 100;
+        
         if ((mensal != 0 && anual == 0) || (mensal != 0 && anual != 0) && (sinistro != 0)) {
             lucro_a = lucro_m * 12
             sinistro_porc = (sinistro * 100) / (mensal * 12)
             mensagem = `
-            Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
-            <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
-            <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
-            <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros, mas isso pode mudar </b> <br> <br>
-            Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
-            Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!!
-            `
+                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
+                        <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
+                        <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
+                        <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros </b> <br> <br>
+                        Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
+                        💸 Perda Atual: R$ ${perdaAtual} <br>             
+                        🚀 Com as VagasIQ a sua perda diminui em: R$ ${perdaComVagasIQ} <br>
+                        💰 No final, ao ano você economiza: R$ ${economia} (+${economiaPercentual.toFixed(2)}%) <br> <br>
+                        Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+                    `
         } else if (anual != 0 && mensal == 0 && sinistro != 0) {
             sinistro_porc = (sinistro * 100) / anual
             lucro_m = lucro_a / 12
             mensagem = `
-                Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br>
-                <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
-                <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
-                <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros, mas isso pode mudar </b> <br> <br>
-                Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
-                Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!!
-                `
+                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br>
+                        <b>Lucro Mensal para R$: ${lucro_m.toFixed(2)}</b> <br>
+                        <b>Lucro Anual para R$: ${lucro_a.toFixed(2)}</b> <br> <br>
+                        <b>Hoje em dia você perde ${sinistro_porc.toFixed(2)}% com sinistros, mas isso pode mudar </b> <br> <br>
+                        Estes valores representam uma melhoria aproximada de <b>20% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+                        Hoje seus ados são ${selectDados} confiaveis <br>
+                        💸 Perda Atual: R$ ${perdaAtual} <br>             
+                        🚀 Com as VagasIQ a sua perda diminui em: R$ ${perdaComVagasIQ} <br>
+                        💰 No final, ao ano você economiza: R$ ${economia} (+${economiaPercentual.toFixed(2)}%)
+                    `
+                }
+
+        } else {
+            alert(`
+                Erro: Credenciais faltando
+                    Verifique se colocou o valor anual ou mensal 
+                    Verifique se colocou o valor do sinistro 
+                    Verifique se avaliou seus riscos
+            `)
         }
-    } else {
-        alert("Informe o valor mensal ou anual")
-    }
+        
         exibir()
-    }
 
-    function voltar() {
-        calculadora_part1.style.display = "block"
-        calculadora_part2.style.display = "none"
-    }
-
+}
+    
+function voltar() {
+    calculadora_part1.style.display = "block"
+    calculadora_part2.style.display = "none"
+}
+    
 </script>
