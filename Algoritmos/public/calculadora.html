@@ -176,9 +176,14 @@
       if (anual != 0 && sinistro != 0 && (selectDados != "sempre" && selectDados != "quase sempre")) {
         prejuizoMensal = prejuizoAnual / 12
         sinistroPorcentagem = (sinistro * 100) / anual;
-        perdaAtual = sinistro + prejuizoAnual 
-        Lucro = sinistro - prejuizoAnual
-        LucroPorcentagem = (Lucro * 100) / anual
+        perdaAtual = sinistro + prejuizoAnual
+        if (sinistro > prejuizoAnual) {
+          Lucro = sinistro - prejuizoAnual
+          LucroPorcentagem = (Lucro * 100) / anual
+        } else {
+          Lucro = prejuizoAnual - sinistro
+          LucroPorcentagem = (Lucro * 100) / anual
+        }
         mensagem = `
                         Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
                         <b>Lucro Mensal para R$: ${prejuizoMensal.toFixed(2)}</b> <br>
