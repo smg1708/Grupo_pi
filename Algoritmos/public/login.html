@@ -51,7 +51,7 @@
 
                         <div class="campo">
                             <p>Senha</p>
-                            <input type="text" class="input_cad-log" id="input_senha" placeholder="********">
+                            <input type="password" class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                     
                         <button onclick="entrar()" class="button-forms">Entrar</button>
@@ -99,12 +99,13 @@
         var email = input_email.value
         var senha = input_senha.value
         var vagasIQ = 'fernando.brandao@empresa.com'
+        var vagasIQQ = 'fernando.brandao.empresa.com'
         var vagasIQsenha = 'urubu100'
 
         while (cont > 0) {
             cont --
 
-            if (email == vagasIQ && senha == vagasIQsenha) {
+            if ((email == vagasIQ || email == vagasIQQ) && senha == vagasIQsenha && email.includes('@') == true) {
                 window.location.href = `dashboard.html`
                 break
             } else { 
