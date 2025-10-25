@@ -54,8 +54,8 @@
               <p>Informe o faturamento anual</p>
               <input type="number" id="input_anual" />
 
-              <p>Informe o gasto com sinistros anual</p>
-              <input type="number" id="input_sinistros" />
+              <p>Informe o gasto com perdas anual</p>
+              <input type="number" id="input_perdas" />
 
               <p>
                 Quando você precisa avaliar os riscos, os dados <br> são confiáveis?
@@ -127,20 +127,18 @@
     // declaração de variaveis
 
     var anual = Number(input_anual.value);
-    var perda = Number(input_sinistros.value);
+    var perda = Number(input_perda.value);
     var selectDados = select_dados.value;
     var perdaMedia = anual * 0.598
     var mensal = anual / 12
     var qualidadeDados = 0;
     var perdaAtual = 0
-    var lucroNovo = 0    
+    var AcrescimoAnual = 0    
     var AcrescimoMensal = 0
     var lucroNovo = 0
     var prejuLucro = 0
     var prejuNovoLucro =  0
     var lucroNovoPorcentagem = 0
-    var perdaDiminui = 0
-    var aumentoLucro = 0
     
     var melhora = ""    
     var taxaPerda = ""
@@ -159,19 +157,16 @@
       // Faz a verifição de qualidade de dados
 
       if (selectDados == "nunca") {
-        lucroNovo = lucroAnual * 1.25
-        aumentoLucro = lucroAnual * 0.25
-        melhora = 25
+        AcrescimoAnual = lucroAnual * 1.25
+        melhora = "25%"
         qualidadeDados = 0;
     } else if (selectDados == "raramente") {
-        lucroNovo = lucroAnual * 1.20
-        aumentoLucro = lucroAnual * 0.25
-        melhora = 20
+        AcrescimoAnual = lucroAnual * 1.20
+        melhora = "20%"
         qualidadeDados = 33;
     } else if (selectDados == "as vezes") {
-        lucroNovo = lucroAnual * 1.15
-        aumentoLucro = lucroAnual * 0.25
-        melhora = 15
+        AcrescimoAnual = lucroAnual * 1.15
+        melhora = "15%"
         qualidadeDados = 66;
     } else {
         if (perda < perdaMedia) {
@@ -184,46 +179,43 @@
         qualidadeDados = 100;
       }
       
-      AcrescimoMensal = lucroNovo / 12
+      AcrescimoMensal = AcrescimoAnual / 12
 
       if (selectDados != "sempre" && selectDados != "quase sempre") {
-        perdaDiminui = aumentoLucro - perda
+        perdaPorcentagem = (perda * 100) / anual;
+        perdaDiminui = AcrescimoAnual - perda
+        lucroNovo =  lucroAnual + AcrescimoAnual
         lucroNovoPorcentagem = (perda * 100) / lucroNovo
-        prejuLucro = perda / lucroAnual * 100
+        prejuLucro = perda / lucro * 100
         prejuNovoLucro = perda / lucroNovo * 100
-        diferencaPorcentagem = prejuLucro - lucroNovoPorcentagem
 
         lucroNovo = Math.floor(lucroNovo * (100 + prejuLucro - prejuNovoLucro) / 100)
 
         mensagem = `
-                        Seu Lucro hoje em dia, fica entorno de: <br><br>
-                        <b>Lucro Mensal Comum para R$ ${Math.floor(mensal)}</b> <br>
-                        <b>Lucro Anual Comum para R$ ${Math.floor(anual)}</b> <br> <br>
-                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu Lucro para: <br> <br> 
-                        <b>Lucro Mensal para R$: ${Math.floor(AcrescimoMensal)}</b> <br>
-                        <b>Lucro Anual para R$: ${Math.floor(lucroNovo)}</b> <br> <br>
-                        <b>Hoje em dia você perde ${prejuLucro.toFixed(1)}% com perdas </b> <br> <br>
-                        <b>Com as VagasIQ você perde ${prejuNovoLucro.toFixed(1)}% com perdas </b> <br> <br>
+                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu: <br> <br> 
+                        <b>Lucro Mensal para R$: ${AcrescimoMensal.toFixed(2)}</b> <br>
+                        <b>Lucro Anual para R$: ${AcrescimoAnual.toFixed(2)}</b> <br> <br>
+                        <b>Hoje em dia você perde ${perdaPorcentagem.toFixed(2)}% com perdas </b> <br> <br>
                         Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
                         💸 Perda Atual: <b>R$ ${perda}</b> por ano <br>             
                         🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${perdaDiminui} </b> <br>
-                        💰 No final, ao ano você economiza <b>${diferencaPorcentagem.toFixed(1)}%</b> <br> <br>
-                        Estes valores representam uma melhoria aproximada de <b>${melhora}% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+                        💰 No final, ao ano você economiza <b>${lucroNovoPorcentagem.toFixed(2)}%</b> <br> <br>
+                        Estes valores representam uma melhoria aproximada de <b>${melhora} na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
                         Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
                     `;
-      } else if ((selectDados == "sempre" || selectDados == "quase sempre") && taxaPerda != "Bom") {
+      } else if (anual != 0 && perda != 0 && (selectDados == "sempre" || selectDados == "quase sempre") && taxaPerda != "Bom") {
             perdaPorcentagem = (perda * 100) / anual;
             mensagem = `
                         🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
                         Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
-                        Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b><br> baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 70% e sua porcentagem <br> esta em <b> ${perdaPorcentagem}%. </b>. <br>
+                        Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(2)}</b><br> baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 70% e sua porcentagem <br> esta em <b> ${perdaPorcentagem}%. </b>. <br>
                         Implemente agora nossa <b>solução</b> e venha ter acesso <br> agora a nossa rede de dados!!! <br> <br>
                     `;
       } else {
             perdaPorcentagem = (perda * 100) / anual;
             mensagem = `
                         🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
-                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b>, baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 70%<br> e sua porcentagem esta em <b> ${perdaPorcentagem}%. </b>. <br> <br>
+                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(2)}</b>, baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 70%<br> e sua porcentagem esta em <b> ${perdaPorcentagem}%. </b>. <br> <br>
                         Então parabens, você esta acima da media. <br>
                         Se quiser melhorar ainda mais. Implemente agora nossa <b>solução</b><br> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
                     `; 
