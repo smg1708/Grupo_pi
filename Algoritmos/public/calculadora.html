@@ -48,19 +48,21 @@
         </div>
 
         <div class="p1-calculadora-interface">
-          <div class="p1-calculadora-box">
-            <div class="p1-calculadora-dados">
+          <div class="div_forms">
 
+            <div class="campo">
               <p>Informe o faturamento anual</p>
-              <input type="number" id="input_anual" />
+              <input type="number" id="input_anual" class="input_cad-log" />
+            </div>
 
+            <div class="campo">
               <p>Informe o gasto com sinistros anual</p>
-              <input type="number" id="input_sinistros" />
+              <input type="number" id="input_sinistros" class="input_cad-log" />
+            </div>
 
-              <p>
-                Quando você precisa avaliar os riscos, os dados <br> são confiáveis?
-              </p>
-              <select id="select_dados">
+            <div class="campo">
+              <p>Quando você precisa avaliar os riscos, os dados são confiáveis?</p>
+              <select id="select_dados" class="input_cad-log">
                 <option value="#" id="#">Selecione uma opção</option>
                 <option value="nunca">Nunca</option>
                 <option value="raramente">Raramente</option>
@@ -68,9 +70,10 @@
                 <option value="quase sempre">Quase sempre</option>
                 <option value="sempre">Sempre</option>
               </select>
-
-              <button onclick="analisar()">Calcular</button>
             </div>
+
+              <button class="button-forms" onclick="analisar()">Calcular</button>
+
           </div>
         </div>
       </div>
@@ -87,14 +90,12 @@
         </div>
 
         <div class="p2-calculadora-interface">
-          <div class="p2-calculadora-box">
-            <div class="p2-calculadora-dados">
-              <p id="p_dados"></p>
-
-              <button onclick="voltar()">Voltar</button>
-            </div>
+          <div class="div_forms">
+              <span id="span_mensagem_dados"></span>
+              <button class="button-forms" onclick="voltar()">Voltar</button>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -120,7 +121,7 @@
   var mensagem = "";
 
   function exibir() {
-    p_dados.innerHTML = mensagem;
+    span_mensagem_dados.innerHTML = mensagem;
   }
 
   function analisar() {

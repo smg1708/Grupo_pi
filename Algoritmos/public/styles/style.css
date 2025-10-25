@@ -367,18 +367,19 @@ h4 {
 
 
 /* Calculadora */
+.p1-calculadora-interface select {
+    width: 420px;
+}
+
 .p1-calculadora-interface, .p2-calculadora-interface{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 20px;
-    margin-bottom: 95px;
 }
 .div_container-calculadora .titulo{
     text-align: center;
-        margin-top: 90px;
-    padding: 20px;
+    margin-top: 40px;
     
 }
 
@@ -388,39 +389,12 @@ h4 {
 
 }
 
-.p1-calculadora-box, .p2-calculadora-box {
-    padding:50px;
-    border-radius: 10px;
-    background-color: #f4f4f4;
-    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-    }
-
-
 .p1-calculadora-dados {
     font-size: 18px;
     display: flex;
     flex-direction: column;
 }
 
-.p1-calculadora-dados input, button, select {
-    border: none;
-    width: 406px;
-    height: 38px;
-    border-radius: 5px;
-    font-size: 15px;
-
-}
-
-.p1-calculadora-dados   button {
-    margin-top: 20px;
-    color: white;
-    background-color: black;
-    height: 50px;
-    }
 
 .p1-calculadora-dados p {
     margin-right: 30px;
@@ -435,26 +409,6 @@ h4 {
     align-items: center ;
     justify-content: center ;
 }
-.p2-calculadora-dados input {
-    border-color: white;
-    height: 35px;
-    border-width: 0px;
-    width: 85%;
-}
-
-
-
-.p2-calculadora-dados p  {
-    margin-right: 70px;
-    color: #0c0c0c;
-}
-
-.p2-calculadora-dados   button {
-    margin-top: 20px;
-    color: white;
-    background-color: black;
-    height: 50px;
-    }
 
 /*Fim Calculadora*/
 
