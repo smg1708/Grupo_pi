@@ -41,8 +41,7 @@
                     <h3>Entre com suas credencias para analisar as informações!</h3>
                 </div>
 
-                <div class="div_forms">
-                    <div id="div_campo1" style="display: block;">
+                <div class="div_forms" id="div_campo1">
 
                         <div class="campo">
                             <p>Email</p>
@@ -54,18 +53,14 @@
                             <input type="password" class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                     
-                        <button onclick="entrar()" class="button-forms">Entrar</button>
-                        
+                        <button id="button_entrar" onclick="entrar()" class="button-forms">Entrar</button>
+
+                        <span id="span_mensagem_erro" style="display: none; color: red; font-size: 12px;">Você Errou a senha 3 vezes, aguarde e tente novamente!</span>
+
+                    <div class="login-opcoes">
+                        <h4>Esqueceu a senha? <a href="">Clique aqui</a></h4>
+                        <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
                     </div>
-                    
-                    <div id="div_campo2" style="display: none;">
-
-                        <p>Você Errou a senha 5 vezes, aguarde um pouco e tente novamente</p>
-
-                    </div>
-
-                    <h4>Esqueceu a senha? <a href="">Clique aqui</a></h4>
-                    <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
 
             </div>
         </div>
@@ -93,33 +88,31 @@
 
 <script>
 
-    var cont = 5
+    var cont = 3;
 
     function entrar() {
-        var email = input_email.value
-        var senha = input_senha.value
-        var vagasIQ = 'fernando.brandao@empresa.com'
-        var vagasIQQ = 'fernando.brandao.empresa.com'
-        var vagasIQsenha = 'urubu100'
+        var email = input_email.value;
+        var senha = input_senha.value;
+        var vagasIQ = 'fernando.brandao@empresa.com';
+        var vagasIQQ = 'fernando.brandao.empresa.com';
+        var vagasIQsenha = 'urubu100';
 
         while (cont > 0) {
-            cont --
+            cont--;
 
-            if ((email == vagasIQ || email == vagasIQQ) && senha == vagasIQsenha && email.includes('@') == true) {
+            if ((email == vagasIQ || email == vagasIQQ) && senha == vagasIQsenha && email.includes('@')) {
                 window.location.href = `dashboard.html`
                 break
             } else { 
                 alert(`Email ou senha incorretos! Tente novamente\n Tentativas restantes ${cont}`)
                 break
             }
-
-
             
         }
 
         if (cont <= 0) {
-            div_campo1.style.display = "none"
-            div_campo2.style.display = "block"
+            button_entrar.disabled = true;
+            span_mensagem_erro.style.display = "block"
         }
     }
 </script>
