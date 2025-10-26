@@ -7,42 +7,47 @@ CREATE TABLE condutor (
 	genero CHAR(1) NOT NULL,
 	CONSTRAINT cnk_genero 
 		CHECK (genero IN ('M', 'F','O')),
-	dt_nasc DATE NOT NULL
-);
-
-CREATE TABLE veiculo (
-	id_veiculo INT AUTO_INCREMENT,
-	fk_condutor INT,
-    PRIMARY KEY (id_veiculo, fk_condutor),
-	ano YEAR NOT NULL,
-	modelo VARCHAR(45) NOT NULL,
+	dt_nasc DATE NOT NULL,
+    ano_veiculo YEAR NOT NULL,
+    modelo_veiculo VARCHAR(45) NOT NULL,
 	tipo VARCHAR(45),
 		CONSTRAINT chk_tipo
         CHECK (tipo IN('Carro', 'Moto', 'Caminhão')),
-	seguro TINYINT,
-	CONSTRAINT fk_condutor 
-		FOREIGN KEY (fk_condutor)
-		REFERENCES condutor(id_condutor)
+	seguro TINYINT
 );
-    
+   
 CREATE TABLE seguradora (
 	id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(80),
 	senha VARCHAR(20) NOT NULL,
 	cnpj CHAR(14) UNIQUE NOT NULL,
 	email VARCHAR(80) UNIQUE NOT NULL,
-	telefone VARCHAR(20) NOT NULL
+	telefone VARCHAR(20) NOT NULL,
+    codigo CHAR(6) NOT NULL
+);
+
+CREATE TABLE usuario (
+	id_usuario INT AUTO_INCREMENT,
+    fk_seguradora INT,
+    CONSTRAINT fk_seguradora
+		FOREIGN KEY (fk_seguradora)
+		REFERENCES seguradora(id_seguradora),
+    nome VARCHAR(45) NOT NULL,
+    sobrenome VARCHAR(45) NOT NULL,
+    email VARCHAR(80) NOT NULL,
+    telefone CHAR(11),
+    PRIMARY KEY (id_usuario, fk_seguradora)
 );
 
 CREATE TABLE localizacao (
 	id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
-	logradouro VARCHAR(80) NOT NULL,
+	logradouro VARCHAR(45) NOT NULL,
 	cidade VARCHAR(45) NOT NULL,
 	bairro VARCHAR(45) NOT NULL,
     acidentes INT
 );
 
-CREATE TABLE vagas (
+CREATE TABLE vaga (
 	id_vaga INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(100) NOT NULL,
 	fk_local INT,
@@ -57,7 +62,7 @@ CREATE TABLE sensor (
 	fk_vaga INT,
 	CONSTRAINT fk_vaga 
 		FOREIGN KEY (fk_vaga)
-		REFERENCES vagas(id_vaga)
+		REFERENCES vaga(id_vaga)
 );
 
 CREATE TABLE registro (
@@ -73,31 +78,24 @@ CREATE TABLE registro (
 		REFERENCES condutor(id_condutor)
 );
 
-INSERT INTO condutor (genero, dt_nasc) VALUES
-	('M', '1990-05-12'),
-	('F', '1985-11-23'),
-	('O', '2000-02-14'),
-	('F', '1995-07-30'),
-	('M', '1988-12-01');
-    
-INSERT INTO veiculo (fk_condutor, ano, modelo, tipo, seguro) VALUES
-	(2, 2018, 'Onix', 'Carro', 1),
-	(3, 2020, 'HB20', 'Carro', 0),
-	(4, 2017, 'Honda Biz', 'Moto', 1),
-	(5, 2019, 'Scania', 'Caminhão', 1),
-	(1, 2012, 'Avelloz', 'Moto', 0); 
+INSERT INTO condutor (genero, dt_nasc, ano_veiculo, modelo_veiculo, tipo, seguro) VALUES
+	('M', '1990-05-12', 2018, 'Onix', 'Carro', 1),
+	('F', '1985-11-23', 2020, 'HB20', 'Carro', 0),
+	('O', '2000-02-14', 2017, 'Honda Biz', 'Moto', 1),
+	('F', '1995-07-30', 2019, 'Scania', 'Caminhão', 1),
+	('M', '1988-12-01', 2012, 'Avelloz', 'Moto', 0);
 
-INSERT INTO seguradora (nome, senha, cnpj, email, telefone) VALUES
-	('Taui Seguros', '12345678', '52865433233103', 'contato@tauiseguros.com', '11987654321'),
-	('SeguroPorto', '87654321', '84765433233103', 'contato@seguroporto.com', '11912345678');
+INSERT INTO seguradora (nome, senha, cnpj, email, telefone, codigo) VALUES
+	('Taui Seguros', '12345678', '52865433233103', 'contato@tauiseguros.com', '11987654321', 'JS36T8'),
+	('SeguroPorto', '87654321', '84765433233103', 'contato@seguroporto.com', '11912345678', 'ME94L3');
     
-INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
-	('Av. Paulista', 'São Paulo', 'Bela Vista'),
-	('Rua Augusta', 'São Paulo', 'Consolação'),
-	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi'),
-	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena');
+INSERT INTO localizacao (logradouro, cidade, bairro, acidentes) VALUES
+	('Av. Paulista', 'São Paulo', 'Bela Vista', 2),
+	('Rua Augusta', 'São Paulo', 'Consolação', 5),
+	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi', 0),
+	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena', 1);
     
-INSERT INTO vagas (nome, fk_local) VALUES
+INSERT INTO vaga (nome, fk_local) VALUES
 	('A1', 1),
 	('A2', 1),
 	('B3', 2),
@@ -124,12 +122,12 @@ INSERT INTO registro (dt_registro, situacao, fk_sensor, fk_condutor) VALUES
 SHOW TABLES;
 
 -- Disponibilidade das vagas de determinada localização
-SELECT vagas.nome AS Vaga,
+SELECT vaga.nome AS Vaga,
 	CASE
 		WHEN registro.situacao = 1 THEN 'Ocupado'
         ELSE 'Livre'
 	END AS 'Situação'
-FROM localizacao JOIN vagas ON id_localizacao = fk_local
+FROM localizacao JOIN vaga ON id_localizacao = fk_local
     JOIN sensor ON id_vaga = fk_vaga
     JOIN registro ON id_sensor = fk_sensor
 WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
@@ -138,21 +136,21 @@ WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
 -- Relação entre o condutor e o seu veículo
 SELECT condutor.genero AS Gênero_Condutor,
     condutor.dt_nasc AS Data_Nascimento_Condutor,
-    veiculo.ano AS Ano_Veículo,
-    veiculo.modelo AS Modelo_Veículo,
-    veiculo.tipo AS Tipo_Veículo,
+    condutor.ano_veiculo AS Ano_Veículo,
+    condutor.modelo_veiculo AS Modelo_Veículo,
+    condutor.tipo AS Tipo_Veículo,
     CASE
-		WHEN veiculo.seguro = '1' THEN 'Tem seguro'
+		WHEN condutor.seguro = '1' THEN 'Tem seguro'
 		ELSE 'Não tem'
     END AS 'Seguro'
-FROM condutor JOIN veiculo
-	ON condutor.id_condutor = veiculo.fk_condutor;
-
+FROM condutor JOIN registro
+	ON condutor.id_condutor = registro.fk_condutor;
+    
 
 -- Todas as vagas de uma determinada rua
-SELECT vagas.nome AS vaga, 
+SELECT vaga.nome AS vaga, 
 	logradouro
-FROM vagas JOIN localizacao
+FROM vaga JOIN localizacao
     ON fk_local = id_localizacao 
     JOIN sensor ON id_vaga = fk_vaga
     JOIN registro ON id_sensor = fk_sensor
@@ -162,38 +160,34 @@ WHERE fk_local = 1;
 -- Relação do condutor e as demais tabelas
 SELECT c.genero AS Genero,
 	c.dt_nasc AS Data_Nascimento,
-	v.modelo AS Veiculo,
-	v.ano AS Ano,
-	v.tipo AS Tipo,
+	c.modelo_veiculo AS Veiculo,
+	c.ano_veiculo AS Ano,
+	c.tipo AS Tipo,
 	r.dt_registro AS Data,
 	s.estado_sensor AS Estado,
-	vg.nome AS Vaga,
+	v.nome AS Vaga,
 	l.logradouro AS Localizacao
 FROM registro AS r
 JOIN condutor AS c
 	ON r.fk_condutor = c.id_condutor
-JOIN veiculo AS v
-	ON c.id_condutor = v.fk_condutor
 JOIN sensor AS s
 	ON r.fk_sensor = s.id_sensor
-JOIN vagas AS vg
-	ON s.fk_vaga = vg.id_vaga
+JOIN vaga AS v
+	ON s.fk_vaga = v.id_vaga
 JOIN localizacao AS l
-	ON vg.fk_local = l.id_localizacao;
+	ON v.fk_local = l.id_localizacao;
 
     
 -- Relação do condutor e o veículo e registro com um tipo de veículo específico
 SELECT c.genero AS 'Gênero',
-	v.ano AS 'Ano do veículo',
-    v.modelo AS 'Modelo do veículo',
-    v.tipo AS 'Tipo de veículo',
+	c.ano_veiculo AS 'Ano do veículo',
+    c.modelo_veiculo AS 'Modelo do veículo',
+    c.tipo AS 'Tipo de veículo',
     r.situacao AS 'Situacao',
     r.dt_registro AS 'Data do registro'
-    FROM condutor AS c JOIN veiculo AS v
-    ON v.fk_condutor = c.id_condutor
-    JOIN registro AS r 
+    FROM condutor AS c JOIN registro AS r
     ON r.fk_condutor = c.id_condutor
-    WHERE v.tipo = 'carro';
+    WHERE c.tipo = 'carro';
 
 
 -- Relação entre o genêro e os registros
