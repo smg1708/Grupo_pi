@@ -34,34 +34,38 @@
         
             <div class="titulo">
                 <h2>Crie a sua conta</h2>
-                    <h3>Crie uma conta para sua Instituição e tenha acesso a<br> infomações relevantes para o seu negócio</h3>
+                    <h3>Crie uma conta para sua Instituição e tenha acesso a<br> infomaçõe  s relevantes para o seu negócio</h3>
                 </div>
                     <div class="div_forms">
+                         <div class="campo">
+                            <p>Código de acesso <span style="color: red; font-weight: bold;" id="erroCodigo"></span></p>
+                            <input type="text" class="input_cad-log"  id="input_codigo" placeholder="Código">
+                        </div>
                         <div class="campo">
-                            <p>Nome</p>
+                            <p>Nome <span style="color: red; font-weight: bold;" id="erroNome"></span></p>
                             <input type="text" class="input_cad-log"  id="input_nome" placeholder="Seu Nome">
                         </div>
                         <div class="campo">
-                            <p>CNPJ</p>
+                            <p>CNPJ<span style="color: red; font-weight: bold;" id="erroCnpj"></span></p>
                             <input type="number"  class="input_cad-log" id="input_cnpj" placeholder="01.020.304/0506-07">
                         </div>
                         <div class="campo">
-                            <p>Email</p>
+                            <p>Email<span style="color: red; font-weight: bold;" id="erroEmail"></span></p>
                             <input type="text"  class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
                         </div>
                         <div class="campo">
-                            <p>Telefone</p>
+                            <p>Telefone Celular<span style="color: red; font-weight: bold;" id="erroTel"></span></p>
                             <input type="text"  class="input_cad-log" id="input_telefone" placeholder="(11) 12345-6789">
                         </div>
                         <div class="campo">
-                            <p>Senha</p>
+                            <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
                             <input type="text"  class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                         <div class="campo">
-                            <p>Confirme a senha</p>
-                            <input type="text"  class="input_cad-log"  id="input_confirme" placeholder="********">
+                            <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
+                            <input type="text"  class="input_cad-log"  id="input_confirmacao" placeholder="********">
                         </div>
-                        <button onclick="criar()" class="button-forms">Cadastrar</button>
+                        <button onclick="cadastrar()" class="button-forms">Cadastrar</button>
                         <h4>Já possui uma conta? <a href="login.html">Clique aqui</a></h4>
                         
                     </div>
@@ -88,5 +92,67 @@
 </html>
 
 <script>
+function cadastrar(){
+    var codigo = input_codigo.value;
+    var nome = input_nome.value;
+    var cnpj = input_cnpj.value;
+    var telefone = input_telefone.value;
+    var email = input_email.value;
+    var senha = input_senha.value;
+    var confirmacao = input_confirmacao.value;
+    var tamanhoCNPJ = cnpj.length;
 
+    
+
+        if(codigo == ""){
+            erroCodigo.innerHTML =`*`
+        }
+        else if(nome =="")
+        {
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML="*"
+        }
+        else if(tamanhoCNPJ <15 || tamanhoCNPJ>15)
+        {
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML="*"
+        }
+        else if(telefone.length <11 || telefone.length >11){
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroTel.innerHTML ="*"
+        }
+        else if(!email.includes("@") ){
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroTel.innerHTML =""
+            erroEmail.innerHTML ="*"
+        }
+        else if(confirmacao!=senha){
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroTel.innerHTML =""
+            erroEmail.innerHTML =""
+            erroSenha.innerHTML ="*"
+            erroConfirmacao.innerHTML ="*"
+
+        }
+    else{
+            erroCodigo.innerHTML =``
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroTel.innerHTML =""
+            erroEmail.innerHTML =""
+            erroSenha.innerHTML =""
+            erroConfirmacao.innerHTML =""
+
+        alert("Cadastro feito com sucesso!")
+    }
+    
+
+}
 </script>
