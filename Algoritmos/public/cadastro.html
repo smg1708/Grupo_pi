@@ -124,7 +124,7 @@ function cadastrar(){
             erroCnpj.innerHTML=""
             erroTel.innerHTML ="*"
         }
-        else if(!email.includes("@") ){
+        else if(email.includes("@") == false ){
             erroCodigo.innerHTML =``
             erroNome.innerHTML=""
             erroCnpj.innerHTML=""
