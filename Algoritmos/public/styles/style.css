@@ -162,7 +162,7 @@ body {
 
 #div_conteudo-home .div_container-valores p {
     width: 50%;
-    font-size: 18px;
+    font-size: 16px;
     color: #f4f4f4;
 }
 
@@ -179,6 +179,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    align-self: self-start;
 }
 
 .div_valor {
@@ -288,71 +289,65 @@ body {
 
 .div_container-parceiros .div_container-img {
     display: flex;
-    background-color: #F5F5F5;
+    gap: 20px;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+}
+
+.div_container-contato {
+    background-color: #F5F5F5;
+    padding: 50px;
 }
 
 .div_container-contato .div-conteudo {
     display: flex;
-    background-color: #F5F5F5;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    padding: 50px;
     border-radius: 5px;
-    gap: 50px;
+    gap: 20px;
 
 }
 
 #img-carros-home {
-    height: 550px;
+    height: 500px;
     border-radius: 10px;
     filter: brightness(60%);
 }
 
 .div_container-contato .div-conteudo .contato {
-    margin-top: 3%;
-    width: 30%;
-    height: 500px;
-    border-radius: 10px;
-    background-color: #f4f4f4;
-    -webkit-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
-    box-shadow: 1px 1px 24px -9px rgba(0, 0, 0, 1);
+    box-shadow: 0.5px 0.5px 30px -15px rgba(0, 0, 0, 0.705);
 }
 
 .div-conteudo .div_forms h3 {
     color: #0c0c0c;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 0px;
 }
 
-.div_forms .input_campo,
-.input_campo-msg,
-.button-forms {
-    border: 0px;
+.contato .input_campo, .input_campo-msg {
+    height: 45px;
+    width: 420px;
+    border: none;
     border-radius: 5px;
-    padding-left: 15px;
 }
 
-.input_campo {
-    height: 50px;
-}
 
 .div_container-contato .div-conteudo .div_forms .input_campo-msg {
-    height: 100px;
+    height: 120px;
 }
 
-.div_forms .button-forms {
-    height: 40px;
+.button-forms {
+    height: 45px;
+    width: 400px;
     background-color: #0c0c0c;
     color: #f4f4f4;
     font-size: 15px;
     font-weight: bolder;
-
+    border: none;
+    border-radius: 5px;
 }
 
 /* Fim da Home index.html*/

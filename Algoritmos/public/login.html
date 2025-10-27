@@ -13,7 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+        rel="stylesheet">
 
 </head>
 
@@ -21,7 +23,9 @@
 
     <div class="header">
         <div class="div_container-navbar">
-            <div class="div_logo"><h1><a href="index.html">VagasIQ</a></h1></div>
+            <div class="div_logo">
+                <h1><a href="index.html">VagasIQ</a></h1>
+            </div>
             <div class="navbar">
                 <a href="index.html#sobreNos">SOBRE NÓS</a>
                 <a href="index.html#solucao">SOLUÇÕES</a>
@@ -35,37 +39,33 @@
     <div class="div_container-login">
 
         <div class="div_conteudo-login">
-        
-                <div class="titulo">
-                    <h2>Acesse sua conta Institucional</h2>
-                    <h3>Entre com suas credencias para analisar as informações!</h3>
+
+            <div class="titulo">
+                <h2>Acesse sua conta Institucional</h2>
+                <h3>Entre com suas credencias para analisar as informações!</h3>
+            </div>
+
+            <div class="div_forms" id="div_campo1">
+
+                <div class="campo">
+                    <p>Email</p>
+                    <input type="text" class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
                 </div>
 
-                <div class="div_forms" id="div_campo1">
+                <div class="campo">
+                    <p>Senha</p>
+                    <input type="password" class="input_cad-log" id="input_senha" placeholder="********">
+                </div>
 
-                        <div class="campo">
-                            <p>Email</p>
-                            <input type="text" class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
-                        </div>
+                <button id="button_entrar" onclick="entrar()" class="button-forms">Entrar</button>
 
-                        <div class="campo">
-                            <p>Senha</p>
-                            <input type="password" class="input_cad-log" id="input_senha" placeholder="********">
-                        </div>
-                    
-                        <button id="button_entrar" onclick="entrar()" class="button-forms">Entrar</button>
+                <span id="span_mensagem_erro" style="text-align: center; color: red; font-size: 12px;"></span>
 
-                        <span id="span_mensagem_erro" style="display: none; color: red; font-size: 12px;">Você Errou a senha 3 vezes, aguarde e tente novamente!</span>
-
-                    <div class="login-opcoes">
-                        <h4>Esqueceu a senha? <a href="">Clique aqui</a></h4>
-                        <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
-                    </div>
+                <h4>Não tem uma conta? <a href="cadastro.html">Clique aqui</a></h4>
 
             </div>
         </div>
-        
-        
+
     </div>
 
     <div class="div_container-footer">
@@ -79,11 +79,12 @@
             <div class="traco"></div>
 
             <span class="div_descricao-footer"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
-            estratégica <br> baseada em informações relevantes! </span>
+                estratégica <br> baseada em informações relevantes! </span>
 
-    </div>
-    
+        </div>
+
 </body>
+
 </html>
 
 <script>
@@ -103,16 +104,16 @@
             if ((email == vagasIQ || email == vagasIQQ) && senha == vagasIQsenha && email.includes('@')) {
                 window.location.href = `dashboard.html`
                 break
-            } else { 
-                alert(`Email ou senha incorretos! Tente novamente\n Tentativas restantes ${cont}`)
+            } else {
+                span_mensagem_erro.innerHTML = `Email ou senha incorretos! Tente novamente! Tentativas restantes: ${cont}`;
                 break
             }
-            
+
         }
 
         if (cont <= 0) {
             button_entrar.disabled = true;
-            span_mensagem_erro.style.display = "block"
+            span_mensagem_erro.innerHTML = "Você Errou a senha 3 vezes, aguarde e tente novamente!";
         }
     }
 </script>
