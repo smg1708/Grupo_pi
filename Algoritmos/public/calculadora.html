@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <div class="p2-container" style="display: none" id="calculadora_part2">
+      <div class="p2-container" id="calculadora_part2">
         <div class="titulo">
           <h1>Aqui esta seus resultados!</h1>
           <h3>
@@ -118,15 +118,17 @@
 </html>
 
 <script>
+  
   var mensagem = "";
+  calculadora_part2.style.display = "none";
 
   function exibir() {
-    span_mensagem_dados.innerHTML = mensagem;
+  span_mensagem_dados.innerHTML = mensagem;
   }
 
   function analisar() {
     // declaração de variaveis
-
+    
     var anual = Number(input_anual.value);
     var perda = Number(input_sinistros.value);
     var selectDados = select_dados.value;
@@ -158,23 +160,23 @@
       calculadora_part2.style.display = "block";
       
       // Faz a verifição de qualidade de dados
-
+      
       if (selectDados == "nunca") {
         lucroNovo = lucroAnual * 1.25
         aumentoLucro = lucroAnual * 0.25
         melhora = 25
         qualidadeDados = 0;
-    } else if (selectDados == "raramente") {
+      } else if (selectDados == "raramente") {
         lucroNovo = lucroAnual * 1.20
         aumentoLucro = lucroAnual * 0.25
         melhora = 20
         qualidadeDados = 33;
-    } else if (selectDados == "as vezes") {
+      } else if (selectDados == "as vezes") {
         lucroNovo = lucroAnual * 1.15
         aumentoLucro = lucroAnual * 0.25
         melhora = 15
         qualidadeDados = 66;
-    } else {
+      } else {
         if (perda < perdaMedia) {
           taxaPerda = "Bom"
         } else if (perda == perdaMedia) {
@@ -186,64 +188,60 @@
       }
       
       AcrescimoMensal = lucroNovo / 12
-
+      
       if (selectDados != "sempre" && selectDados != "quase sempre") {
         perdaDiminui = aumentoLucro - perda
         lucroNovoPorcentagem = (perda * 100) / lucroNovo
         prejuLucro = perda / lucroAnual * 100
         prejuNovoLucro = perda / lucroNovo * 100
         diferencaPorcentagem = prejuLucro - lucroNovoPorcentagem
-
+        
         lucroNovo = Math.floor(lucroNovo * (100 + prejuLucro - prejuNovoLucro) / 100)
-
+        
         mensagem = `
-                        Seu Lucro hoje em dia, fica entorno de: <br><br>
-                        <b>Lucro Mensal Comum para R$ ${Math.floor(mensal)}</b> <br>
-                        <b>Lucro Anual Comum para R$ ${Math.floor(anual)}</b> <br> <br>
-                        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu Lucro para: <br> <br> 
-                        <b>Lucro Mensal para R$: ${Math.floor(AcrescimoMensal)}</b> <br>
-                        <b>Lucro Anual para R$: ${Math.floor(lucroNovo)}</b> <br> <br>
-                        <b>Hoje em dia você perde ${prejuLucro.toFixed(1)}% com perdas </b> <br> <br>
-                        <b>Com as VagasIQ você perde ${prejuNovoLucro.toFixed(1)}% com perdas </b> <br> <br>
-                        Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
-                        💸 Perda Atual: <b>R$ ${perda}</b> por ano <br>             
-                        🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${perdaDiminui} </b> <br>
-                        💰 No final, ao ano você economiza <b>${diferencaPorcentagem.toFixed(1)}%</b> <br> <br>
-                        Estes valores representam uma melhoria aproximada de <b>${melhora}% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
-                        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
-                    `;
-      } else if ((selectDados == "sempre" || selectDados == "quase sempre") && taxaPerda != "Bom") {
+        Seu Lucro hoje em dia, fica entorno de: <br><br>
+        <b>Lucro Mensal Comum para R$ ${Math.floor(mensal)}</b> <br>
+        <b>Lucro Anual Comum para R$ ${Math.floor(anual)}</b> <br> <br>
+        Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu Lucro para: <br> <br> 
+        <b>Lucro Mensal para R$: ${Math.floor(AcrescimoMensal)}</b> <br>
+        <b>Lucro Anual para R$: ${Math.floor(lucroNovo)}</b> <br> <br>
+        <b>Hoje em dia você perde ${prejuLucro.toFixed(1)}% com perdas </b> <br> <br>
+        <b>Com as VagasIQ você perde ${prejuNovoLucro.toFixed(1)}% com perdas </b> <br> <br>
+        Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
+        💸 Perda Atual: <b>R$ ${perda}</b> por ano <br>             
+        🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${perdaDiminui} </b> <br>
+        💰 No final, ao ano você economiza <b>${diferencaPorcentagem.toFixed(1)}%</b> <br> <br>
+        Estes valores representam uma melhoria aproximada de <b>${melhora}% na sua receita</b> baseado <br> nos estudos feitos pelo <b>MIT Sloan study</b> sobre a falta de dados. <br>
+        Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+        `;
+        } else if ((selectDados == "sempre" || selectDados == "quase sempre") && taxaPerda != "Bom") {
+          perdaPorcentagem = (perda * 100) / anual;
+          mensagem = `
+          🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
+          Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
+          Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b><br> baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 70% e sua porcentagem <br> esta em <b> ${perdaPorcentagem}%. </b>. <br>
+          Implemente agora nossa <b>solução</b> e venha ter acesso <br> agora a nossa rede de dados!!! <br> <br>
+          `;
+          } else {
             perdaPorcentagem = (perda * 100) / anual;
             mensagem = `
-                        🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
-                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
-                        Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b><br> baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 70% e sua porcentagem <br> esta em <b> ${perdaPorcentagem}%. </b>. <br>
-                        Implemente agora nossa <b>solução</b> e venha ter acesso <br> agora a nossa rede de dados!!! <br> <br>
-                    `;
+            🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
+            Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b>, baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 70%<br> e sua porcentagem esta em <b> ${perdaPorcentagem}%. </b>. <br> <br>
+            Então parabens, você esta acima da media. <br>
+            Se quiser melhorar ainda mais. Implemente agora nossa <b>solução</b><br> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
+            `; 
+          }
+          exibir()
       } else {
-            perdaPorcentagem = (perda * 100) / anual;
-            mensagem = `
-                        🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
-                        Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaPerda.toFixed(1)}</b>, baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 70%<br> e sua porcentagem esta em <b> ${perdaPorcentagem}%. </b>. <br> <br>
-                        Então parabens, você esta acima da media. <br>
-                        Se quiser melhorar ainda mais. Implemente agora nossa <b>solução</b><br> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
-                    `; 
-      
+                      
+      alert(`
+      Erro: Credenciais faltando
+      Verifique se colocou o valor anual ou Acrescimomensal 
+      Verifique se colocou o valor do perda 
+      Verifique se avaliou seus riscos
+      `);
+        exibir()
       }
-    
-    } else {
-
-        alert(`
-                Erro: Credenciais faltando
-                    Verifique se colocou o valor anual ou Acrescimomensal 
-                    Verifique se colocou o valor do perda 
-                    Verifique se avaliou seus riscos
-            `);
-      }
-
-      // Chama a função de exibição
-      exibir();
-
 }
 
   function voltar() {
