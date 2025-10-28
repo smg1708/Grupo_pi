@@ -414,6 +414,10 @@ body {
 
 /* Dashboard */
 
+.body-dash{
+    height: 100vh;
+}
+
 .dashboard-container {
     display: flex;
     flex-direction: row;
@@ -426,6 +430,16 @@ body {
     background-color: #1e1e1e;
     color: #808080;
     justify-content: space-between;
+
+    height: 100dvh;
+
+    /* define a posição da navbar para ser fixa no final da tela
+        PRENDE A NAVBAR LATERAL NO EIXO 0 DA PÁGINA
+    */
+    top: 0;
+    
+    /* prende a navbar lateral e não dá overlap - cada div tem seu espaço não se atropelam e nem se atrapalham */
+    position: sticky;
 }
 
 .dashboard-container .navbar-lateral .lateral-opcoes {
@@ -438,7 +452,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0 10px;
-    padding: 15px 48px 15px 20px;
+    padding: 12px 48px 12px 20px;
     border-bottom: 1px solid #808080;
 }
 
@@ -570,7 +584,7 @@ body {
 
 .dashboard-body .metricas-gerais {
     display: flex;
-    gap: 50px;
+    gap: 40px;
 }
 
 .dashboard-body .metricas-gerais .metrica {
