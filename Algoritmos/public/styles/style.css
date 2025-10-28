@@ -307,11 +307,13 @@ body {
     flex-direction: row;
     border-radius: 5px;
     gap: 20px;
+    margin-bottom: 40px;
+    margin-top: 20px;
 
 }
 
 #img-carros-home {
-    height: 500px;
+    height: 462px;
     border-radius: 10px;
     filter: brightness(60%);
 }
@@ -341,13 +343,21 @@ body {
 
 .button-forms {
     height: 45px;
-    width: 400px;
+    width: 420px;
     background-color: #0c0c0c;
     color: #f4f4f4;
     font-size: 15px;
     font-weight: bolder;
     border: none;
     border-radius: 5px;
+}
+
+.div_container-contato .div_forms {
+    margin: 0;
+}
+
+.div_container-contato .button-forms {
+    margin-bottom: 28px;
 }
 
 /* Fim da Home index.html*/
