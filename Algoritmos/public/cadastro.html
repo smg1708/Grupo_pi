@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vagas IQ | Cadastro</title>
+    <title>Vagas IQ | Home </title>
     <link rel="icon" href="assets/VagasIQ.svg">
 
     <link rel="stylesheet" href="styles/style.css">
@@ -38,11 +38,11 @@
                 </div>
                     <div class="div_forms">
                         <div class="campo">
-                            <p>Código de acesso <span style="color: red; font-weight: bold;" id="erroCodigo"></span></p>
+                            <p>Código de acesso<span style="color: red; font-weight: bold;" id="erroCodigo"></span></p>
                             <input type="text" class="input_cad-log"  id="input_codigo" placeholder="Código">
                         </div>
                         <div class="campo">
-                            <p>Nome <span style="color: red; font-weight: bold;" id="erroNome"></span></p>
+                            <p>Nome<span style="color: red; font-weight: bold;" id="erroNome"></span></p>
                             <input type="text" class="input_cad-log"  id="input_nome" placeholder="Seu Nome">
                         </div>
                         <div class="campo">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="campo">
                             <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
-                            <input type="text"  class="input_cad-log" id="input_senha" placeholder="********">
+                            <input oninput="verificar()" type="text"  class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                         <div class="campo">
                             <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
@@ -92,6 +92,36 @@
 </html>
 
 <script>
+
+function verificar() {
+    var senha = input_senha.value;
+    var mensagemErro = '';
+    var listaCaracteres = ['@', '#', '$', '%', '&', '!', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var temCaracter = 0;
+
+    for (var i = 0; i < senha.length; i++) {
+
+        for (var f = 0; f < listaCaracteres.length; f++) {
+            var caracterAtual = listaCaracteres[f];
+
+            if (senha.includes(caracterAtual)) {
+                temCaracter = true;
+            }    
+        }
+
+    }
+
+    if (temCaracter && senha.length >= 6) {
+        mensagemErro = ' Senha forte!';
+        erroSenha.style.color = 'green';
+    } else {
+        mensagemErro = ' Senha fraca!';
+        erroSenha.style.color = 'red';
+    }
+
+    erroSenha.innerHTML = mensagemErro;
+}
+
 function cadastrar(){
     var codigo = input_codigo.value;
     var nome = input_nome.value;
@@ -105,34 +135,47 @@ function cadastrar(){
     
 
         if(codigo == ""){
-            erroCodigo.innerHTML =`*`
+            erroCodigo.innerHTML ="*"
         }
         else if(nome =="")
         {
-            erroCodigo.innerHTML =``
+            erroCodigo.innerHTML =""
             erroNome.innerHTML="*"
         }
         else if(tamanhoCNPJ <15 || tamanhoCNPJ>15)
         {
-            erroCodigo.innerHTML =``
+            erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroCnpj.innerHTML="*"
         }
-        else if(telefone.length <11 || telefone.length >11){
-            erroCodigo.innerHTML =``
-            erroNome.innerHTML=""
-            erroCnpj.innerHTML=""
-            erroTel.innerHTML ="*"
-        }
+        
         else if(!email.includes("@")){
-            erroCodigo.innerHTML =``
+            erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroCnpj.innerHTML=""
             erroTel.innerHTML =""
             erroEmail.innerHTML ="*"
         }
+
+        else if(telefone.length <11 || telefone.length >11){
+            erroCodigo.innerHTML =""
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroEmail.innerHTML = ""
+            erroTel.innerHTML ="*"
+        }
+
+        else if (senha == '') {
+            erroCodigo.innerHTML =""
+            erroNome.innerHTML=""
+            erroCnpj.innerHTML=""
+            erroTel.innerHTML =""
+            erroEmail.innerHTML =""
+            erroSenha.innerHTML ="*"
+        }
+
         else if(confirmacao!=senha){
-            erroCodigo.innerHTML =``
+            erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroCnpj.innerHTML=""
             erroTel.innerHTML =""
@@ -142,15 +185,15 @@ function cadastrar(){
 
         }
     else{
-            erroCodigo.innerHTML =``
-            erroNome.innerHTML=""
-            erroCnpj.innerHTML=""
-            erroTel.innerHTML =""
-            erroEmail.innerHTML =""
-            erroSenha.innerHTML =""
-            erroConfirmacao.innerHTML =""
+        erroCodigo.innerHTML =""
+        erroNome.innerHTML=""
+        erroCnpj.innerHTML=""
+        erroTel.innerHTML =""
+        erroEmail.innerHTML =""
+        erroSenha.innerHTML =""
+        erroConfirmacao.innerHTML =""
 
-        alert("Cadastro feito com sucesso!")
+        window.location.href = `login.html`
     }
     
 
