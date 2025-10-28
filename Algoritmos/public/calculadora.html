@@ -132,7 +132,6 @@
     var perdaMedia = anual * 0.598;
     var mensal = anual / 12;
     var qualidadeDados = 0;
-    var perdaAtual = 0;
     var novoLucro = 0;
     var AcrescimoMensal = 0;
     var novoLucro = 0;
@@ -147,19 +146,16 @@
 
     var melhora = "";
     var taxaPerda = "";
-    mensagem = "";
+    mensagem = ""; // Reseta a mensagem
 
     // Verifica se todos os dados, estão preenchidos
 
     if (anual != 0 && perda != 0 && selectDados != "#") {
       var perdaPorcentagem = 0;
 
-      if (perda > anual) {
-        lucroAnual = perda - anual;
-      } else {
-        lucroAnual = anual - perda;
-      }
+      // Faz o calculo do lucro da seguradora anualmente
 
+      lucroAnual = anual - perda; 
       var lucroMensal = lucroAnual / 12;
 
       // Muda a vizualização para tela de dados
@@ -167,7 +163,8 @@
       calculadora_part1.style.display = "none";
       calculadora_part2.style.display = "block";
 
-      // Faz a verifição de qualidade de dados
+      // Faz a verifição de qualidade de dados, em caso de "nunca", "raramente" 
+      // e "as vezes", faz o calculo do novo lucro com nossos serviços para os calculos
 
       if (selectDados == "nunca") {
         novoLucro = lucroAnual * 1.25;
@@ -192,26 +189,29 @@
         qualidadeDados = 100;
       }
 
-      AcrescimoMensal = novoLucro / 12;
+      
+      AcrescimoMensal = novoLucro / 12; // Faz o mesmo calculo do lucro com a gente, mas mensal
 
-      novoLucroPorcentagem = (perda * 100) / novoLucro;
-      prejuLucro = (perda / lucroAnual) * 100;
-      prejuNovoLucro = (perda / novoLucro) * 100;
-      diferencaPorcentagem = prejuLucro - novoLucroPorcentagem;
-
-      novoLucroAnual = Math.floor(
-        (novoLucro * (100 + prejuLucro - prejuNovoLucro)) / 100
-      );
+      novoLucroPorcentagem = (perda * 100) / novoLucro; // Pega esse lucro conosco em porcentagem
+      prejuLucro = (perda / lucroAnual) * 100; // Pega o prejuizo Padrão dele 
+      prejuNovoLucro = (perda / novoLucro) * 100; // Pega o prejuizo conosco dele
+      // para saber quanto economizaria com nossos serviços
+      
+      // Pega o novo lucro real e final com nossos serviços
+      novoLucroAnual = Math.floor((novoLucro * (100 + prejuLucro - prejuNovoLucro)) / 100); 
       novoLucroMensal = novoLucroAnual / 12;
-
-      perdaDiminui = novoLucroAnual - lucroAnual - perda;
+      
+      // A perda da seguradora com nossos serviços
+      perdaDiminui = novoLucroAnual - perda; 
+      
+      perdaPorcentagem = (perda * 100) / anual; // Pega a perda dele em porcentagem padrão
+      novaPerdaPorcentagem = Math.abs((perdaDiminui * 100) / perda); // Pega a perda dele em porcentagem conosco
+      diferencaPorcentagem = perdaPorcentagem - novaPerdaPorcentagem // Pega a diferença entre as duas porcentagens
 
       if (
         (selectDados == "sempre" || selectDados == "quase sempre") &&
         taxaPerda != "Bom"
       ) {
-        novoLucro = lucroAnual;
-        perdaPorcentagem = (perda * 100) / anual;
         mensagem = `
               🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
               Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
@@ -228,8 +228,8 @@
           Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu Lucro para: <br> <br> 
           <b>Lucro Mensal para R$: ${Math.floor(novoLucroMensal)}</b> <br>
           <b>Lucro Anual para R$: ${Math.floor(novoLucroAnual)}</b> <br> <br>
-          <b>Hoje em dia você perde ${prejuLucro.toFixed(1)}% com perdas </b> <br> <br>
-          <b>Com as VagasIQ você perde ${prejuNovoLucro.toFixed(1)}% com perdas </b> <br> <br>
+          <b>Hoje em dia você perde ${perdaPorcentagem.toFixed(1)}% com perdas </b> <br> <br>
+          <b>Com as VagasIQ você perde ${novaPerdaPorcentagem.toFixed(1)}% com perdas </b> <br> <br>
           Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
           💸 Perda Atual: <b>R$ ${perda}</b> por ano <br>             
           🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${Math.abs(perdaDiminui)} </b> <br>

@@ -24,7 +24,7 @@ const serial = async (
             host: 'localhost',
             user: 'aluno',
             password: 'Sptech#2024',
-            database: 'vagasIQ',
+            database: 'VagasIQ',
             port: 3307
         }
     ).promise();
@@ -67,7 +67,7 @@ const serial = async (
 
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO sensor (situacao) VALUES (?);',
+                'INSERT INTO sensor (estado_sensor) VALUES (?);',
                 [sensorDigital]
             );
             console.log("valores inseridos no banco: " + sensorDigital);
