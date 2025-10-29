@@ -11,12 +11,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
       rel="stylesheet"
     />
@@ -73,20 +67,14 @@
               </select>
             </div>
 
-            <button class="button-forms" onclick="analisar()">Calcular</button>
+            <button class="button-forms" onclick="calcular()">Calcular</button>
           </div>
         </div>
       </div>
 
       <div class="p2-container" style="display: none" id="calculadora_part2">
         <div class="titulo">
-          <h1>Aqui Está Seus Resultados!</h1>
-          <h3>
-            Com base em dados de uma pesquisa feita pela
-            <b>MIT Sloan study.</b> <br />
-            Seguradoras podem perder de 15 a 25% da receita total, pela <br />
-            falta de dados ou por dados de baixa qualidade.
-          </h3>
+          <h1>Aqui Estão Seus Resultados!</h1>
         </div>
 
         <div class="p2-calculadora-interface">
@@ -117,151 +105,114 @@
 </html>
 
 <script>
-  var mensagem = "";
 
-  function exibir() {
-    span_mensagem_dados.innerHTML = mensagem;
-  }
+  function calcular() {
+    var faturamento = Number(input_anual.value);
+    var sinistro = Number(input_sinistros.value);
+    var qualidadeDados = select_dados.value;
+    var taxaSinistralidade = sinistro / faturamento * 100;
+    var sinistralidadeMedia = 59.4;
+    var taxaPerdaMax = 25;
+    var taxaPerdaMin = 15;
+    var msg = "";
+    
+    if (qualidadeDados == "nunca" || qualidadeDados == "raramente" || qualidadeDados == "as vezes") {
+      var prejuizoMax = faturamento * (taxaPerdaMax / 100);
+      span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões<br> e mapeamento de perfis.<br>Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
+      💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento. (Fonte: MIT)<br>
+      💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>R$${prejuizoMax.toFixed(2)}</b>!<br><br>
+      <b>Diferença de Faturamento</b>
+      <canvas id="chart-prejuizo"></canvas>
+      <br>
+      Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos<br> e melhorar a eficiência do mapeamento de perfil e análise de riscos, aprimorando a criação<br> das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
 
-  function analisar() {
-    // declaração de variaveis
+      const chart_prejuizo = document.getElementById("chart-prejuizo");
 
-    var anual = Number(input_anual.value);
-    var perda = Number(input_sinistros.value);
-    var selectDados = select_dados.value;
-    var perdaMedia = anual * 0.598;
-    var mensal = anual / 12;
-    var qualidadeDados = 0;
-    var novoLucro = 0;
-    var AcrescimoMensal = 0;
-    var novoLucro = 0;
-    var prejuLucro = 0;
-    var prejuNovoLucro = 0;
-    var novoLucroPorcentagem = 0;
-    var perdaDiminui = 0;
-    var diferencaPorcentagem = 0;
-    var novoLucroAnual = 0;
-    var novoLucroMensal = 0;
-    var lucroAnual = 0;
-
-    var melhora = "";
-    var taxaPerda = "";
-    mensagem = ""; // Reseta a mensagem
-
-    // Verifica se todos os dados, estão preenchidos
-
-    if (anual != 0 && perda != 0 && selectDados != "#") {
-      var perdaPorcentagem = 0;
-
-      // Faz o calculo do lucro da seguradora anualmente
-
-      lucroAnual = anual - perda; 
-      var lucroMensal = lucroAnual / 12;
-
-      // Muda a vizualização para tela de dados
-
-      calculadora_part1.style.display = "none";
-      calculadora_part2.style.display = "block";
-
-      // Faz a verifição de qualidade de dados, em caso de "nunca", "raramente" 
-      // e "as vezes", faz o calculo do novo lucro com nossos serviços para os calculos
-
-      if (selectDados == "nunca") {
-        novoLucro = lucroAnual * 1.25;
-        melhora = 25;
-        qualidadeDados = 0;
-      } else if (selectDados == "raramente") {
-        novoLucro = lucroAnual * 1.2;
-        melhora = 20;
-        qualidadeDados = 33;
-      } else if (selectDados == "as vezes") {
-        novoLucro = lucroAnual * 1.15;
-        melhora = 15;
-        qualidadeDados = 66;
-      } else {
-        if (perda < perdaMedia) {
-          taxaPerda = "Bom";
-        } else if (perda == perdaMedia) {
-          taxaPerda = "no limite";
-        } else {
-          taxaPerda = "Ruim";
+      new Chart(chart_prejuizo, {
+        type: 'bar',
+        data: {
+          labels: ['Faturamento'],
+          datasets: [{
+            label: 'Sem Prejuízo',
+            data: [faturamento*1.25],
+            maxBarThickness: 80,
+            backgroundColor: '#ffc714'
+          }, {
+            label: 'Com Prejuízo',
+            data: [faturamento],
+            backgroundColor: '#1e1e1e',
+            maxBarThickness: 80,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            },
+            x: {
+              categoryPercentage: 0.2,
+              barPercentage: 0.2,
+              display: false
+            }
+          }
         }
-        qualidadeDados = 100;
-      }
-
-      
-      AcrescimoMensal = novoLucro / 12; // Faz o mesmo calculo do lucro com a gente, mas mensal
-
-      novoLucroPorcentagem = (perda * 100) / novoLucro; // Pega esse lucro conosco em porcentagem
-      prejuLucro = (perda / lucroAnual) * 100; // Pega o prejuizo Padrão dele 
-      prejuNovoLucro = (perda / novoLucro) * 100; // Pega o prejuizo conosco dele
-      // para saber quanto economizaria com nossos serviços
-      
-      // Pega o novo lucro real e final com nossos serviços
-      novoLucroAnual = Math.floor((novoLucro * (100 + prejuLucro - prejuNovoLucro)) / 100); 
-      novoLucroMensal = novoLucroAnual / 12;
-      
-      // A perda da seguradora com nossos serviços
-      perdaDiminui = novoLucroAnual - perda; 
-      
-      perdaPorcentagem = (perda * 100) / anual; // Pega a perda dele em porcentagem padrão
-      novaPerdaPorcentagem = Math.abs((perdaDiminui * 100) / perda); // Pega a perda dele em porcentagem conosco
-      diferencaPorcentagem = perdaPorcentagem - novaPerdaPorcentagem // Pega a diferença entre as duas porcentagens
-
-      if (
-        (selectDados == "sempre" || selectDados == "quase sempre") &&
-        taxaPerda != "Bom"
-      ) {
-        mensagem = `
-              🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
-              Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar <br> alguns dados, que iriam te auxiliar.
-              Ao pegar os dados informados<br>, chegamos a conclusão que o seu nivel de sinistralidade esta <b>${taxaPerda}</b><br> 
-              baseado no normal. Baseado nos estudos feitos pela <b>Suhai Seguradora</b><br> o objetivo e sempre deixar abaixo dos 59,8% e 
-              sua porcentagem <br> esta em <b> ${perdaPorcentagem.toFixed(1)}%. </b>. <br>
-              Implemente agora nossa <b>solução</b> e venha ter acesso <br> agora a nossa rede de dados!!! <br> <br>
-          `;
-      } else if (selectDados != "sempre" && selectDados != "quase sempre") {
-        mensagem = `
-          Seu Lucro hoje em dia, fica entorno de: <br><br>
-          <b>Lucro Mensal Comum R$ ${Math.floor(lucroMensal)}</b> <br>
-          <b>Lucro Anual Comum R$ ${Math.floor(lucroAnual)}</b> <br> <br>
-          Nossos sensores podem te auxiliar a capturar alguns dados, que poderiam aumentar o seu Lucro para: <br> <br> 
-          <b>Lucro Mensal para R$: ${Math.floor(novoLucroMensal)}</b> <br>
-          <b>Lucro Anual para R$: ${Math.floor(novoLucroAnual)}</b> <br> <br>
-          <b>Hoje em dia você perde ${perdaPorcentagem.toFixed(1)}% com perdas </b> <br> <br>
-          <b>Com as VagasIQ você perde ${novaPerdaPorcentagem.toFixed(1)}% com perdas </b> <br> <br>
-          Hoje seus dados são <b>${selectDados}</b> confiaveis <br> <br>
-          💸 Perda Atual: <b>R$ ${perda}</b> por ano <br>             
-          🚀 Com as VagasIQ a sua perda diminui em: <b>R$ ${Math.abs(perdaDiminui)} </b> <br>
-          💰 No final, ao ano você economiza <b>${diferencaPorcentagem.toFixed(1)}%</b> <br> <br>
-          Estes valores representam uma melhoria aproximada de <b>${melhora}% na sua receita</b> baseado <br> nos estudos feitos pelo 
-          <b>MIT Sloan study</b> sobre a falta de dados. <br>Implemente agora nossa <b>solução</b> e venha ter acesso agora a nossa 
-          rede de dados!!! <br> <br>
-          `;
-      } else {
-        perdaPorcentagem = (perda * 100) / anual;
-        mensagem = `
-              🎉 Parabens, você tem dados <b>${selectDados}</b> confiaveis, e isso e algo notavel <br> 
-              Mas mesmo assim, com nossos sensores podemos te auxiliar a capturar alguns dados,<br> que iriam te auxiliar. 
-              Ao pegar os dados informados, chegamos a conclusão que<br> o seu nivel de sinistralidade esta <b>${taxaPerda}</b>, 
-              baseado no normal. Baseado nos estudos <br> feitos pela <b>Suhai Seguradora</b> o objetivo  e sempre deixar abaixo dos 59,8%<br> 
-              e sua porcentagem esta em <b> ${perdaPorcentagem.toFixed(1)}%. </b>. <br> <br>
-              Então parabens, você esta acima da media. <br>
-              Se quiser melhorar ainda mais. Implemente agora nossa 
-              <b>solução</b><br> e venha ter acesso agora a nossa rede de dados!!! <br> <br>
-            `;
-      }
+      });
     } else {
-      alert(`
-            Erro: Credenciais faltando
-                Verifique se colocou o valor anual ou Acrescimomensal 
-                Verifique se colocou o valor do perda 
-                Verifique se avaliou seus riscos
-        `);
-    }
+      if (taxaSinistralidade <= sinistralidadeMedia) {
+        span_mensagem_dados.innerHTML = `Apesar da confiabilidade dos dados da sua empresa serem altos, ainda há margem para melhora! <br><br>
+        🚀 Segundo pesquisa do IBGE, a frota nacional cresce, em média, 4,3 milhões por ano (Fonte: IBGE).<br>
+        📉 Porém, a conversão de novos clientes é baixa, visto que 70% dos veículos do país não são segurados (Fonte: CNseg).<br>
+        <br>
+        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos e melhorar a eficiência do<br> mapeamento de perfil e análise de riscos, aprimorando a criação das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
+      } else {
+        span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
+        💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>
+        🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>. (Fonte: IRB)<br>
+        🙁 Portanto, os seus gastos com sinistros extrapolam a média brasileira...<br><br>
+        <b>Comparação Entre Sinistralidades</b><br>
+        <canvas id="chart-sinistralidade"></canvas>
+        <br>
+        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos<br> e melhorar a eficiência do mapeamento de perfil e análise de riscos, aprimorando a criação<br> das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
 
-    // Chama a função de exibição
-    exibir();
+        const chart_sinistralidade = document.getElementById('chart-sinistralidade');
+
+        new Chart(chart_sinistralidade, {
+          type: 'bar',
+          data: {
+          labels: ['Sinistralidade'],
+          datasets: [{
+            label: 'Sua empresa',
+            data: [taxaSinistralidade],
+            maxBarThickness: 80,
+            backgroundColor: '#ffc714'
+          }, {
+            label: 'Média',
+            data: [sinistralidadeMedia],
+            backgroundColor: '#1e1e1e',
+            maxBarThickness: 80,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            },
+            x: {
+              categoryPercentage: 0.2,
+              barPercentage: 0.2,
+              display: false
+            }
+          }
+        }
+        });
+      }
+    }
+    
+    calculadora_part1.style.display = "none";
+    calculadora_part2.style.display = "block";
+
   }
 
   function voltar() {
