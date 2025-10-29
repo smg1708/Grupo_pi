@@ -54,10 +54,6 @@
                             <input type="text"  class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
                         </div>
                         <div class="campo">
-                            <p>Telefone Celular<span style="color: red; font-weight: bold;" id="erroTel"></span></p>
-                            <input type="text"  class="input_cad-log" id="input_telefone" placeholder="(11) 12345-6789">
-                        </div>
-                        <div class="campo">
                             <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
                             <input oninput="verificar()" type="text"  class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
@@ -126,7 +122,6 @@ function cadastrar(){
     var codigo = input_codigo.value;
     var nome = input_nome.value;
     var sobrenome = input_sobrenome.value;
-    var telefone = input_telefone.value;
     var email = input_email.value;
     var senha = input_senha.value;
     var confirmacao = input_confirmacao.value;
@@ -151,23 +146,13 @@ function cadastrar(){
             erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroSobrenome.innerHTML=""
-            erroTel.innerHTML =""
             erroEmail.innerHTML ="*"
-        }
-
-        else if(telefone.length <11 || telefone.length >11){
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML=""
-            erroSobrenome.innerHTML=""
-            erroEmail.innerHTML = ""
-            erroTel.innerHTML ="*"
         }
 
         else if (senha == '') {
             erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroSobrenome.innerHTML=""
-            erroTel.innerHTML =""
             erroEmail.innerHTML =""
             erroSenha.innerHTML ="*"
         }
@@ -176,7 +161,6 @@ function cadastrar(){
             erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroSobrenome.innerHTML=""
-            erroTel.innerHTML =""
             erroEmail.innerHTML =""
             erroSenha.innerHTML ="*"
             erroConfirmacao.innerHTML ="*"
@@ -186,7 +170,6 @@ function cadastrar(){
         erroCodigo.innerHTML =""
         erroNome.innerHTML=""
         erroSobrenome.innerHTML=""
-        erroTel.innerHTML =""
         erroEmail.innerHTML =""
         erroSenha.innerHTML =""
         erroConfirmacao.innerHTML =""
