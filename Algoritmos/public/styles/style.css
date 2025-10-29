@@ -366,6 +366,7 @@ body {
 /* Calculadora */
 .p1-calculadora-interface select {
     width: 420px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .p1-calculadora-interface,
