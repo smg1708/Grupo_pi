@@ -1,236 +1,265 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vagas IQ | Simulador</title>
-    <link rel="icon" href="assets/VagasIQ.svg" />
 
-    <link rel="stylesheet" href="styles/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="header">
-      <div class="div_container-navbar">
-        <div class="div_logo">
-          <h1><a href="index.html">VagasIQ</a></h1>
-        </div>
-        <div class="navbar">
-          <a href="index.html#sobreNos">SOBRE NÓS</a>
-          <a href="index.html#solucao">SOLUÇÕES</a>
-          <a href="index.html#contato">CONTATO</a>
-          <a href="calculadora.html">SIMULADOR</a>
-          <a href="login.html" style="color: #ffc714"><u>LOGIN</u></a>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vagas IQ | Simulador</title>
+  <link rel="icon" href="assets/VagasIQ.svg" />
+
+  <link rel="stylesheet" href="styles/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="div_container-navbar">
+      <div class="div_logo">
+        <h1><a href="index.html">VagasIQ</a></h1>
+      </div>
+      <div class="navbar">
+        <a href="index.html#sobreNos">SOBRE NÓS</a>
+        <a href="index.html#solucao">SOLUÇÕES</a>
+        <a href="index.html#contato">CONTATO</a>
+        <a href="calculadora.html">SIMULADOR</a>
+        <a href="login.html" style="color: #ffc714"><u>LOGIN</u></a>
       </div>
     </div>
+  </div>
 
-    <div class="div_container-calculadora">
-      <div class="p1-container" style="display: block" id="calculadora_part1">
-        <div class="titulo">
-          <h1>Simule Aqui Seus Resultados!</h1>
-          <h3>
-            Utilize a calculadora para entender como a nossa solução <br />
-            pode ajudar a sua empresa!
-          </h3>
-        </div>
+  <div class="div_container-calculadora">
+    <div class="p1-container" style="display: block" id="calculadora_part1">
+      <div class="titulo">
+        <h1>Simule Aqui Seus Resultados!</h1>
+        <h3>
+          Utilize a calculadora para entender como a nossa solução <br />
+          pode ajudar a sua empresa!
+        </h3>
+      </div>
 
-        <div class="p1-calculadora-interface">
-          <div class="div_forms">
-            <div class="campo">
-              <p>Informe o faturamento anual</p>
-              <input type="number" id="input_anual" class="input_cad-log" />
-            </div>
-
-            <div class="campo">
-              <p>Informe o gasto com sinistros anual</p>
-              <input type="number" id="input_sinistros" class="input_cad-log" />
-            </div>
-
-            <div class="campo">
-              <p>
-                Quando você precisa avaliar os riscos, os dados são confiáveis?
-              </p>
-              <select id="select_dados" class="input_cad-log">
-                <option value="#" id="#">Selecione uma opção</option>
-                <option value="nunca">Nunca</option>
-                <option value="raramente">Raramente</option>
-                <option value="as vezes">Às vezes</option>
-                <option value="quase sempre">Quase sempre</option>
-                <option value="sempre">Sempre</option>
-              </select>
-            </div>
-
-            <button class="button-forms" onclick="calcular()">Calcular</button>
+      <div class="p1-calculadora-interface">
+        <div class="div_forms">
+          <div class="campo">
+            <p>Informe o faturamento anual</p>
+            <input type="number" id="input_anual" class="input_cad-log" />
           </div>
-        </div>
-      </div>
 
-      <div class="p2-container" style="display: none" id="calculadora_part2">
-        <div class="titulo">
-          <h1>Aqui Estão Seus Resultados!</h1>
-        </div>
-
-        <div class="p2-calculadora-interface">
-          <div class="div_forms">
-            <span id="span_mensagem_dados"></span>
-            <button class="button-forms" onclick="voltar()">Voltar</button>
+          <div class="campo">
+            <p>Informe o gasto com sinistros anual</p>
+            <input type="number" id="input_sinistros" class="input_cad-log" />
           </div>
+
+          <div class="campo">
+            <p>
+              Quando você precisa avaliar os riscos, os dados são confiáveis?
+            </p>
+            <select id="select_dados" class="input_cad-log">
+              <option value="#" disabled selected id="#">Selecione uma opção</option>
+              <option value="nunca">Nunca</option>
+              <option value="raramente">Raramente</option>
+              <option value="as vezes">Às vezes</option>
+              <option value="quase sempre">Quase sempre</option>
+              <option value="sempre">Sempre</option>
+            </select>
+          </div>
+
+          <button class="button-forms" onclick="calcular()">Calcular</button>
         </div>
       </div>
     </div>
 
-    <div class="div_container-footer">
-      <div class="div_conteudo-footer">
-        <div class="div_titulo-footer">
-          <h1>VagasIQ</h1>
+    <div class="p2-container" style="display: none" id="calculadora_part2">
+      <div class="titulo">
+        <h1>Aqui Estão Seus Resultados!</h1>
+      </div>
+
+      <div class="p2-calculadora-interface">
+        <div class="div_forms">
+          <span id="span_mensagem_dados"></span>
+          <span id="span_mensagem_conclusao"></span>
+          <button class="button-forms" onclick="voltar()">Voltar</button>
         </div>
-
-        <div class="traco"></div>
-
-        <span class="div_descricao-footer">
-          Explore todo o potencial do seu negócio com o poder da tomada de
-          decisão estratégica <br />
-          baseada em informações relevantes!
-        </span>
       </div>
     </div>
-  </body>
+  </div>
+
+  <div class="div_container-footer">
+    <div class="div_conteudo-footer">
+      <div class="div_titulo-footer">
+        <h1>VagasIQ</h1>
+      </div>
+
+      <div class="traco"></div>
+
+      <span class="div_descricao-footer">
+        Explore todo o potencial do seu negócio com o poder da tomada de
+        decisão estratégica <br />
+        baseada em informações relevantes!
+      </span>
+    </div>
+  </div>
+</body>
+
 </html>
 
 <script>
 
   function calcular() {
+    // Armazenamento dos dados informados pelo usuário em variáveis
     var faturamento = Number(input_anual.value);
     var sinistro = Number(input_sinistros.value);
     var qualidadeDados = select_dados.value;
-    var taxaSinistralidade = sinistro / faturamento * 100;
+
+    // Dados do ramo de seguradoras 
     var sinistralidadeMedia = 59.4;
     var taxaPerdaMax = 25;
     var taxaPerdaMin = 15;
-    var msg = "";
-    
-    if (qualidadeDados == "nunca" || qualidadeDados == "raramente" || qualidadeDados == "as vezes") {
-      var prejuizoMax = faturamento * (taxaPerdaMax / 100);
-      span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões e mapeamento de perfis. Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
-      💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento. (Fonte: MIT)<br>
-      💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>R$${prejuizoMax.toFixed(2)}</b>!<br><br>
-      <b>Diferença de Faturamento</b>
-      <canvas id="chart-prejuizo"></canvas>
-      <br>
-      Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos<br> e melhorar a eficiência do mapeamento de perfil e análise de riscos, aprimorando a criação<br> das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
 
-      const chart_prejuizo = document.getElementById("chart-prejuizo");
-
-      new Chart(chart_prejuizo, {
-        type: 'bar',
-        data: {
-          labels: ['Faturamento'],
-          datasets: [{
-            label: 'Sem Prejuízo',
-            data: [faturamento*1.25],
-            maxBarThickness: 80,
-            backgroundColor: '#ffc714'
-          }, {
-            label: 'Com Prejuízo',
-            data: [faturamento],
-            backgroundColor: '#1e1e1e',
-            maxBarThickness: 80,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            },
-            x: {
-              categoryPercentage: 0.2,
-              barPercentage: 0.2,
-              display: false
-            }
-          }
-        }
-      });
+    // Verificação dos dados enviados pelo usuário
+    if (faturamento == 0 || sinistro == 0 || qualidadeDados == '#' || faturamento < 0 || sinistro < 0) {
+      alert('Todos os campos precisam estar preenchidos e os valores não podem ser negativos.')
     } else {
-      if (taxaSinistralidade <= sinistralidadeMedia) {
-        span_mensagem_dados.innerHTML = `Apesar da confiabilidade dos dados da sua empresa serem altos, ainda há margem para melhora! <br><br>
-        🚀 Segundo pesquisa do IBGE, a frota nacional <b>cresce</b>, em média, <b>4,3 milhões</b> por ano.<br>
-        📉 Porém, a conversão de novos clientes é baixa, visto que <b>70%</b> dos veículos do país <b>não são segurados</b>. (Fonte: CNseg)<br>
-        💡 Dessa forma, há ainda uma grande parcela do mercado a ser conquistada!<br><br>
-        <b>Frota Nacional por Ano (em milhões)</b>
-        <canvas id="chart-veiculosSegurados"></canvas>
-        <br>
-        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos e melhorar a eficácia do<br> mapeamento de perfil e análise de riscos, aprimorando a criação das apólices e otimizando os seus lucros! Processos mais eficientes possibilitam a prática de preços mais baixos, gerando uma vantagem competitiva para sua empresa!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
+      // Cálculo da taxa de sinistralidade da empresa
+      var taxaSinistralidade = sinistro / faturamento * 100;
 
-        const chart_veiculosSegurados = document.getElementById('chart-veiculosSegurados');
+      // Cenário no qual o usuário considera sua base de dados de má qualidade
+      if (qualidadeDados == "nunca" || qualidadeDados == "raramente" || qualidadeDados == "as vezes") {
 
-        new Chart(chart_veiculosSegurados, {
-          type: 'line',
+        // Cálculo do prejuízo máximo possível em cima do faturamento da empresa
+        var prejuizoMax = faturamento * (taxaPerdaMax / 100);
+        span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões e mapeamento de perfis. Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
+        💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento. (Fonte: MIT)<br>
+        💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>R$${prejuizoMax.toFixed(2)}</b>!<br><br>
+        <b>Diferença de Faturamento</b>
+        <canvas id="chart-prejuizo"></canvas>
+        <i style="color: #aaaaaa">Fonte: Estudo feito pelo Instituto de Tecnologia de Massachussets (MIT) publicado em 2017</i>`;
+
+        // Criação do gráfico de barras para visualização da diferença do faturamento com e sem prejuízo por má qualidade de dados
+        const chart_prejuizo = document.getElementById("chart-prejuizo");
+
+        new Chart(chart_prejuizo, {
+          type: 'bar',
           data: {
-            labels: ['2020', '2021', '2022', '2023', '2024'],
+            labels: ['Faturamento'],
             datasets: [{
-              data: [108, 111.5, 115, 119, 124],
-              label: 'Frota Nacional',
+              label: 'Sem Prejuízo',
+              data: [faturamento * 1.25],
+              maxBarThickness: 80,
+              backgroundColor: '#ffc714'
+            }, {
+              label: 'Com Prejuízo',
+              data: [faturamento],
               backgroundColor: '#1e1e1e',
-              borderColor: '#ffc714'
+              maxBarThickness: 80,
+              borderWidth: 1
             }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              },
+              x: {
+                display: false
+              }
+            }
           }
         });
       } else {
-        span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
-        💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>
-        🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>. (Fonte: IRB)<br>
-        🙁 Portanto, os seus gastos com sinistros extrapolam a média brasileira...<br><br>
-        <b>Comparação Entre Sinistralidades</b><br>
-        <canvas id="chart-sinistralidade"></canvas>
-        <br>
-        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos<br> e melhorar a eficiência do mapeamento de perfil e análise de riscos, aprimorando a criação<br> das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
 
-        const chart_sinistralidade = document.getElementById('chart-sinistralidade');
+        // Cenário em que o usário considera seus dados confiáveis, porém sua sinistralidade está acima da média
+        if (taxaSinistralidade > sinistralidadeMedia) {
+          span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
+          💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>
+          🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>. (Fonte: IRB)<br>
+          🙁 Portanto, os seus gastos com sinistros extrapolam a média brasileira...<br><br>
+          <b>Comparação Entre Sinistralidades</b><br>
+          <canvas id="chart-sinistralidade"></canvas>
+          <i style="color: #aaaaaa">Fonte: Pesquisa do Instituto de Resseguros do Brasil (IRB) realizada em 2024</i>`;
 
-        new Chart(chart_sinistralidade, {
-          type: 'bar',
-          data: {
-          labels: ['Sinistralidade'],
-          datasets: [{
-            label: 'Sua empresa',
-            data: [taxaSinistralidade],
-            maxBarThickness: 80,
-            backgroundColor: '#ffc714'
-          }, {
-            label: 'Média',
-            data: [sinistralidadeMedia],
-            backgroundColor: '#1e1e1e',
-            maxBarThickness: 80,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
+          // Criação do gráfico de barras para comparação entre a sinistralidade da empresa do usário e da média brasileira
+          const chart_sinistralidade = document.getElementById('chart-sinistralidade');
+
+          new Chart(chart_sinistralidade, {
+            type: 'bar',
+            data: {
+              labels: ['Sinistralidade'],
+              datasets: [{
+                label: 'Sua empresa',
+                data: [taxaSinistralidade],
+                maxBarThickness: 80,
+                backgroundColor: '#ffc714'
+              }, {
+                label: 'Média',
+                data: [sinistralidadeMedia],
+                backgroundColor: '#1e1e1e',
+                maxBarThickness: 80,
+                borderWidth: 1
+              }]
             },
-            x: {
-              categoryPercentage: 0.2,
-              barPercentage: 0.2,
-              display: false
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                },
+                x: {
+                  display: false
+                }
+              }
             }
-          }
-        }
-        });
-      }
-    }
-    
-    calculadora_part1.style.display = "none";
-    calculadora_part2.style.display = "block";
+          });
+        } else {
 
+          // Cenário em que o usário considera seus dados confiáveis e sua sinistralidade está abaixo da média
+          span_mensagem_dados.innerHTML = `Apesar da confiabilidade dos dados da sua empresa serem altos, ainda há margem para melhora! <br><br>
+          🚀 Segundo pesquisa do IBGE, a frota nacional <b>cresce</b>, em média, <b>4,3 milhões</b> por ano.<br>
+          📉 Porém, a conversão de novos clientes é baixa, visto que <b>70%</b> dos veículos* do país <b>não são segurados</b>. (Fonte: CNseg)<br>
+          💡 Dessa forma, há ainda uma grande parcela do mercado a ser conquistada!<br><br>
+          <b>Diferença do volume de veículos* com e sem seguros (em milhões)</b>
+          <canvas id="chart-veiculosSegurados"></canvas>
+          <i style="color: #aaaaaa">Fonte: Confederação Nacional das Seguradoras (CNseg)<br>veículos*: automóveis e caminhonetes</i>`;
+
+          // Criação do gráfico para visualizar a diferença entre a quantidade de veículos com e sem seguros
+          const chart_veiculosSegurados = document.getElementById('chart-veiculosSegurados');
+
+          new Chart(chart_veiculosSegurados, {
+            type: 'bar',
+            data: {
+              labels: ['Veículos'],
+              datasets: [{
+                label: 'Com Seguros',
+                data: [20.1],
+                maxBarThickness: 80,
+                backgroundColor: '#ffc714'
+              }, {
+                label: 'Sem Seguros',
+                data: [72],
+                backgroundColor: '#1e1e1e',
+                maxBarThickness: 80
+              }]
+            },
+            options: {
+              scales: {
+                x: {
+                  display: false
+                }
+              }
+            }
+          });
+        }
+      }
+
+      span_mensagem_conclusao.innerHTML = `Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos e melhorar a eficácia do mapeamento de perfis e análise de riscos, aprimorando a criação das apólices e otimizando os seus lucros! Processos mais eficientes possibilitam a prática de preços mais baixos, gerando uma vantagem competitiva para sua empresa!<br>Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
+
+      calculadora_part1.style.display = "none";
+      calculadora_part2.style.display = "block";
+
+    }
   }
 
   function voltar() {
