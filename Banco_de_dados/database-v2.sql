@@ -1,25 +1,10 @@
 CREATE DATABASE VagasIQ;
 
 USE VagasIQ;
-
-CREATE TABLE condutor (
-	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
-	genero CHAR(1) NOT NULL,
-	CONSTRAINT cnk_genero 
-		CHECK (genero IN ('M', 'F','O')),
-	dt_nasc DATE NOT NULL,
-    ano_veiculo YEAR NOT NULL,
-    modelo_veiculo VARCHAR(45) NOT NULL,
-	tipo VARCHAR(45),
-		CONSTRAINT chk_tipo
-        CHECK (tipo IN('Carro', 'Moto', 'Caminhão')),
-	seguro TINYINT
-);
    
 CREATE TABLE seguradora (
 	id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(80),
-	senha VARCHAR(20) NOT NULL,
 	cnpj CHAR(14) UNIQUE NOT NULL,
 	email VARCHAR(80) UNIQUE NOT NULL,
 	telefone VARCHAR(20) NOT NULL,
@@ -35,7 +20,7 @@ CREATE TABLE usuario (
     nome VARCHAR(45) NOT NULL,
     sobrenome VARCHAR(45) NOT NULL,
     email VARCHAR(80) NOT NULL,
-    telefone CHAR(11),
+    senha VARCHAR(20) NOT NULL,
     PRIMARY KEY (id_usuario, fk_seguradora)
 );
 
@@ -47,47 +32,61 @@ CREATE TABLE localizacao (
     acidentes INT
 );
 
+CREATE TABLE sensor (
+	id_sensor INT PRIMARY KEY AUTO_INCREMENT,
+	estado_sensor VARCHAR(20)
+);
+
 CREATE TABLE vaga (
 	id_vaga INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(100) NOT NULL,
+	apelido VARCHAR(45) NOT NULL,
 	fk_local INT,
 	CONSTRAINT fk_local 
 		FOREIGN KEY (fk_local)
-		REFERENCES localizacao(id_localizacao)
+		REFERENCES localizacao(id_localizacao),
+	fk_sensor INT,
+    CONSTRAINT fk_sensor_vaga
+		FOREIGN KEY (fk_sensor)
+        REFERENCES sensor(id_sensor)
 );
 
-CREATE TABLE sensor (
-	id_sensor INT PRIMARY KEY AUTO_INCREMENT,
-	estado_sensor VARCHAR(20),
-	fk_vaga INT,
-	CONSTRAINT fk_vaga 
-		FOREIGN KEY (fk_vaga)
-		REFERENCES vaga(id_vaga)
+CREATE TABLE condutor (
+	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
+	genero CHAR(1) NOT NULL,
+	CONSTRAINT cnk_genero 
+		CHECK (genero IN ('M', 'F')),
+	dt_nasc DATE NOT NULL,
+    ano_veiculo YEAR NOT NULL,
+    modelo_veiculo VARCHAR(45) NOT NULL,
+	tipo VARCHAR(45),
+		CONSTRAINT chk_tipo
+        CHECK (tipo IN('Carro', 'Moto', 'Caminhão')),
+	seguro TINYINT
 );
 
 CREATE TABLE registro (
 	id_registro INT PRIMARY KEY AUTO_INCREMENT,
-    situacao TINYINT,
-	dt_registro DATETIME,
-	fk_sensor INT,
-	CONSTRAINT fk_sensor 
+    fk_sensor INT,
+	CONSTRAINT fk_sensor_registro
 		FOREIGN KEY (fk_sensor)
 		REFERENCES sensor(id_sensor),
 	fk_condutor INT,
+    CONSTRAINT fk_condutor
 		FOREIGN KEY (fk_condutor)
-		REFERENCES condutor(id_condutor)
+		REFERENCES condutor(id_condutor),
+    situacao TINYINT,
+	dt_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO condutor (genero, dt_nasc, ano_veiculo, modelo_veiculo, tipo, seguro) VALUES
-	('M', '1990-05-12', 2018, 'Onix', 'Carro', 1),
-	('F', '1985-11-23', 2020, 'HB20', 'Carro', 0),
-	('O', '2000-02-14', 2017, 'Honda Biz', 'Moto', 1),
-	('F', '1995-07-30', 2019, 'Scania', 'Caminhão', 1),
-	('M', '1988-12-01', 2012, 'Avelloz', 'Moto', 0);
-
-INSERT INTO seguradora (nome, senha, cnpj, email, telefone, codigo) VALUES
-	('Taui Seguros', '12345678', '52865433233103', 'contato@tauiseguros.com', '11987654321', 'JS36T8'),
-	('SeguroPorto', '87654321', '84765433233103', 'contato@seguroporto.com', '11912345678', 'ME94L3');
+INSERT INTO seguradora (nome, cnpj, email, telefone, codigo) VALUES
+	('Taui Seguros', '52865433233103', 'contato@tauiseguros.com', '11987654321', 'JS36T8'),
+	('SeguroPorto', '84765433233103', 'contato@seguroporto.com', '11912345678', 'ME94L3');
+    
+INSERT INTO usuario (fk_seguradora, nome, sobrenome, email, senha) VALUES
+	(1, 'Maria', 'Menezes', 'maria.menezes@gmail.com', '123456'),
+	(2, 'Lucas', 'Lopes', 'lucas.lopes@gmail.com', '098765'),
+	(1, 'Aline', 'Alvarenga', 'aline.alvarenga@gmail.com', '135791'),
+	(2, 'Gabriel', 'Gomes', 'gabriel.gomes@gmail.com', '864286');
     
 INSERT INTO localizacao (logradouro, cidade, bairro, acidentes) VALUES
 	('Av. Paulista', 'São Paulo', 'Bela Vista', 2),
@@ -95,41 +94,57 @@ INSERT INTO localizacao (logradouro, cidade, bairro, acidentes) VALUES
 	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi', 0),
 	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena', 1);
     
-INSERT INTO vaga (nome, fk_local) VALUES
-	('A1', 1),
-	('A2', 1),
-	('B3', 2),
-	('C4', 3),
-	('C5', 3),
-	('D6', 4);
+INSERT INTO sensor (estado_sensor) VALUES
+	('Ativo'),
+	('Ativo'),
+	('Ativo'),
+	('Ativo'),
+	('Ativo'),
+	('Ativo');
 
-INSERT INTO sensor (estado_sensor, fk_vaga) VALUES
-	('Ativo', 1),
-	('Ativo', 2),
-	('Ativo', 3),
-	('Ativo', 4),
-	('Ativo', 5),
-	('Ativo', 6);
+INSERT INTO vaga (apelido, fk_local, fk_sensor) VALUES
+	('A1', 1, 4),
+	('A2', 1, 3),
+	('B3', 2, 6),
+	('C4', 3, 2),
+	('C5', 3, 1),
+	('D6', 4, 5);
+
+INSERT INTO condutor (genero, dt_nasc, ano_veiculo, modelo_veiculo, tipo, seguro) VALUES
+	('M', '1990-05-12', 2018, 'Onix', 'Carro', 1),
+	('F', '1985-11-23', 2020, 'HB20', 'Carro', 0),
+	('M', '2000-02-14', 2017, 'Honda Biz', 'Moto', 1),
+	('F', '1995-07-30', 2019, 'Scania', 'Caminhão', 1),
+	('M', '1988-12-01', 2012, 'Avelloz', 'Moto', 0);
     
-INSERT INTO registro (dt_registro, situacao, fk_sensor, fk_condutor) VALUES
-	('2025-10-14 08:15:00', 0, 2, 1),
-	('2025-10-14 09:00:00', 1, 4, 2),
-	('2025-10-14 07:45:00', 0, 1, 3),
-	('2025-10-14 11:00:00', 1, 5, 4),
-	('2025-10-14 08:40:00', 0, 3, 5),
-	('2025-10-14 12:10:00', 1, 6, 1);
+INSERT INTO registro (fk_sensor, fk_condutor, situacao) VALUES
+	(1, NULL, 0), 
+	(2, 4, 1), 
+	(3, 5, 1), 
+	(4, 3, 1), 
+	(5, NULL, 0);
+
+SELECT * FROM condutor;
+SELECT * FROM seguradora;
+SELECT * FROM usuario;
+SELECT * FROM localizacao; 
+SELECT * FROM sensor;
+SELECT * FROM registro;
 
 SHOW TABLES;
 
 -- Disponibilidade das vagas de determinada localização
-SELECT vaga.nome AS Vaga,
+SELECT vaga.apelido AS Vaga,
 	CASE
 		WHEN registro.situacao = 1 THEN 'Ocupado'
         ELSE 'Livre'
 	END AS 'Situação'
-FROM localizacao JOIN vaga ON id_localizacao = fk_local
-    JOIN sensor ON id_vaga = fk_vaga
-    JOIN registro ON id_sensor = fk_sensor
+FROM localizacao JOIN vaga 
+	ON localizacao.id_localizacao = vaga.fk_local
+    JOIN sensor 
+    ON sensor.id_sensor = vaga.fk_sensor
+    JOIN registro 
+    ON sensor.id_sensor = registro.fk_sensor
 WHERE id_localizacao = 1 AND estado_sensor = 'Ativo';
 
 
@@ -148,12 +163,14 @@ FROM condutor JOIN registro
     
 
 -- Todas as vagas de uma determinada rua
-SELECT vaga.nome AS vaga, 
+SELECT v.apelido AS vaga, 
 	logradouro
-FROM vaga JOIN localizacao
-    ON fk_local = id_localizacao 
-    JOIN sensor ON id_vaga = fk_vaga
-    JOIN registro ON id_sensor = fk_sensor
+FROM vaga AS v JOIN localizacao AS l
+    ON v.fk_local = l.id_localizacao 
+    JOIN sensor AS s
+    ON s.id_sensor = v.fk_sensor
+    JOIN registro AS r
+    ON s.id_sensor = r.fk_sensor
 WHERE fk_local = 1;
 
 
@@ -165,7 +182,7 @@ SELECT c.genero AS Genero,
 	c.tipo AS Tipo,
 	r.dt_registro AS Data,
 	s.estado_sensor AS Estado,
-	v.nome AS Vaga,
+	v.apelido AS Vaga,
 	l.logradouro AS Localizacao
 FROM registro AS r
 JOIN condutor AS c
@@ -173,10 +190,10 @@ JOIN condutor AS c
 JOIN sensor AS s
 	ON r.fk_sensor = s.id_sensor
 JOIN vaga AS v
-	ON s.fk_vaga = v.id_vaga
+	ON v.fk_sensor = s.id_sensor
 JOIN localizacao AS l
 	ON v.fk_local = l.id_localizacao;
-
+    
     
 -- Relação do condutor e o veículo e registro com um tipo de veículo específico
 SELECT c.genero AS 'Gênero',
@@ -186,15 +203,14 @@ SELECT c.genero AS 'Gênero',
     r.situacao AS 'Situacao',
     r.dt_registro AS 'Data do registro'
     FROM condutor AS c JOIN registro AS r
-    ON r.fk_condutor = c.id_condutor
-    WHERE c.tipo = 'carro';
+    ON c.id_condutor = r.fk_condutor 
+    WHERE c.tipo = 'moto';
 
 
 -- Relação entre o genêro e os registros
 SELECT CASE 
 	WHEN c.genero = 'M' THEN 'Homem'
-	WHEN c.genero ='F' THEN 'Mulher'
-	ELSE 'Outros'
+	ELSE 'Mulher'
 	END AS 'Gênero',
 	r.dt_registro AS 'Data do Registro'
 	FROM condutor AS c JOIN registro AS r
