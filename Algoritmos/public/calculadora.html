@@ -118,7 +118,7 @@
     
     if (qualidadeDados == "nunca" || qualidadeDados == "raramente" || qualidadeDados == "as vezes") {
       var prejuizoMax = faturamento * (taxaPerdaMax / 100);
-      span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões<br> e mapeamento de perfis.<br>Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
+      span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões e mapeamento de perfis. Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
       💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento. (Fonte: MIT)<br>
       💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>R$${prejuizoMax.toFixed(2)}</b>!<br><br>
       <b>Diferença de Faturamento</b>
@@ -161,10 +161,28 @@
     } else {
       if (taxaSinistralidade <= sinistralidadeMedia) {
         span_mensagem_dados.innerHTML = `Apesar da confiabilidade dos dados da sua empresa serem altos, ainda há margem para melhora! <br><br>
-        🚀 Segundo pesquisa do IBGE, a frota nacional cresce, em média, 4,3 milhões por ano (Fonte: IBGE).<br>
-        📉 Porém, a conversão de novos clientes é baixa, visto que 70% dos veículos do país não são segurados (Fonte: CNseg).<br>
+        🚀 Segundo pesquisa do IBGE, a frota nacional <b>cresce</b>, em média, <b>4,3 milhões</b> por ano.<br>
+        📉 Porém, a conversão de novos clientes é baixa, visto que <b>70%</b> dos veículos do país <b>não são segurados</b>. (Fonte: CNseg)<br>
+        💡 Dessa forma, há ainda uma grande parcela do mercado a ser conquistada!<br><br>
+        <b>Frota Nacional por Ano (em milhões)</b>
+        <canvas id="chart-veiculosSegurados"></canvas>
         <br>
-        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos e melhorar a eficiência do<br> mapeamento de perfil e análise de riscos, aprimorando a criação das apólices e otimizando os seus lucros!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
+        Com a nossa solução, a sua empresa ganha mais uma ferramenta para gerar <i>insights</i> valiosos e melhorar a eficácia do<br> mapeamento de perfil e análise de riscos, aprimorando a criação das apólices e otimizando os seus lucros! Processos mais eficientes possibilitam a prática de preços mais baixos, gerando uma vantagem competitiva para sua empresa!<br> Se estiver interessado, <a href="index.html#contato"><b>clique aqui</b></a>.`;
+
+        const chart_veiculosSegurados = document.getElementById('chart-veiculosSegurados');
+
+        new Chart(chart_veiculosSegurados, {
+          type: 'line',
+          data: {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+              data: [108, 111.5, 115, 119, 124],
+              label: 'Frota Nacional',
+              backgroundColor: '#1e1e1e',
+              borderColor: '#ffc714'
+            }]
+          }
+        });
       } else {
         span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
         💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>

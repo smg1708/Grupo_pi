@@ -85,7 +85,6 @@ body {
         url('../assets/imagem-fundo.png');
     background-size: cover;
     border-bottom: 5px solid #ffc714;
-    border-radius: 5px;
 }
 
 .index a {
@@ -408,6 +407,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.p2-calculadora-interface .div_forms {
+    display: flex;
+    align-items: center;
+    width: 45%;
+    text-align: justify;
 }
 
 /*Fim Calculadora*/
