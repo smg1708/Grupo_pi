@@ -133,8 +133,8 @@
         // Cálculo do prejuízo máximo possível em cima do faturamento da empresa
         var prejuizoMax = faturamento * (taxaPerdaMax / 100);
         span_mensagem_dados.innerHTML = `A qualidade dos dados de uma seguradora são de extrema importância para análise de padrões e mapeamento de perfis. Informações imprecisas e pouco confiáveis podem resultar em:<br><br>
-        💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento. (Fonte: MIT)<br>
-        💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>R$${prejuizoMax.toFixed(2)}</b>!<br><br>
+        💸 <b>Perda</b> de <b>${taxaPerdaMin} a ${taxaPerdaMax}%</b> do faturamento.<br>
+        💰 Ou seja, um <b>prejuízo</b> que pode chegar a <b>${prejuizoMax.toLocaleString('pt-br', {style:"currency", currency:"BRL"})}</b>!<br><br>
         <b>Diferença de Faturamento</b>
         <canvas id="chart-prejuizo"></canvas>
         <i style="color: #aaaaaa">Fonte: Estudo feito pelo Instituto de Tecnologia de Massachussets (MIT) publicado em 2017</i>`;
@@ -161,9 +161,6 @@
           },
           options: {
             scales: {
-              y: {
-                beginAtZero: true
-              },
               x: {
                 display: false
               }
@@ -176,7 +173,7 @@
         if (taxaSinistralidade > sinistralidadeMedia) {
           span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
           💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>
-          🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>. (Fonte: IRB)<br>
+          🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>.<br>
           🙁 Portanto, os seus gastos com sinistros extrapolam a média brasileira...<br><br>
           <b>Comparação Entre Sinistralidades</b><br>
           <canvas id="chart-sinistralidade"></canvas>
@@ -204,9 +201,6 @@
             },
             options: {
               scales: {
-                y: {
-                  beginAtZero: true
-                },
                 x: {
                   display: false
                 }
@@ -218,7 +212,7 @@
           // Cenário em que o usário considera seus dados confiáveis e sua sinistralidade está abaixo da média
           span_mensagem_dados.innerHTML = `Apesar da confiabilidade dos dados da sua empresa serem altos, ainda há margem para melhora! <br><br>
           🚀 Segundo pesquisa do IBGE, a frota nacional <b>cresce</b>, em média, <b>4,3 milhões</b> por ano.<br>
-          📉 Porém, a conversão de novos clientes é baixa, visto que <b>70%</b> dos veículos* do país <b>não são segurados</b>. (Fonte: CNseg)<br>
+          📉 Porém, a conversão de novos clientes é baixa, visto que <b>70%</b> dos veículos* do país <b>não são segurados</b>.<br>
           💡 Dessa forma, há ainda uma grande parcela do mercado a ser conquistada!<br><br>
           <b>Diferença do volume de veículos* com e sem seguros (em milhões)</b>
           <canvas id="chart-veiculosSegurados"></canvas>
