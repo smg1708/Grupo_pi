@@ -55,11 +55,11 @@
                         </div>
                         <div class="campo">
                             <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
-                            <input oninput="verificar()" type="text"  class="input_cad-log" id="input_senha" placeholder="********">
+                            <input oninput="verificar()" type="password"  class="input_cad-log" id="input_senha" placeholder="********">
                         </div>
                         <div class="campo">
                             <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
-                            <input type="text"  class="input_cad-log"  id="input_confirmacao" placeholder="********">
+                            <input type="password"  class="input_cad-log"  id="input_confirmacao" placeholder="********">
                         </div>
                         <button onclick="cadastrar()" class="button-forms">Cadastrar</button>
                         <h4>Já possui uma conta? <a href="login.html">Clique aqui</a></h4>
@@ -142,7 +142,7 @@ function cadastrar(){
             erroSobrenome.innerHTML="*"
         }
         
-        else if(!email.includes("@")){
+        else if(!email.includes("@") || email == ""){
             erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroSobrenome.innerHTML=""
@@ -157,12 +157,11 @@ function cadastrar(){
             erroSenha.innerHTML ="*"
         }
 
-        else if(confirmacao!=senha){
+        else if(confirmacao!=senha || confirmacao == ""){
             erroCodigo.innerHTML =""
             erroNome.innerHTML=""
             erroSobrenome.innerHTML=""
             erroEmail.innerHTML =""
-            erroSenha.innerHTML ="*"
             erroConfirmacao.innerHTML ="*"
 
         }
