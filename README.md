@@ -1,10 +1,32 @@
-# Grupo PI
+# dddVagasIQ – Transformando dados em decisões  inteligentes.
+✨ Sobre o Projeto
 
-Com parceria com a prefeitura de São Paulo e a Zona Azul, o objetivo da nossa aplicação é oferecer uma solução acessível e eficaz para o monitoramento de vagas de estacionamento em vias públicas. Nosso sistema integra sensores e software de análise, permitindo registrar em tempo real a disponibilidade e a rotatividade das vagas de forma prática. 
+O dddVagasIQ tem como objetivo da proposta é monitorar, por meio de sensores ultrassônicos, a ocupação de vagas em vias públicas como fonte de informação estratégica para seguradoras. Com isso, as empresas terão mais uma ferramenta para auxiliá-las no mapeamento de perfis e planejamento de riscos de seus clientes.
 
-Assim, a geração de informações, a partir do cruzamento de dados entre a Zona Azul SP e a nossa aplicação, possibilita análises estratégicas, como identificar regiões da cidade mais movimentadas, horários de maior ou menor fluxo e mapeamento de perfis e padrões dos motoristas.
+## 🏹 Objetivos
 
-# Links úteis
+Permitir registrar em tempo real a disponibilidade e a rotatividade das vagas de forma prática. 
 
-- Prototipação do Site: https://www.figma.com/site/rYL8CaP1eCQa7ctEYXuX8u/VagasIQ
-- Ferramenta de Gestão: https://trello.com/b/uvaAXzRg/vagasiq
+Possibilitar análises estratégicas, como identificar regiões da cidade mais movimentadas
+
+Seguradoras poderem ajustar seus planos conforme a movimentação das regiões da cidade.
+
+Garantir maior segurança e redução de custos para seguradoras e clientes.
+
+## 🛠️ Tecnologias
+
+Hardware: Arduino UNO R3 + Sensor HC-SR04
+
+Backend: Node.js, MySQL, API REST
+
+Frontend: React.js / HTML / CSS / JS
+
+Ferramentas: GitHub, Trello, VirtualBox, VS Code, Figma, Excel
+
+## 👥 Equipe
+- Diego Seiti
+- Flavia Longobardi
+- Heloisy Oliveira
+- Philipi Jordan
+- Samuel Sousa
+- Vitoria Lima
