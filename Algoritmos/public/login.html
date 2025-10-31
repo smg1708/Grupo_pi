@@ -98,20 +98,13 @@
         var email = input_email.value;
         var senha = input_senha.value;
         var vagasIQ = 'fernando.brandao@empresa.com';
-        var vagasIQQ = 'fernando.brandao.empresa.com';
         var vagasIQsenha = 'urubu100';
 
-        while (cont > 0) {
-            cont--;
 
-            if ((email == vagasIQ || email == vagasIQQ) && senha == vagasIQsenha && email.includes('@')) {
-                window.location.href = `dashboard.html`
-                break
-            } else {
-                span_mensagem_erro.innerHTML = `Email ou senha incorretos! Tente novamente! Tentativas restantes: ${cont}`;
-                break
-            }
-
+        if (email == vagasIQ && senha == vagasIQsenha) {
+            window.location.href = `dashboard.html`;
+        } else {
+            span_mensagem_erro.innerHTML = `Email ou senha incorretos! Tente novamente! Tentativas restantes: ${--cont}`;
         }
 
         if (cont <= 0) {

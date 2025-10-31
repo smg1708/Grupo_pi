@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+        rel="stylesheet">
 
 </head>
-<body >
-    
+
+<body>
+
     <div class="header">
         <div class="div_container-navbar">
-            <div class="div_logo"><h1><a href="index.html">VagasIQ</a></h1></div>
+            <div class="div_logo">
+                <h1><a href="index.html">VagasIQ</a></h1>
+            </div>
             <div class="navbar">
                 <a href="index.html#sobreNos">SOBRE NÓS</a>
                 <a href="index.html#solucao">SOLUÇÕES</a>
@@ -31,42 +37,44 @@
     </div>
 
     <div class="div_conteudo-cadastro">
-        
-            <div class="titulo">
-                <h2>Crie a Sua Conta</h2>
-                    <h3>Crie uma conta vinculada a sua Instituição e tenha acesso à<br> infomações relevantes para o seu negócio!</h3>
-                </div>
-                    <div class="div_forms">
-                        <div class="campo">
-                            <p>Código de acesso<span style="color: red; font-weight: bold;" id="erroCodigo"></span></p>
-                            <input type="text" class="input_cad-log"  id="input_codigo" placeholder="Código">
-                        </div>
-                        <div class="campo">
-                            <p>Nome<span style="color: red; font-weight: bold;" id="erroNome"></span></p>
-                            <input type="text" class="input_cad-log"  id="input_nome" placeholder="Seu Nome">
-                        </div>
-                        <div class="campo">
-                            <p>Sobrenome<span style="color: red; font-weight: bold;" id="erroSobrenome"></span></p>
-                            <input type="text"  class="input_cad-log" id="input_sobrenome" placeholder="Seu Sobrenome">
-                        </div>
-                        <div class="campo">
-                            <p>Email<span style="color: red; font-weight: bold;" id="erroEmail"></span></p>
-                            <input type="text"  class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
-                        </div>
-                        <div class="campo">
-                            <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
-                            <input oninput="verificar()" type="password"  class="input_cad-log" id="input_senha" placeholder="********">
-                        </div>
-                        <div class="campo">
-                            <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
-                            <input type="password"  class="input_cad-log"  id="input_confirmacao" placeholder="********">
-                        </div>
-                        <button onclick="cadastrar()" class="button-forms">Cadastrar</button>
-                        <h4>Já possui uma conta? <a href="login.html">Clique aqui</a></h4>
-                        
-                    </div>
-        
-        
+
+        <div class="titulo">
+            <h2>Crie a Sua Conta</h2>
+            <h3>Crie uma conta vinculada a sua Instituição e tenha acesso à<br> infomações relevantes para o seu
+                negócio!</h3>
+        </div>
+        <div class="div_forms">
+            <div class="campo">
+                <p>Código de acesso<span style="color: red; font-weight: bold;" id="erroCodigo"></span></p>
+                <input type="text" class="input_cad-log" id="input_codigo" placeholder="Código">
+            </div>
+            <div class="campo">
+                <p>Nome<span style="color: red; font-weight: bold;" id="erroNome"></span></p>
+                <input type="text" class="input_cad-log" id="input_nome" placeholder="Seu Nome">
+            </div>
+            <div class="campo">
+                <p>Sobrenome<span style="color: red; font-weight: bold;" id="erroSobrenome"></span></p>
+                <input type="text" class="input_cad-log" id="input_sobrenome" placeholder="Seu Sobrenome">
+            </div>
+            <div class="campo">
+                <p>Email<span style="color: red; font-weight: bold;" id="erroEmail"></span></p>
+                <input type="text" class="input_cad-log" id="input_email" placeholder="exemplo@gmail.com">
+            </div>
+            <div class="campo">
+                <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
+                <input oninput="verificar()" type="password" class="input_cad-log" id="input_senha"
+                    placeholder="********">
+            </div>
+            <div class="campo">
+                <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
+                <input type="password" class="input_cad-log" id="input_confirmacao" placeholder="********">
+            </div>
+            <button onclick="cadastrar()" class="button-forms">Cadastrar</button>
+            <h4>Já possui uma conta? <a href="login.html">Clique aqui</a></h4>
+
+        </div>
+
+
     </div>
 
     <div class="div_container-footer">
@@ -80,102 +88,97 @@
             <div class="traco"></div>
 
             <span class="div_descricao-footer"> Explore todo o potencial do seu negócio com o poder da tomada de decisão
-            estratégica <br> baseada em informações relevantes! </span>
+                estratégica <br> baseada em informações relevantes! </span>
 
-    </div>
+        </div>
 
 </body>
+
 </html>
 
 <script>
 
-function verificar() {
-    var senha = input_senha.value;
-    var mensagemErro = '';
-    var listaCaracteres = ['@', '#', '$', '%', '&', '!', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    var temCaracter = false;
-
-    for (var i = 0; i < senha.length; i++) {
+    function verificar() {
+        var senha = input_senha.value;
+        var mensagemErro = '';
+        var listaCaracteres = ['@', '#', '$', '%', '&', '!', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var temCaracter = false;
 
         for (var f = 0; f < listaCaracteres.length; f++) {
             var caracterAtual = listaCaracteres[f];
 
             if (senha.includes(caracterAtual)) {
                 temCaracter = true;
-            }    
+            }
         }
 
+        if (temCaracter && senha.length >= 6) {
+            mensagemErro = ' Senha forte!';
+            erroSenha.style.color = 'green';
+        } else {
+            mensagemErro = ' Senha fraca!';
+            erroSenha.style.color = 'red';
+        }
+
+        erroSenha.innerHTML = mensagemErro;
     }
 
-    if (temCaracter && senha.length >= 6) {
-        mensagemErro = ' Senha forte!';
-        erroSenha.style.color = 'green';
-    } else {
-        mensagemErro = ' Senha fraca!';
-        erroSenha.style.color = 'red';
-    }
+    function cadastrar() {
+        var codigo = input_codigo.value;
+        var nome = input_nome.value;
+        var sobrenome = input_sobrenome.value;
+        var email = input_email.value;
+        var senha = input_senha.value;
+        var confirmacao = input_confirmacao.value;
 
-    erroSenha.innerHTML = mensagemErro;
-}
 
-function cadastrar(){
-    var codigo = input_codigo.value;
-    var nome = input_nome.value;
-    var sobrenome = input_sobrenome.value;
-    var email = input_email.value;
-    var senha = input_senha.value;
-    var confirmacao = input_confirmacao.value;
-    
+        if (codigo == "") {
+            erroCodigo.innerHTML = "*";
+        }
+        else if (nome == "") {
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "*";
+        }
+        else if (sobrenome == "") {
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "";
+            erroSobrenome.innerHTML = "*";
+        }
 
-        if(codigo == ""){
-            erroCodigo.innerHTML ="*"
-        }
-        else if(nome == "")
-        {
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML="*"
-        }
-        else if(sobrenome == "")
-        {
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML=""
-            erroSobrenome.innerHTML="*"
-        }
-        
-        else if(!email.includes("@") || email == ""){
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML=""
-            erroSobrenome.innerHTML=""
-            erroEmail.innerHTML ="*"
+        else if (!email.includes("@") || email == "") {
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "";
+            erroSobrenome.innerHTML = "";
+            erroEmail.innerHTML = "*";
         }
 
         else if (senha == '') {
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML=""
-            erroSobrenome.innerHTML=""
-            erroEmail.innerHTML =""
-            erroSenha.innerHTML ="*"
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "";
+            erroSobrenome.innerHTML = "";
+            erroEmail.innerHTML = "";
+            erroSenha.innerHTML = "*";
         }
 
-        else if(confirmacao!=senha || confirmacao == ""){
-            erroCodigo.innerHTML =""
-            erroNome.innerHTML=""
-            erroSobrenome.innerHTML=""
-            erroEmail.innerHTML =""
-            erroConfirmacao.innerHTML ="*"
+        else if (confirmacao != senha || confirmacao == "") {
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "";
+            erroSobrenome.innerHTML = "";
+            erroEmail.innerHTML = "";
+            erroConfirmacao.innerHTML = "*";
 
         }
-    else{
-        erroCodigo.innerHTML =""
-        erroNome.innerHTML=""
-        erroSobrenome.innerHTML=""
-        erroEmail.innerHTML =""
-        erroSenha.innerHTML =""
-        erroConfirmacao.innerHTML =""
+        else {
+            erroCodigo.innerHTML = "";
+            erroNome.innerHTML = "";
+            erroSobrenome.innerHTML = "";
+            erroEmail.innerHTML = "";
+            erroSenha.innerHTML = "";
+            erroConfirmacao.innerHTML = "";
 
-        window.location.href = `login.html`
+            window.location.href = `login.html`;
+        }
+
+
     }
-    
-
-}
 </script>
