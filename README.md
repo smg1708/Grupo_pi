@@ -1,7 +1,7 @@
 # VagasIQ – Transformando dados em decisões  inteligentes.
 ✨ Sobre o Projeto
 
-O VagasIQ tem como objetivo da proposta é monitorar, por meio de sensores ultrassônicos, a ocupação de vagas em vias públicas como fonte de informação estratégica para seguradoras. Com isso, as empresas terão mais uma ferramenta para auxiliá-las no mapeamento de perfis e planejamento de riscos de seus clientes.
+O VagasIQ tem como objetivo da proposta monitorar, por meio de sensores ultrassônicos, a ocupação de vagas em vias públicas como fonte de informação estratégica para seguradoras. Com isso, as empresas terão mais uma ferramenta para auxiliá-las no mapeamento de perfis e planejamento de riscos de seus clientes.
 
 ## 🏹 Objetivos
 
