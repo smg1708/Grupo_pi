@@ -156,14 +156,21 @@
                                     <canvas id="chart-tipo-veiculo"></canvas>
                                 </div>
 
-                                 <div class="grafico-tres">
+                                <div class="grafico-tres">
                                     <h1>Ranking das ruas com maior número de acidentes</h1>
-                                    
+
                                     <p>1. Rua dos Três Irmãos;</p>
                                     <p>2. Rua Augusta;</p>
                                     <p>3. Av. Faria Lima;</p>
                                     <p>4. Av. Paulista.</p>
 
+                                </div>
+                            </div>
+
+                            <div class="graficos">
+                                <div class="grafico-quatro">
+                                    <h1>Seguros</h1>
+                                    <canvas id="chart-seguro"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -274,26 +281,50 @@
     const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
 
     new Chart(chart_tipoVeiculo, {
-    type: 'bar',
-    data: {
-        labels: ['Caminhão', 'Moto', 'Carro'],
-        datasets: [{
-            label: 'Quantidade por tipo de veículo',
-            data: [10, 20, 60],
-            backgroundColor:  '#ffc714',
-            borderColor:  '#ffc714',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        indexAxis: 'y', 
-        scales: {
-            x: {
-                beginAtZero: true
+        type: 'bar',
+        data: {
+            labels: ['Caminhão', 'Moto', 'Carro'],
+            datasets: [{
+                label: 'Quantidade por tipo de veículo',
+                data: [10, 20, 60],
+                backgroundColor: '#ffc714',
+                borderColor: '#ffc714',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
             }
         }
-    }
-});
+    });
+
+    const chart_seguro = document.getElementById('chart-seguro');
+
+    new Chart(chart_seguro, {
+        type: 'bar',
+        data: {
+            labels: ['Tem seguro', 'Não tem seguro'],
+            datasets: [{
+                label: 'Quantidade de pessoas com seguro',
+                data: [3, 2, ],
+                backgroundColor: '#ffc714',
+                borderColor: '#ffc714',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 
 </script>
 
