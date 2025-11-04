@@ -157,22 +157,12 @@
                                 </div>
 
                                 <div class="grafico-tres">
-                                    <h1>Ranking das ruas com maior número de acidentes</h1>
-
-                                    <p>1. Rua dos Três Irmãos;</p>
-                                    <p>2. Rua Augusta;</p>
-                                    <p>3. Av. Faria Lima;</p>
-                                    <p>4. Av. Paulista.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="graficos">
-                                <div class="grafico-quatro">
-                                    <h1>Seguros</h1>
+                                    <h1>Quantidade de condutores que possuem seguros</h1>
                                     <canvas id="chart-seguro"></canvas>
                                 </div>
+
                             </div>
+
                         </div>
 
                         <div class="dashboard-principal-direita">
@@ -239,7 +229,7 @@
             datasets: [{
                 label: '',
                 data: [60, 35],
-                backgroundColor: ['#ffc714', '#0f9d58', '#1f1f1f']
+                backgroundColor: ['#ffc714', '#1f1f1f']
             }]
         }
     });
@@ -260,8 +250,8 @@
             {
                 label: 'Homens',
                 data: [45, 25, 10, 8, 2],
-                backgroundColor: '#0f9d58',
-                borderColor: '#0f9d58',
+                backgroundColor: '#1f1f1f',
+                borderColor: '#1f1f1f',
                 borderWidth: 1
             }
 
@@ -309,10 +299,10 @@
         data: {
             labels: ['Tem seguro', 'Não tem seguro'],
             datasets: [{
-                label: 'Quantidade de pessoas com seguro',
-                data: [3, 2, 5],
-                backgroundColor: '#ffc714',
-                borderColor: '#ffc714',
+                label: 'Condutores ',
+                data: [25, 75],
+                backgroundColor: '#1f1f1f',
+                borderColor: '#1f1f1f',
                 borderWidth: 1
             }]
         },
