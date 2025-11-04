@@ -40,9 +40,9 @@ CREATE TABLE sensor (
 CREATE TABLE vaga (
 	id_vaga INT PRIMARY KEY AUTO_INCREMENT,
 	apelido VARCHAR(45) NOT NULL,
-	fk_local INT,
+	fk_localizacao INT,
 	CONSTRAINT fk_local 
-		FOREIGN KEY (fk_local)
+		FOREIGN KEY (fk_localizacao)
 		REFERENCES localizacao(id_localizacao),
 	fk_sensor INT,
     CONSTRAINT fk_sensor_vaga
@@ -53,7 +53,7 @@ CREATE TABLE vaga (
 CREATE TABLE condutor (
 	id_condutor INT PRIMARY KEY AUTO_INCREMENT,
 	genero CHAR(1) NOT NULL,
-	CONSTRAINT cnk_genero 
+	CONSTRAINT chk_genero 
 		CHECK (genero IN ('M', 'F')),
 	dt_nasc DATE NOT NULL,
     ano_veiculo YEAR NOT NULL,
@@ -102,7 +102,7 @@ INSERT INTO sensor (estado_sensor) VALUES
 	('Ativo'),
 	('Ativo');
 
-INSERT INTO vaga (apelido, fk_local, fk_sensor) VALUES
+INSERT INTO vaga (apelido, fk_localizacao, fk_sensor) VALUES
 	('A1', 1, 4),
 	('A2', 1, 3),
 	('B3', 2, 6),
@@ -140,7 +140,7 @@ SELECT vaga.apelido AS Vaga,
         ELSE 'Livre'
 	END AS 'Situação'
 FROM localizacao JOIN vaga 
-	ON localizacao.id_localizacao = vaga.fk_local
+	ON localizacao.id_localizacao = vaga.fk_localizacao
     JOIN sensor 
     ON sensor.id_sensor = vaga.fk_sensor
     JOIN registro 
@@ -158,30 +158,29 @@ SELECT condutor.genero AS Gênero_Condutor,
 		WHEN condutor.seguro = '1' THEN 'Tem seguro'
 		ELSE 'Não tem'
     END AS 'Seguro'
-FROM condutor JOIN registro
-	ON condutor.id_condutor = registro.fk_condutor;
+FROM condutor;
     
+
 
 -- Todas as vagas de uma determinada rua
 SELECT v.apelido AS vaga, 
 	logradouro
 FROM vaga AS v JOIN localizacao AS l
-    ON v.fk_local = l.id_localizacao 
+    ON v.fk_localizacao = l.id_localizacao 
     JOIN sensor AS s
     ON s.id_sensor = v.fk_sensor
     JOIN registro AS r
     ON s.id_sensor = r.fk_sensor
-WHERE fk_local = 1;
+WHERE fk_localizacao = 1;
 
 
--- Relação do condutor e as demais tabelas
+-- RelaÃ§Ã£o do condutor e as demais tabelas
 SELECT c.genero AS Genero,
 	c.dt_nasc AS Data_Nascimento,
 	c.modelo_veiculo AS Veiculo,
 	c.ano_veiculo AS Ano,
 	c.tipo AS Tipo,
-	r.dt_registro AS Data,
-	s.estado_sensor AS Estado,
+	r.dt_registro AS Data_Ocupacao,
 	v.apelido AS Vaga,
 	l.logradouro AS Localizacao
 FROM registro AS r
@@ -192,15 +191,15 @@ JOIN sensor AS s
 JOIN vaga AS v
 	ON v.fk_sensor = s.id_sensor
 JOIN localizacao AS l
-	ON v.fk_local = l.id_localizacao;
+	ON v.fk_localizacao = l.id_localizacao;
     
     
--- Relação do condutor e o veículo e registro com um tipo de veículo específico
+-- RelaÃ§Ã£o do condutor e o veículo e registro com um tipo de veículo específico
 SELECT c.genero AS 'Gênero',
 	c.ano_veiculo AS 'Ano do veículo',
     c.modelo_veiculo AS 'Modelo do veículo',
     c.tipo AS 'Tipo de veículo',
-    r.situacao AS 'Situacao',
+    r.situacao AS 'Situação',
     r.dt_registro AS 'Data do registro'
     FROM condutor AS c JOIN registro AS r
     ON c.id_condutor = r.fk_condutor 
@@ -215,3 +214,48 @@ SELECT CASE
 	r.dt_registro AS 'Data do Registro'
 	FROM condutor AS c JOIN registro AS r
 	ON r.fk_condutor = c.id_condutor;
+    
+select * from registro;
+
+
+-- Condutores estacionados em uma determinada localização que possuem ou não seguro
+SELECT condutor.*,
+    registro.dt_registro
+FROM 
+	condutor JOIN registro
+		ON id_condutor = fk_condutor
+    JOIN sensor
+		ON registro.fk_sensor = id_sensor
+    JOIN vaga
+		ON id_sensor = vaga.fk_sensor
+    JOIN localizacao
+		ON fk_localizacao = id_localizacao;
+    
+-- Qual gênero possui mais ou menos seguro
+SELECT genero, seguro FROM condutor;
+
+-- Qual faixa etária possui mais ou menos seguro
+SELECT dt_nasc, seguro FROM condutor;
+
+-- Qual gênero de determinada localização possui mais seguro
+SELECT condutor.genero,
+	condutor.seguro,
+	localizacao.logradouro,
+	localizacao.cidade,
+	localizacao.bairro
+FROM 
+	condutor JOIN registro
+		ON id_condutor = fk_condutor
+    JOIN sensor
+		ON registro.fk_sensor = id_sensor
+    JOIN vaga
+		ON id_sensor = vaga.fk_sensor
+    JOIN localizacao
+		ON fk_localizacao = id_localizacao;
+    
+    
+select localizacao.*,
+	vaga.apelido
+FROM
+	localizacao JOIN vaga
+		ON id_localizacao = fk_localizacao; 
