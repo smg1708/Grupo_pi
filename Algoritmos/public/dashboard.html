@@ -99,7 +99,7 @@
                             <img src="./assets/dashboard-horario.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1>17h-20h</h1>
+                            <h1>16h-20h</h1>
                             <p>Horários de pico</p>
                         </div>
                     </div>
@@ -112,18 +112,7 @@
                             <h1>1h</h1>
                             <p>Tempo de permanência médio</p>
                         </div>
-                    </div>
-
-                    <div class="metrica">
-                        <span>
-                            <img src="./assets/dashboard-acidentes.svg">
-                        </span>
-                        <div class="metrica-titulo">
-                            <h1>2,4%</h1>
-                            <p>Probabilidade de acidente</p>
-                        </div>
-                    </div>
-
+                    </div>    
                 </div>
 
                 <div class="dashboard-principal">
@@ -197,13 +186,13 @@
             labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
             datasets: [{
                 label: 'Real',
-                data: [10, 5, 8, 8, 8, 15, 30, 50, 60, 65, 50, 45],
+                data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
                 backgroundColor: '#ffc714',
                 borderColor: '#ffc714',
                 borderWidth: 3
             }, {
                 label: 'Previsão',
-                data: [20, 10, 8, 8, 8, 15, 25, 55, 65, 70, 55, 50],
+                data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
                 borderColor: '#ffc714',
                 borderWidth: 2,
                 borderDash: [5, 5]
@@ -228,7 +217,7 @@
             labels: ['Feminino', 'Masculino'],
             datasets: [{
                 label: '',
-                data: [60, 35],
+                data: [35, 65],
                 backgroundColor: ['#ffc714', '#1f1f1f']
             }]
         }
@@ -242,14 +231,14 @@
             labels: ['18–25', '26–35', '36–45', '46–59', '60+'],
             datasets: [{
                 label: 'Mulheres',
-                data: [35, 12, 5, 3, 2],
+                data: [20, 7, 3, 3, 2],
                 backgroundColor: '#ffc714',
                 borderColor: '#ffc714',
                 borderWidth: 1
             },
             {
                 label: 'Homens',
-                data: [45, 25, 10, 8, 2],
+                data: [25, 15, 12, 10, 3],
                 backgroundColor: '#1f1f1f',
                 borderColor: '#1f1f1f',
                 borderWidth: 1
@@ -275,7 +264,7 @@
         data: {
             labels: ['Caminhão', 'Moto', 'Carro'],
             datasets: [{
-                label: 'Quantidade por tipo de veículo',
+                label: 'Quantidade de veículo',
                 data: [10, 20, 60],
                 backgroundColor: '#ffc714',
                 borderColor: '#ffc714',
@@ -299,12 +288,13 @@
         data: {
             labels: ['Tem seguro', 'Não tem seguro'],
             datasets: [{
-                label: 'Condutores ',
-                data: [25, 75],
-                backgroundColor: '#1f1f1f',
-                borderColor: '#1f1f1f',
+                label: 'Quantidade de condutores ',
+                data: [30, 70],
+                backgroundColor: ['#1f1f1f','#ffc714'],
+                borderColor: ['#1f1f1f','#ffc714'],
                 borderWidth: 1
             }]
+            
         },
         options: {
             indexAxis: 'y',
