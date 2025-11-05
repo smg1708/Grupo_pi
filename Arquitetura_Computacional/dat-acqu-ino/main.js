@@ -26,7 +26,7 @@
                 host: 'localhost',
                 user: 'dat_acq_ino',
                 password: 'Sptech#2024',
-                database: 'vagasIQ',
+                database: 'VagasIQ',
                 port: 3307
             }
         ).promise();
