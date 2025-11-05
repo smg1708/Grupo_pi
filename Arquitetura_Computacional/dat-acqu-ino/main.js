@@ -24,10 +24,10 @@
         let poolBancoDados = mysql.createPool(
             {
                 host: 'localhost',
-                user: 'root',
-                password: '018San4%',
-                database: 'VagasIQ',
-                port: 3306
+                user: 'dat_acq_ino',
+                password: 'Sptech#2024',
+                database: 'vagasIQ',
+                port: 3307
             }
         ).promise();
 
