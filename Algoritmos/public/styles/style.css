@@ -709,6 +709,14 @@ body {
     width: 400px;
 }
 
+.dashboard-body .dashboard-principal-esquerda .graficos .grafico-quatro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #F5F5F5;
+    padding: 10px 20px;
+    width: 325px;
+}
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres p {
     font-size: 15px;
 }
