@@ -4,6 +4,9 @@
     const express = require('express');//responsavel pela criação do servidor web da API
     const mysql = require('mysql2'); // responsavel pela conexao com o abnco
 
+
+
+
 // CONSTANTES DE CONFIGURAÇÃO
 
     const SERIAL_BAUD_RATE = 9600;
@@ -14,6 +17,11 @@
     // habilita ou desabilita a inserção de dados no banco de dados
     // caso estiver desabilitado, os dados são apenas exibidos no console, sem inserção no banco.
     const HABILITAR_OPERACAO_INSERIR = true;
+
+
+
+
+
 
 //  FUNÇÃO COMUNICAÇÃO SERIAL COM O ARDUINO
     const serial = async (
@@ -84,6 +92,12 @@
         });
     }
 
+
+
+
+
+
+
 // FUNÇÃO QUE CRIA E CONFIGURA SERVIDOR WEB
     const servidor = (
         //valoresSensorAnalogico,
@@ -114,6 +128,13 @@
         });
     }
 
+
+
+
+
+
+
+    
 // fUNÇÃO PRINCIPAL EXECUÇÃO DO SISTEMA
     // função principal assíncrona para iniciar a comunicação serial e o servidor web
     (async () => {

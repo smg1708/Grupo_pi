@@ -249,7 +249,7 @@ FROM
     JOIN vaga
 		ON id_sensor = vaga.fk_sensor
     JOIN localizacao
-		ON fk_local = id_localizacao;
+		ON fk_localizacao = id_localizacao;
     
     
 select localizacao.*,

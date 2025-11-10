@@ -172,7 +172,7 @@
         // Cenário em que o usário considera seus dados confiáveis, porém sua sinistralidade está acima da média
         if (taxaSinistralidade > sinistralidadeMedia) {
           span_mensagem_dados.innerHTML = `Apesar de considerarem a confiabilidade dos seus dados alta, ainda há margem para melhora!<br><br>
-          💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade}%</b>.<br>
+          💥 A <b>taxa de sinistralidade</b> da sua empresa está em <b>${taxaSinistralidade.toFixed(2)}%</b>.<br>
           🚗 A sinistralidade média das seguradoras brasileiras de automóveis está em <b>${sinistralidadeMedia}%</b>.<br>
           🙁 Portanto, os seus gastos com sinistros extrapolam a média brasileira...<br><br>
           <b>Comparação Entre Sinistralidades</b><br>
