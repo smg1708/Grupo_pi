@@ -76,6 +76,7 @@ CREATE TABLE cadastro_veiculo (
 		CONSTRAINT fk_veiculo_cadastro
 			FOREIGN KEY (fk_veiculo)
 				REFERENCES veiculo(id_veiculo),
+	dt_cadastro DATE,
 	PRIMARY KEY (fk_condutor, fk_veiculo)
 );
 
@@ -144,12 +145,12 @@ INSERT INTO veiculo (ano_veiculo, modelo_veiculo, tipo, seguro) VALUES
     (2019, 'Scania', 'Caminhão', 1),
     (2012, 'Avelloz', 'Moto', 0);
     
-INSERT INTO cadastro_veiculo (fk_condutor, fk_veiculo) VALUES
-	(1, 5),
-	(2, 4),
-	(3, 3),
-	(4, 2),
-	(5, 1);
+INSERT INTO cadastro_veiculo (fk_condutor, fk_veiculo, dt_cadastro) VALUES
+	(1, 5, '2025-11-01'),
+	(2, 4, '2025-10-31'),
+	(3, 3, '2025-10-26'),
+	(4, 2, '2025-11-09'),
+	(5, 1, '2025-11-03');
     
 INSERT INTO registro (id_registro, fk_sensor, situacao, cadastro_veiculo_fk_condutor, cadastro_veiculo_fk_veiculo) VALUES
 	(1, 1, 0, 1, 1), 
@@ -190,6 +191,7 @@ SELECT c.genero AS Gênero_Condutor,
     v.ano_veiculo AS Ano_Veículo,
     v.modelo_veiculo AS Modelo_Veículo,
     v.tipo AS Tipo_Veículo,
+    cv.dt_cadastro AS Data_Cadastro,
     CASE
 		WHEN v.seguro = '1' THEN 'Tem seguro'
 		ELSE 'Não tem'
@@ -220,7 +222,8 @@ SELECT c.genero AS Genero,
 	v.tipo AS Tipo,
 	r.dt_registro AS Data_Ocupacao,
 	va.apelido AS Vaga,
-	l.logradouro AS Localizacao
+	l.logradouro AS Localizacao,
+    cv.dt_cadastro AS Data_Cadastro
 FROM veiculo AS v
 JOIN cadastro_veiculo AS cv 
 	ON v.id_veiculo = cv.fk_condutor
@@ -242,7 +245,8 @@ SELECT c.genero AS 'Gênero',
     v.modelo_veiculo AS 'Modelo do veículo',
     v.tipo AS 'Tipo de veículo',
     r.situacao AS 'Situacao',
-    r.dt_registro AS 'Data do registro'
+    r.dt_registro AS 'Data do registro',
+    cv.dt_cadastro AS 'Data do cadastro'
     FROM condutor AS c JOIN cadastro_veiculo AS cv
     ON c.id_condutor = cv.fk_condutor 
     JOIN veiculo AS v
@@ -311,7 +315,7 @@ FROM
 	JOIN sensor AS s
 		ON s.id_sensor = va.fk_sensor
 	JOIN registro AS r
-		ON s.id_sensor = cv.fk_condutor
+		ON s.id_sensor = r.fk_sensor
 	JOIN cadastro_veiculo AS cv
 		ON r.id_registro = cv.fk_condutor
 	JOIN condutor AS c
