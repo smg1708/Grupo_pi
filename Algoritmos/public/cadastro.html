@@ -62,8 +62,7 @@
             </div>
             <div class="campo">
                 <p>Senha<span style="color: red; font-weight: bold;" id="erroSenha"></span></p>
-                <input oninput="verificar()" type="text" class="input_cad-log" id="input_senha"
-                    placeholder="********">
+                <input oninput="verificar()" type="text" class="input_cad-log" id="input_senha" placeholder="********">
             </div>
             <div class="campo">
                 <p>Confirme a senha<span style="color: red; font-weight: bold;" id="erroConfirmacao"></span></p>
@@ -178,7 +177,26 @@
 
             window.location.href = `login.html`;
         }
+    }
 
+    var listaSeguradorasCadastradas = [];
 
+    function listar() {
+        fetch("/seguradoras/listar", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((seguradoras) => {
+                    seguradoras.forEach((seguradora) => {
+                        listaSeguradorasCadastradas.push(seguradora);
+
+                        console.log("listaSeguradorasCadastradas")
+                        console.log(listaSeguradorasCadastradas[0].codigo)
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 </script>

@@ -16,8 +16,8 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var indexRouter = require("./src/routes/index");
+var seguradorasRouter = require("./src/routes/seguradoras");
 // var usuarioRouter = require("./src/routes/usuarios");
-// var seguradorasRouter = require("./src/routes/seguradoras");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,8 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
+app.use("/seguradoras", seguradorasRouter);
 // app.use("/usuarios", usuarioRouter);
-// app.use("/seguradoras", seguradorasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
