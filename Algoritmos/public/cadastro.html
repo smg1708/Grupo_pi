@@ -53,8 +53,8 @@
                 <input type="text" class="input_cad-log" id="input_nome" placeholder="Seu Nome">
             </div>
             <div class="campo">
-                <p>Sobrenome<span style="color: red; font-weight: bold;" id="erroSobrenome"></span></p>
-                <input type="text" class="input_cad-log" id="input_sobrenome" placeholder="Seu Sobrenome">
+                <p>CPF<span style="color: red; font-weight: bold;" id="erroCpf"></span></p>
+                <input type="text" class="input_cad-log" id="input_cpf" placeholder="Seu CPF">
             </div>
             <div class="campo">
                 <p>Email<span style="color: red; font-weight: bold;" id="erroEmail"></span></p>
@@ -96,6 +96,8 @@
 </html>
 
 <script>
+    var listaSeguradorasCadastradas = [];
+    window.onload = listar();
 
     function verificar() {
         var senha = input_senha.value;
@@ -125,10 +127,11 @@
     function cadastrar() {
         var codigo = input_codigo.value;
         var nome = input_nome.value;
-        var sobrenome = input_sobrenome.value;
+        var cpf = input_cpf.value;
         var email = input_email.value;
         var senha = input_senha.value;
         var confirmacao = input_confirmacao.value;
+        var idSeguradoraVincular;
 
 
         if (codigo == "") {
@@ -138,23 +141,23 @@
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "*";
         }
-        else if (sobrenome == "") {
+        else if (cpf == "") {
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "";
-            erroSobrenome.innerHTML = "*";
+            erroCpf.innerHTML = "*";
         }
 
         else if (!email.includes("@") || email == "") {
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "";
-            erroSobrenome.innerHTML = "";
+            erroCpf.innerHTML = "";
             erroEmail.innerHTML = "*";
         }
 
         else if (senha == '') {
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "";
-            erroSobrenome.innerHTML = "";
+            erroCpf.innerHTML = "";
             erroEmail.innerHTML = "";
             erroSenha.innerHTML = "*";
         }
@@ -162,7 +165,7 @@
         else if (confirmacao != senha || confirmacao == "") {
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "";
-            erroSobrenome.innerHTML = "";
+            erroCpf.innerHTML = "";
             erroEmail.innerHTML = "";
             erroConfirmacao.innerHTML = "*";
 
@@ -170,16 +173,68 @@
         else {
             erroCodigo.innerHTML = "";
             erroNome.innerHTML = "";
-            erroSobrenome.innerHTML = "";
+            erroCpf.innerHTML = "";
             erroEmail.innerHTML = "";
             erroSenha.innerHTML = "";
             erroConfirmacao.innerHTML = "";
 
-            window.location.href = `login.html`;
+            for (let i = 0; i < listaSeguradorasCadastradas.length; i++) {
+                if (listaSeguradorasCadastradas[i].codigo == codigo) {
+                    idSeguradoraVincular = listaSeguradorasCadastradas[i].id_seguradora;
+                    console.log("Código de ativação válido.");
+                    break;
+                } else {
+                    // cardErro.style.display = "block";
+                    // mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+                    console.log("Código de ativação inválido.");
+                    erroCodigo.innerHTML = "*";
+                    // finalizarAguardar();
+                }
+            }
+
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nome,
+                    emailServer: email,
+                    cpfServer: cpf,
+                    senhaServer: senha,
+                    idSeguradoraVincularServer: idSeguradoraVincular
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        // cardErro.style.display = "block";
+
+                        // mensagem_erro.innerHTML =
+                        //     "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
+
+                        // limparFormulario();
+                        // finalizarAguardar();
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    // finalizarAguardar();
+                });
+
+            return false;
         }
     }
 
-    var listaSeguradorasCadastradas = [];
 
     function listar() {
         fetch("/seguradoras/listar", {
