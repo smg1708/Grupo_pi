@@ -18,7 +18,7 @@ CREATE TABLE usuario (
 		FOREIGN KEY (fk_seguradora)
 		REFERENCES seguradora(id_seguradora),
     nome VARCHAR(45) NOT NULL,
-    sobrenome VARCHAR(45) NOT NULL,
+    cpf CHAR(11) NOT NULL,
     email VARCHAR(80) NOT NULL,
     senha VARCHAR(20) NOT NULL,
     PRIMARY KEY (id_usuario, fk_seguradora)
@@ -103,11 +103,11 @@ INSERT INTO seguradora (nome, cnpj, email, telefone, codigo) VALUES
 	('Taui Seguros', '52865433233103', 'contato@tauiseguros.com', '11987654321', 'JS36T8'),
 	('SeguroPorto', '84765433233103', 'contato@seguroporto.com', '11912345678', 'ME94L3');
     
-INSERT INTO usuario (fk_seguradora, nome, sobrenome, email, senha) VALUES
-	(1, 'Maria', 'Menezes', 'maria.menezes@gmail.com', '123456'),
-	(2, 'Lucas', 'Lopes', 'lucas.lopes@gmail.com', '098765'),
-	(1, 'Aline', 'Alvarenga', 'aline.alvarenga@gmail.com', '135791'),
-	(2, 'Gabriel', 'Gomes', 'gabriel.gomes@gmail.com', '864286');
+INSERT INTO usuario (fk_seguradora, nome, cpf, email, senha) VALUES
+	(1, 'Maria', '11111111111', 'maria.menezes@gmail.com', '123456'),
+	(2, 'Lucas', '22222222222', 'lucas.lopes@gmail.com', '098765'),
+	(1, 'Aline', '33333333333', 'aline.alvarenga@gmail.com', '135791'),
+	(2, 'Gabriel', '44444444444', 'gabriel.gomes@gmail.com', '864286');
     
 INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
 	('Av. Paulista', 'São Paulo', 'Bela Vista'),
