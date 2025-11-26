@@ -20,7 +20,7 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
 
                         res.json({
-                            id: resultadoAutenticar[0].id,
+                            idUsuario: resultadoAutenticar[0].id_usuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             senha: resultadoAutenticar[0].senha,
@@ -82,7 +82,39 @@ function cadastrar(req, res) {
     }
 }
 
+function mostrarNome(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("Usuario não carregado!");
+    } else {
+
+        usuarioModel.mostrarNome(idUsuario)
+            .then(
+                function (resultado) {
+                    console.log(`\nResultados encontrados: ${resultado.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                    if (resultado.length > 0) {
+                        console.log(resultado);
+                        res.json(resultado);
+                    }   else {
+                        res.status(403).send("Usuario não carregado!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao tentar carregar! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    mostrarNome
 }

@@ -91,25 +91,65 @@
 </html>
 
 <script>
-
+ 
     var cont = 3;
 
     function entrar() {
         var email = input_email.value;
         var senha = input_senha.value;
-        var vagasIQ = 'fernando.brandao@empresa.com';
-        var vagasIQsenha = 'urubu100';
 
-
-        if (email == vagasIQ && senha == vagasIQsenha) {
-            window.location.href = `dashboard.html`;
+        if (email == "" && senha == "") {
+            alert("Campos incorretos\n Verifique os campos e tente novamente");
+            return false;
         } else {
-            span_mensagem_erro.innerHTML = `Email ou senha incorretos! Tente novamente! Tentativas restantes: ${--cont}`;
-        }
 
-        if (cont <= 0) {
-            button_entrar.disabled = true;
-            span_mensagem_erro.innerHTML = "Você Errou a senha 3 vezes, aguarde e tente novamente!";
         }
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+
+                    window.location.href = "dashboard.html";
+                    // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                alert("Houve um erro ao tentar realizar o login! \n Verifique suas credenciais")
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
     }
 </script>

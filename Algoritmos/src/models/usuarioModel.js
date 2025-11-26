@@ -22,7 +22,20 @@ function cadastrar(nome, email, cpf, senha, fkSeguradora) {
     return database.executar(instrucaoSql);
 }
 
+function mostrarNome(idUsuario) {
+    
+    var sql = `
+        select * from usuario
+            where id_usuario = ${idUsuario};
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + sql);
+    return database.executar(sql)
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    mostrarNome
 };

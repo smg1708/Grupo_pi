@@ -25,9 +25,9 @@
         <div class="navbar-lateral">
             <div class="lateral-opcoes">
                 <div class="topo">
-                    <span>F</span>
+                    <span id="foto_nome2">F</span>
                     <div class="credenciais">
-                        <h4>Fernando</h4>
+                        <h4 id="nome_lateral">Fernando</h4>
                         <p>Administrador</p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
         <div class="container">
             <div class="dashboard-navbar">
                 <h1>VagasIQ</h1>
-                <span>F</span>
+                <span id="foto_nome1">F</span>
             </div>
 
             <div class="dashboard-body">
@@ -68,7 +68,7 @@
                         <img src="./assets/dashboard-saudacoes.svg">
                     </span>
                     <div class="saudacoes-nome">
-                        <h1>Bom dia, Fernando Brandão!</h1>
+                        <h1>Bom dia, <span id="nome_bomdia">Fernando Brandão</span>!</h1>
                         <p>quinta-feira, 6 de novembro de 2025</p>
                     </div>
                 </div>
@@ -178,6 +178,10 @@
 </body>
 
 <script>
+
+    
+    window.onload = mudarNome;
+
     const chart_ocupacao = document.getElementById('chart-ocupacao');
 
     new Chart(chart_ocupacao, {
@@ -305,6 +309,30 @@
             }
         }
     });
+
+    function mudarNome() {
+
+        var idUsuario = sessionStorage.ID_USUARIO;
+        
+        fetch(`/usuarios/mostrarNome/${idUsuario}`, {
+        })
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (usuario) {
+
+            var nomeBomDia = usuario[0].nome
+            var primeiroNome = nomeBomDia.split(" ")[0]
+            var primeiraLetra = nomeBomDia.split(" ")[0][0]
+
+            nome_bomdia.innerText = nomeBomDia
+            nome_lateral.innerText = primeiroNome
+            foto_nome1.innerText = primeiraLetra
+            foto_nome2.innerText = primeiraLetra
+          })
+
+    }
+    
 
 </script>
 
