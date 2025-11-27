@@ -577,7 +577,7 @@ body {
     margin: 0;
 }
 
-.dashboard-body span {
+.dashboard-body .span-foto {
     background-color: #F5F5F5;
     display: flex;
     width: 48px;
