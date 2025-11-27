@@ -1,5 +1,4 @@
 CREATE DATABASE VagasIQ;
-
 USE VagasIQ;
    
 CREATE TABLE seguradora (
