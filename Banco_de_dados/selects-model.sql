@@ -1,4 +1,22 @@
-USE vagasIQ;
+USE VagasIQ;
+
+-- BUSCAR ZONA COM MENOS SEGURADOS
+SELECT l.regiao, 
+	(SELECT COUNT(DISTINCT id_veiculo) FROM veiculo WHERE seguro = 1) AS temSeguro,
+	(SELECT COUNT(DISTINCT id_veiculo) FROM veiculo WHERE seguro = 0) AS naoTemSeguro
+FROM localizacao AS l JOIN vaga AS v
+	ON fk_localizacao = id_localizacao
+JOIN sensor
+	ON v.fk_sensor = id_sensor
+JOIN registro AS r
+	ON r.fk_sensor = id_sensor
+JOIN cadastro_veiculo AS cv
+	ON cv.fk_veiculo = r.fk_veiculo
+JOIN veiculo
+	ON cv.fk_veiculo = id_veiculo
+GROUP BY l.regiao
+ORDER BY naoTemSeguro DESC
+LIMIT 1;
 
 -- BUSCAR FAIXA ETÁRIA MAIS NUMEROSA
 SELECT CASE
@@ -7,7 +25,7 @@ SELECT CASE
 		WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 46 THEN '36-45'
 		WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 60 THEN '46-59'
 		ELSE '+60'
-	END AS FaixaEtaria,
+	END AS faixaEtaria,
 	COUNT(id_condutor) AS totalCondutores
     FROM condutor
     GROUP BY faixaEtaria

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vagas IQ | Dashboard</title>
+    <link rel="icon" href="assets/VagasIQ.svg">
+
+    <script src="../js/sessao.js"></script>
+
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body onload="validarSessao(), carregar()" class="body-dash">
+    <div class="dashboard-container">
+        <div class="navbar-lateral">
+            <div class="lateral-opcoes">
+                <div class="topo">
+                    <span id="span_nome">F</span>
+                    <div class="credenciais">
+                        <h4 id="h4_nome">Fernando</h4>
+                        <p>Administrador</p>
+                    </div>
+                </div>
+
+                <div class="opcoes">
+                    <div class="opcao opcao-selecionada">
+                        <img src="./assets/dashboard-painel.svg">
+                        <span>Dashboard</span>
+                    </div>
+
+                    <div class="opcao">
+                        <img src="./assets/dashboard-configuracoes.svg">
+                        <span>Configurações</span>
+                    </div>
+
+                    <div class="opcao">
+                        <img src="./assets//dashboard-suporte.svg">
+                        <span>Contato</span>
+                    </div>
+                </div>
+            </div>
+
+            <div onclick="limparSessao()" class="exit">
+                <img src="./assets/dashboard-sair.svg">
+                <a>Sair</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="dashboard-navbar">
+                <h1>VagasIQ</h1>
+                <span id="span_empresa">Seguradora TOP</span>
+            </div>
+
+            <div class="dashboard-body">
+                <div class="saudacoes">
+                    <span id="span-foto">
+                        <img src="./assets/dashboard-saudacoes.svg">
+                    </span>
+                    <div class="saudacoes-nome">
+                        <h1 id="h1_nome">Bom dia, Fernando Brandão!</h1>
+                        <p>quinta-feira, 6 de novembro de 2025</p>
+                    </div>
+                </div>
+
+                <div class="metricas-gerais">
+                    <div class="metrica">
+                        <span>
+                            <img id="" src="./assets/dashboard-mapa-red.svg">
+                        </span>
+                        <div class="metrica-titulo">
+                            <h1 id="kpi_zona">Centro</h1>
+                            <p>Zona com menos segurados</p>
+                        </div>
+                    </div>
+
+                    <div class="metrica">
+                        <span>
+                            <img id="img_idade" src="./assets/dashboard-idade.svg">
+                        </span>
+                        <div class="metrica-titulo">
+                            <h1 id="kpi_idade">25-35 anos</h1>
+                            <p>Faixa-etária predominante</p>
+                        </div>
+                    </div>
+
+                    <div class="metrica">
+                        <span>
+                            <img src="./assets/dashboard-carro.svg">
+                        </span>
+                        <div class="metrica-titulo">
+                            <h1 id="kpi_ano_veiculo">2016</h1>
+                            <p>Ano veículo predominante</p>
+                        </div>
+                    </div>
+
+                    <div class="metrica">
+                        <span>
+                            <img src="./assets/dashboard-motorista.svg">
+                        </span>
+                        <div class="metrica-titulo">
+                            <h1 id="kpi_genero">Feminino</h1>
+                            <p>Gênero predominante</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-principal">
+
+                    <div class="dashboard-principal-cards">
+                        <div class="card norte">
+                            <h1>Norte</h1>
+                        </div>
+
+                        <div class="card">
+                            <h1>Sul</h1>
+                        </div>
+
+                        <div class="card">
+                            <h1>Leste</h1>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-principal-cards">
+                        <div class="card">
+                            <h1>Oeste</h1>
+                        </div>
+
+                        <div class="card">
+                            <h1>Centro</h1>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function carregar() {
+        obterDadosZona();
+        obterDadosFaixaEtaria();
+        obterDadosAnoVeiculo();
+        obterDadosGenero();
+    }
+
+    function obterDadosZona() {
+        fetch("/dashboard/kpiZona", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    kpi_zona.innerHTML = `${resposta[0].regiao}`;
+                })
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+        }).catch(function (erro) {
+            console.error(`Erro na obtenção dos dados p/ KPI Zona: ${error.message}`);
+        })
+    }
+
+    function obterDadosFaixaEtaria() {
+        fetch("/dashboard/kpiFaixaEtaria", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json()
+                    .then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        var faixaEtariaPredominante = resposta[0].faixaEtaria
+                        kpi_idade.innerHTML = `${faixaEtariaPredominante} anos`;
+
+                        if (faixaEtariaPredominante == '18-25') {
+                            kpi_idade.style.color = 'red';
+                            img_idade.src = "./assets/dashboard-idade-red.svg"
+                        } else {
+                            kpi_idade.style.color = 'green';
+                            img_idade.src = "./assets/dashboard-idade-green.svg"
+                        }
+                    })
+            }
+        }).catch(function (erro) {
+            console.error(`Erro na obtenção dos dados p/ KPI Faixa Etária: ${error.message}`);
+        })
+    }
+
+    function obterDadosAnoVeiculo() {
+        fetch("/dashboard/kpiAnoVeiculo", { cache: 'no-store' }).then(function (response) {
+            if(response.ok) {
+                response.json()
+                    .then(function (resposta) {
+                        var anoVeiculo = resposta[0].ano_veiculo;
+                        kpi_ano_veiculo.innerHTML = anoVeiculo;
+
+                        // DEFINIR CORES AQUI
+                    })
+            }
+        }).catch(function (erro) {
+            console.error(`Erro na obtenção dos dados p/ KPI Ano Veículo: ${error.message}`);
+        })
+    }
+
+    function obterDadosGenero() {
+        fetch("/dashboard/kpiGenero", { cache: 'no-store' }).then(function (response) {
+            if(response.ok) {
+                response.json()
+                    .then(function (resposta) {
+                        kpi_genero.innerHTML = resposta[0].generoPredominante;
+
+                    })
+            }
+
+        }).catch(function (erro) {
+            console.error(`Erro na obtenção dos dados p/ KPI Gênero: ${error.message}`);
+        })
+    }
+
+</script>

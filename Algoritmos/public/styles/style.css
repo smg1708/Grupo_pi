@@ -537,20 +537,17 @@ body {
 .dashboard-container .container .dashboard-navbar {
     display: flex;
     align-items: center;
-    padding: 0px 20px 3px 50px;
+    padding: 0 20px 3px 50px;
     justify-content: space-between;
     border-bottom: 1px solid #808080;
+    width: 97%;
 }
 
 .dashboard-container .container .dashboard-navbar span {
-    background-color: #1e1e1e;
     display: flex;
-    color: #F7FFF7;
-    width: 48px;
-    height: 48px;
     justify-content: center;
     align-items: center;
-    border-radius: 100%;
+    font-weight: bold;
 }
 
 .dashboard-container .container .dashboard-navbar h1 {
@@ -562,7 +559,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: 50px;
-    gap: 45px;
+    margin-bottom: 0;
+    gap: 42px;
 }
 
 .dashboard-body h1 {
@@ -577,7 +575,7 @@ body {
     margin: 0;
 }
 
-.dashboard-body .span-foto {
+.dashboard-body span {
     background-color: #F5F5F5;
     display: flex;
     width: 48px;
@@ -586,6 +584,7 @@ body {
     align-items: center;
     border-radius: 100%;
 }
+
 
 .dashboard-body .saudacoes {
     display: flex;
@@ -606,7 +605,7 @@ body {
 .dashboard-body .dashboard-principal {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 30px;
 }
 
 .dashboard-body .dashboard-principal h2 {
@@ -723,6 +722,26 @@ body {
 }
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres p {
     font-size: 15px;
+}
+
+#kpi_zona{
+    color: #ff0000;
+}
+
+.dashboard-principal-cards{
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+    justify-content: center;
+}
+.dashboard-principal-cards .card{
+    width: 220px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+    border-radius: 10px;
 }
 
 /*Fim Dashboard*/

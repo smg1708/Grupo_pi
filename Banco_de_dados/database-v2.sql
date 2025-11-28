@@ -27,7 +27,8 @@ CREATE TABLE localizacao (
 	id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
 	logradouro VARCHAR(45) NOT NULL,
 	cidade VARCHAR(45) NOT NULL,
-	bairro VARCHAR(45) NOT NULL
+	bairro VARCHAR(45) NOT NULL,
+    regiao VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE sensor (
@@ -87,13 +88,13 @@ CREATE TABLE registro (
 				REFERENCES sensor(id_sensor),
 	situacao TINYINT,
 	dt_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    cadastro_veiculo_fk_condutor INT,
-		CONSTRAINT cadastro_veiculo_fk_condutor
-			FOREIGN KEY (cadastro_veiculo_fk_condutor)
+    fk_condutor INT,
+		CONSTRAINT fk_condutor
+			FOREIGN KEY (fk_condutor)
 				REFERENCES cadastro_veiculo(fk_condutor),
-	cadastro_veiculo_fk_veiculo INT,
-		CONSTRAINT cadastro_veiculo_fk_veiculo
-			FOREIGN KEY (cadastro_veiculo_fk_veiculo)
+	fk_veiculo INT,
+		CONSTRAINT fk_veiculo
+			FOREIGN KEY (fk_veiculo)
 				REFERENCES cadastro_veiculo(fk_veiculo),
 	PRIMARY KEY (id_registro, fk_sensor)
 );
@@ -108,11 +109,11 @@ INSERT INTO usuario (fk_seguradora, nome, cpf, email, senha) VALUES
 	(1, 'Aline', '33333333333', 'aline.alvarenga@gmail.com', '135791'),
 	(2, 'Gabriel', '44444444444', 'gabriel.gomes@gmail.com', '864286');
     
-INSERT INTO localizacao (logradouro, cidade, bairro) VALUES
-	('Av. Paulista', 'São Paulo', 'Bela Vista'),
-	('Rua Augusta', 'São Paulo', 'Consolação'),
-	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi'),
-	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena');
+INSERT INTO localizacao (logradouro, cidade, bairro, regiao) VALUES
+	('Av. Paulista', 'São Paulo', 'Bela Vista', 'Centro'),
+	('Rua Augusta', 'São Paulo', 'Consolação', 'Centro'),
+	('Av. Faria Lima', 'São Paulo', 'Itaim Bibi', 'Sul'),
+	('Rua dos Três Irmãos', 'São Paulo', 'Vila Madalena', 'Sul');
     
 INSERT INTO sensor (estado_sensor) VALUES
 	('Ativo'),
@@ -151,7 +152,7 @@ INSERT INTO cadastro_veiculo (fk_condutor, fk_veiculo, dt_cadastro) VALUES
 	(4, 2, '2025-11-09'),
 	(5, 1, '2025-11-03');
     
-INSERT INTO registro (id_registro, fk_sensor, situacao, cadastro_veiculo_fk_condutor, cadastro_veiculo_fk_veiculo) VALUES
+INSERT INTO registro (id_registro, fk_sensor, situacao, fk_condutor, fk_veiculo) VALUES
 	(1, 1, 0, 1, 1), 
 	(2, 2, 1, 2, 2), 
 	(3, 3, 1, 3, 3), 
