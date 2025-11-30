@@ -154,6 +154,32 @@ function listaGeneroRegiao(regiao) {
     return database.executar(instrucaoSql);
 }
 
+function listarGraficoGenero(regiao) {
+    var instrucaoSql = `
+    SELECT CASE
+		WHEN genero = 'F' THEN 'Feminino'
+		ELSE 'Masculino'
+    END AS generoPredominante,
+    COUNT(id_condutor) AS totalCondutores
+    FROM condutor AS c JOIN cadastro_veiculo AS cv
+        ON c.id_condutor = cv.fk_condutor
+        JOIN registro AS r 
+        ON c.id_condutor = r.fk_condutor
+        JOIN sensor AS s
+        ON s.id_sensor = r.fk_sensor
+        JOIN vaga AS v
+        ON v.fk_sensor = s.id_sensor
+        JOIN localizacao AS l
+        ON l.id_localizacao = v.fk_localizacao
+        WHERE l.regiao =  '${regiao}'
+    GROUP BY generoPredominante
+	ORDER BY totalCondutores DESC;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -161,5 +187,6 @@ module.exports = {
     listarGenero,
     listarFaixaEtariaRegiao,
     listarAnoVeiculoRegiao,
-    listaGeneroRegiao
+    listaGeneroRegiao,
+    listarGraficoGenero
 }

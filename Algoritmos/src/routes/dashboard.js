@@ -31,4 +31,8 @@ router.get("/kpiGeneroRegiao/:regiao", function(req, res){
     dashboardController.listaGeneroRegiao(req, res);
 })
 
+router.get("/obterGraficoGeneroRegiao/:regiao", function(req, res){
+    dashboardController.listarGraficoGenero(req, res);
+})
+
 module.exports = router;

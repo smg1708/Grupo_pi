@@ -159,6 +159,9 @@
         obterFaixaEtaria();
         obterDadosAnoVeiculo();
         obterGeneroRegiao();
+        obterGraficoGeneroRegiao();
+        plotarGraficoGeneroRegiao();
+
     }
 
     function obterFaixaEtaria() {
@@ -224,14 +227,6 @@
 
                             var generoPredominante = resposta[0].generoPredominante
                             kpi_genero.innerHTML = `${generoPredominante}`;
-
-                            // if (generoPredominante == '2019') {
-                            //     kpi_genero.style.color = 'red';
-                            //     img_genero.src = "./assets/dashboard-carro.svg"
-                            // } else {
-                            //     kpi_genero.style.color = 'green';
-                            //     img_genero.src = "./assets/dashboard-carro.svg"
-                            // }
                         })
                 }
             }).catch(function (erro) {
@@ -270,6 +265,70 @@
     //     }
     // });
 
+
+    function obterGraficoGeneroRegiao() {
+        
+        // grafico de genero
+        fetch(`/dashboard/obterGraficoGeneroRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoGeneroRegiao(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoGeneroRegiao(resposta) {
+          console.log('iniciando plotagem do gráfico de gênero...');
+
+        const dadosReais = resposta;
+
+        var labels = [];
+        var valores = [];
+
+        for (var i = 0; i < dadosReais.length; i++) {
+            var dadoAtual = dadosReais[i];
+            labels.push(dadoAtual.generoPredominante);
+            valores.push(dadoAtual.totalCondutores);
+        }
+
+        var dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Proporção de Gênero',
+                data: valores,
+                backgroundColor: [
+                    '#ffc714',
+                    '#1f1f1f'
+                ],
+            }]
+        };
+
+        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoGeneroRegiao":')
+        console.log(resposta)
+
+        const config = {
+            type: 'pie',
+            data: dados,
+        };
+
+        var myChart = new Chart(
+            document.getElementById(`chart-genero`),
+            config
+        );
+    }
+
+
+    
     // const chart_genero = document.getElementById('chart-genero');
 
     // new Chart(chart_genero, {
