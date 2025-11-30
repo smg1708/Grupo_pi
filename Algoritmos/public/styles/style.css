@@ -742,6 +742,32 @@ body {
     justify-content: center;
     background-color: #F5F5F5;
     border-radius: 10px;
+
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.norte:hover{
+    background-image: url("../assets/norte.png");
+}
+
+.sul:hover{
+    background-image: url("../assets/sul.png");
+}
+
+.leste:hover{
+    background-image: url("../assets/leste.png");
+}
+
+.oeste:hover{
+    background-image: url("../assets/oeste.png");
+}
+
+.centro:hover{
+    background-image: url("../assets/centro.png");    
+    background-size: 40%;
 }
 
 /*Fim Dashboard*/
