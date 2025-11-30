@@ -602,6 +602,14 @@ body {
     gap: 10px;
 }
 
+.metrica #img_carro {
+    width: 35px;
+}
+
+.metrica #img_genero {
+    width: 40px;
+}
+
 .dashboard-body .dashboard-principal {
     display: flex;
     flex-direction: column;

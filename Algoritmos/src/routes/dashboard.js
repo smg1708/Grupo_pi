@@ -23,4 +23,12 @@ router.get("/kpiFaixaEtaria/:regiao", function(req, res){
     dashboardController.listarFaixaEtariaRegiao(req, res);
 })
 
+router.get("/kpiAnoVeiculoRegiao/:regiao", function(req, res){
+    dashboardController.listarAnoVeiculoRegiao(req, res);
+})
+
+router.get("/kpiGeneroRegiao/:regiao", function(req, res){
+    dashboardController.listaGeneroRegiao(req, res);
+})
+
 module.exports = router;

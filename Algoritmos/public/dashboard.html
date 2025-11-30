@@ -78,7 +78,7 @@
                 <div class="metricas-gerais">
                     <div class="metrica">
                         <span>
-                            <img src="./assets/dashboard-idade.svg">
+                            <img id="img_idade" src="./assets/dashboard-idade.svg">
                         </span>
                         <div class="metrica-titulo">
                             <h1 id="kpi_idade"></h1>
@@ -88,20 +88,20 @@
 
                     <div class="metrica">
                         <span>
-                            <img src="./assets/dashboard-carro.svg">
+                            <img id="img_carro" src="./assets/dashboard-carro.png">
                         </span>
                         <div class="metrica-titulo">
-                            <h1>35%</h1>
+                            <h1 id="kpi_ano_veiculo"></h1>
                             <p>Ano veículo</p>
                         </div>
                     </div>
 
                     <div class="metrica">
                         <span>
-                            <img src="./assets/dashboard-horario.svg">
+                            <img id="img_genero" src="./assets/genero.png">
                         </span>
                         <div class="metrica-titulo">
-                            <h1>16h-20h</h1>
+                            <h1 id="kpi_genero"></h1>
                             <p>Gênero predominante</p>
                         </div>
                     </div>
@@ -148,7 +148,6 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
     </div>
@@ -158,6 +157,8 @@
 
     function carregar() {
         obterFaixaEtaria();
+        obterDadosAnoVeiculo();
+        obterGeneroRegiao();
     }
 
     function obterFaixaEtaria() {
@@ -183,6 +184,58 @@
                 }
             }).catch(function (erro) {
                 console.error(`Erro na obtenção dos dados p/ KPI Faixa Etária: ${error.message}`);
+            })
+    }
+
+    function obterDadosAnoVeiculo() {
+        fetch(`/dashboard/kpiAnoVeiculoRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
+            (function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify
+                                (resposta)}`);
+
+                            var dataVeiculo = resposta[0].ano_veiculo
+                            kpi_ano_veiculo.innerHTML = `Ano ${dataVeiculo}`;
+
+                            if (dataVeiculo >= '2020') {
+                                kpi_ano_veiculo.style.color = 'red';
+                                img_carro.src = "./assets/dashboard-carro-red.png"
+                            } else {
+                                kpi_ano_veiculo.style.color = 'green';
+                                img_carro.src = "./assets/dashboard-carro-green.png"
+                            }
+                        })
+                }
+            }).catch(function (erro) {
+                console.error(`Erro na obtenção dos dados p/ KPI Ano Veículo: ${erro.message}`);
+            })
+    }
+
+      function obterGeneroRegiao() {
+        fetch(`/dashboard/kpiGeneroRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
+            (function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify
+                                (resposta)}`);
+
+                            var generoPredominante = resposta[0].generoPredominante
+                            kpi_genero.innerHTML = `${generoPredominante}`;
+
+                            // if (generoPredominante == '2019') {
+                            //     kpi_genero.style.color = 'red';
+                            //     img_genero.src = "./assets/dashboard-carro.svg"
+                            // } else {
+                            //     kpi_genero.style.color = 'green';
+                            //     img_genero.src = "./assets/dashboard-carro.svg"
+                            // }
+                        })
+                }
+            }).catch(function (erro) {
+                console.error(`Erro na obtenção dos dados p/ KPI Ano Veículo: ${error.message}`);
             })
     }
 
