@@ -285,6 +285,24 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+            // grafico faixa etária
+            fetch(`/dashboard/obterGraficoFaixaEtariaRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoFaixaEtariaRegiao(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     function plotarGraficoGeneroRegiao(resposta) {
@@ -327,6 +345,45 @@
         );
     }
 
+    function plotarGraficoFaixaEtariaRegiao(resposta) {
+         console.log('iniciando plotagem do gráfico de gênero...');
+
+        const dadosReais = resposta;
+
+        var labels = [];
+        var valores = [];
+
+        for (var i = 0; i < dadosReais.length; i++) {
+            var dadoAtual = dadosReais[i];
+            labels.push(dadoAtual.faixaEtaria);
+            valores.push(dadoAtual.totalCondutores);
+        }
+
+        var dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Distribuição de Faixa Etária por Gênero',
+                data: valores,
+                backgroundColor: [
+                    '#ffc714',
+                    '#1f1f1f'
+                ],
+            }]
+        };
+
+        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoGeneroRegiao":')
+        console.log(resposta)
+
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        var myChart = new Chart(
+            document.getElementById(`chart-idade`),
+            config
+        );
+    }
 
     
     // const chart_genero = document.getElementById('chart-genero');
