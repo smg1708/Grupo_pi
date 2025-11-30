@@ -68,7 +68,7 @@
                         <img src="./assets/dashboard-saudacoes.svg">
                     </span>
                     <div class="saudacoes-nome">
-                        <h1>Bom dia, <span id="nome_bomdia">Fernando Brandão</span>!</h1>
+                        <h1>Bom dia, <div id="nome_bomdia"></div>!</h1>
                         <p>quinta-feira, 6 de novembro de 2025</p>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
                 <div class="metricas-gerais">
                     <div class="metrica">
                         <span>
-                            <img src="./assets/dashboard-motorista.svg">
+                            <img src="./assets/dashboard-idade.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1>18-25 anos</h1>
-                            <p>Faixa etária</p>
+                            <h1 id="kpi_faixaEtaria"></h1>
+                            <p>Faixa etária predominante</p>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
                         </span>
                         <div class="metrica-titulo">
                             <h1>35%</h1>
-                            <p>Taxa de ocupação</p>
+                            <p>Ano veículo</p>
                         </div>
                     </div>
 
@@ -100,19 +100,9 @@
                         </span>
                         <div class="metrica-titulo">
                             <h1>16h-20h</h1>
-                            <p>Horários de pico</p>
+                            <p>Gênero predominante</p>
                         </div>
                     </div>
-
-                    <div class="metrica">
-                        <span>
-                            <img src="./assets/dashboard-risco.svg">
-                        </span>
-                        <div class="metrica-titulo">
-                            <h1>1h</h1>
-                            <p>Tempo de permanência médio</p>
-                        </div>
-                    </div>    
                 </div>
 
                 <div class="dashboard-principal">
@@ -163,161 +153,189 @@
 </body>
 
 <script>
-
-    
     window.onload = mudarNome;
 
-    const chart_ocupacao = document.getElementById('chart-ocupacao');
+    function exibirDadosDashboard() {
+        sessionStorage.ID_REGIAO = ID_REGIAO;
+    }
 
-    new Chart(chart_ocupacao, {
-        type: 'line',
-        data: {
-            labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-            datasets: [{
-                label: 'Real',
-                data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
-                backgroundColor: '#ffc714',
-                borderColor: '#ffc714',
-                borderWidth: 3
-            }, {
-                label: 'Previsão',
-                data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
-                borderColor: '#ffc714',
-                borderWidth: 2,
-                borderDash: [5, 5]
+    function obterFaixaEtaria() {
+        fetch("/dashboard/kpi_faixaEtaria", { cache: 'no-store' }).then
+        (function (response) {
+            if (response.ok) {
+                response.json()
+                .then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify
+                    (resposta)}`);
+
+                    var faixaPredominante = resposta[0].faixa
+                    kpi_faixaEtaria.innerHTML = `${faixaPredominante} anos`;
+
+                    if (faixaPredominante == '18-25') {
+                        kpi_faixaEtaria.style.color = 'red';
+                        img_idade.src = "./assets/dashboard-idade-red.svg"
+                        } else {
+                            kpi_faixaEtaria.style.color = 'green';
+                            img_idade.src = "./assets/dashboard-idade-green.svg"
+                    }
+                })
             }
+        }).catch(function (erro) {
+            console.error(`Erro na obtenção dos dados p/ KPI Faixa Etária: ${error.message}`);
+        })
+    }
 
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // const chart_ocupacao = document.getElementById('chart-ocupacao');
 
-    const chart_genero = document.getElementById('chart-genero');
+    // new Chart(chart_ocupacao, {
+    //     type: 'line',
+    //     data: {
+    //         labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+    //         datasets: [{
+    //             label: 'Real',
+    //             data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
+    //             backgroundColor: '#ffc714',
+    //             borderColor: '#ffc714',
+    //             borderWidth: 3
+    //         }, {
+    //             label: 'Previsão',
+    //             data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
+    //             borderColor: '#ffc714',
+    //             borderWidth: 2,
+    //             borderDash: [5, 5]
+    //         }
 
-    new Chart(chart_genero, {
-        type: 'pie',
-        data: {
-            labels: ['Feminino', 'Masculino'],
-            datasets: [{
-                label: '',
-                data: [35, 65],
-                backgroundColor: ['#ffc714', '#1f1f1f']
-            }]
-        }
-    });
+    //         ]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
 
-    const chart_idade = document.getElementById('chart-idade');
+    // const chart_genero = document.getElementById('chart-genero');
 
-    new Chart(chart_idade, {
-        type: 'bar',
-        data: {
-            labels: ['18–25', '26–35', '36–45', '46–59', '60+'],
-            datasets: [{
-                label: 'Mulheres',
-                data: [20, 7, 3, 3, 2],
-                backgroundColor: '#ffc714',
-                borderColor: '#ffc714',
-                borderWidth: 1
-            },
-            {
-                label: 'Homens',
-                data: [25, 15, 12, 10, 3],
-                backgroundColor: '#1f1f1f',
-                borderColor: '#1f1f1f',
-                borderWidth: 1
-            }
+    // new Chart(chart_genero, {
+    //     type: 'pie',
+    //     data: {
+    //         labels: ['Feminino', 'Masculino'],
+    //         datasets: [{
+    //             label: '',
+    //             data: [35, 65],
+    //             backgroundColor: ['#ffc714', '#1f1f1f']
+    //         }]
+    //     }
+    // });
+
+    // const chart_idade = document.getElementById('chart-idade');
+
+    // new Chart(chart_idade, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['18–25', '26–35', '36–45', '46–59', '60+'],
+    //         datasets: [{
+    //             label: 'Mulheres',
+    //             data: [20, 7, 3, 3, 2],
+    //             backgroundColor: '#ffc714',
+    //             borderColor: '#ffc714',
+    //             borderWidth: 1
+    //         },
+    //         {
+    //             label: 'Homens',
+    //             data: [25, 15, 12, 10, 3],
+    //             backgroundColor: '#1f1f1f',
+    //             borderColor: '#1f1f1f',
+    //             borderWidth: 1
+    //         }
 
 
-            ]
+    //         ]
 
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
 
-    const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
+    // const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
 
-    new Chart(chart_tipoVeiculo, {
-        type: 'bar',
-        data: {
-            labels: ['Caminhão', 'Moto', 'Carro'],
-            datasets: [{
-                label: 'Quantidade de veículo',
-                data: [10, 20, 70],
-                backgroundColor: '#ffc714',
-                borderColor: '#ffc714',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // new Chart(chart_tipoVeiculo, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['Caminhão', 'Moto', 'Carro'],
+    //         datasets: [{
+    //             label: 'Quantidade de veículo',
+    //             data: [10, 20, 70],
+    //             backgroundColor: '#ffc714',
+    //             borderColor: '#ffc714',
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         indexAxis: 'y',
+    //         scales: {
+    //             x: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
 
-    const chart_seguro = document.getElementById('chart-seguro');
+    // const chart_seguro = document.getElementById('chart-seguro');
 
-    new Chart(chart_seguro, {
-        type: 'bar',
-        data: {
-            labels: ['Tem seguro', 'Não tem seguro'],
-            datasets: [{
-                label: 'Quantidade de condutores ',
-                data: [30, 70],
-                backgroundColor: ['#1f1f1f'],
-                borderColor: ['#1f1f1f'],
-                borderWidth: 1
-            }]
-            
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // new Chart(chart_seguro, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['Tem seguro', 'Não tem seguro'],
+    //         datasets: [{
+    //             label: 'Quantidade de condutores ',
+    //             data: [30, 70],
+    //             backgroundColor: ['#1f1f1f'],
+    //             borderColor: ['#1f1f1f'],
+    //             borderWidth: 1
+    //         }]
+
+    //     },
+    //     options: {
+    //         indexAxis: 'y',
+    //         scales: {
+    //             x: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
 
     function mudarNome() {
 
         var idUsuario = sessionStorage.ID_USUARIO;
-        
+
         fetch(`/usuarios/mostrarNome/${idUsuario}`, {
         })
-        .then(function (resposta) {
-            return resposta.json();
-        })
-        .then(function (usuario) {
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (usuario) {
 
-            var nomeBomDia = usuario[0].nome
-            var primeiroNome = nomeBomDia.split(" ")[0]
-            var primeiraLetra = nomeBomDia.split(" ")[0][0]
+                var nomeBomDia = usuario[0].nome
+                var primeiroNome = nomeBomDia.split(" ")[0]
+                var primeiraLetra = nomeBomDia.split(" ")[0][0]
 
-            nome_bomdia.innerText = nomeBomDia
-            nome_lateral.innerText = primeiroNome
-            foto_nome1.innerText = primeiraLetra
-            foto_nome2.innerText = primeiraLetra
-          })
+                nome_bomdia.innerText = nomeBomDia
+                nome_lateral.innerText = primeiroNome
+                foto_nome1.innerText = primeiraLetra
+                foto_nome2.innerText = primeiraLetra
+            })
 
     }
-    
+
 
 </script>
 

@@ -19,4 +19,8 @@ router.get("/kpiGenero", function(req, res){
     dashboardController.listarGenero(req, res);
 })
 
+router.get("/kpi_faixa", function(req, res){
+    dashboardController.listarFaixa(req, res);
+})
+
 module.exports = router;

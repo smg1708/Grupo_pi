@@ -73,9 +73,39 @@ function listarGenero() {
     return database.executar(instrucaoSql);
 }
 
+function listarFaixa(listarZona) {
+    var instrucaoSql = `
+        SELECT CASE
+		    WHEN TIMESTAMPDIFF(YEAR, c.dt_nasc, now()) < 26 THEN '18-25'
+		    WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 36 THEN '26-35'
+		    WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 46 THEN '36-45'
+		    WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 60 THEN '46-59'
+		    ELSE '+60'
+	    END AS faixaEtaria,
+	    COUNT(c.id_condutor) AS totalCondutores
+        FROM condutor AS c JOIN cadastro_veiculo AS cv
+        ON c.id_condutor = cv.fk_condutor
+        JOIN registro AS r 
+        ON c.id_condutor = r.fk_condutor
+        JOIN sensor AS s
+        ON s.id_sensor = r.fk_sensor
+        JOIN vaga AS v
+        ON v.fk_sensor = s.id_sensor
+        JOIN localizacao AS l
+        ON l.id_localizacao = v.fk_localizacao
+        WHERE l.regiao = ${listarZona}
+        GROUP BY faixaEtaria
+        ORDER BY totalCondutores DESC;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
     listarAnoVeiculo,
-    listarGenero
+    listarGenero,
+    listarFaixa
 }
