@@ -216,6 +216,33 @@ function listarGraficoFaixaEtaria(regiao) {
     return database.executar(instrucaoSql);
 }
 
+function listarGraficoCondutorVeiculo(regiao) {
+    var instrucaoSql = `
+    SELECT 
+        v.tipo AS tipo_veiculo,
+        COUNT(DISTINCT c.id_condutor) AS total_condutores
+        FROM condutor AS c
+        JOIN cadastro_veiculo AS cv
+        ON c.id_condutor = cv.fk_condutor
+        JOIN veiculo AS v
+        ON v.id_veiculo = cv.fk_veiculo
+        JOIN registro AS r
+        ON r.fk_condutor = c.id_condutor
+        JOIN sensor AS s
+        ON s.id_sensor = r.fk_sensor
+        JOIN vaga AS va
+        ON va.fk_sensor = s.id_sensor
+        JOIN localizacao AS l
+        ON l.id_localizacao = va.fk_localizacao
+        WHERE l.regiao = '${regiao}'
+        GROUP BY v.tipo
+        ORDER BY total_condutores DESC;
+        `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -225,5 +252,6 @@ module.exports = {
     listarAnoVeiculoRegiao,
     listaGeneroRegiao,
     listarGraficoGenero,
-    listarGraficoFaixaEtaria
+    listarGraficoFaixaEtaria,
+    listarGraficoCondutorVeiculo
 }

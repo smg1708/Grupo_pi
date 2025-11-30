@@ -161,6 +161,7 @@
         obterGeneroRegiao();
         obterGraficoGeneroRegiao();
         plotarGraficoGeneroRegiao();
+        plotarGraficoCondutorVeiculo();
 
     }
 
@@ -216,7 +217,7 @@
             })
     }
 
-      function obterGeneroRegiao() {
+    function obterGeneroRegiao() {
         fetch(`/dashboard/kpiGeneroRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
             (function (response) {
                 if (response.ok) {
@@ -267,7 +268,7 @@
 
 
     function obterGraficoGeneroRegiao() {
-        
+
         // grafico de genero
         fetch(`/dashboard/obterGraficoGeneroRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -286,8 +287,8 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
 
-            // grafico faixa etária
-            fetch(`/dashboard/obterGraficoFaixaEtariaRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+        // grafico faixa etária
+        fetch(`/dashboard/obterGraficoFaixaEtariaRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -303,10 +304,28 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        // grafico Distribuição de condutores por tipo de veiculo
+        fetch(`/dashboard/obterCondutorVeiculoRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoCondutorVeiculo(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     function plotarGraficoGeneroRegiao(resposta) {
-          console.log('iniciando plotagem do gráfico de gênero...');
+        console.log('iniciando plotagem do gráfico de gênero...');
 
         const dadosReais = resposta;
 
@@ -346,7 +365,7 @@
     }
 
     function plotarGraficoFaixaEtariaRegiao(resposta) {
-         console.log('iniciando plotagem do gráfico de gênero...');
+        console.log('iniciando plotagem do gráfico de gênero...');
 
         const dadosReais = resposta;
 
@@ -385,54 +404,46 @@
         );
     }
 
-    
-    // const chart_genero = document.getElementById('chart-genero');
+    function plotarGraficoCondutorVeiculo(resposta) {
+        console.log('iniciando plotagem do gráfico de condutor...');
 
-    // new Chart(chart_genero, {
-    //     type: 'pie',
-    //     data: {
-    //         labels: ['Feminino', 'Masculino'],
-    //         datasets: [{
-    //             label: '',
-    //             data: [35, 65],
-    //             backgroundColor: ['#ffc714', '#1f1f1f']
-    //         }]
-    //     }
-    // });
+        const dadosReais = resposta;
 
-    // const chart_idade = document.getElementById('chart-idade');
+        var labels = [];
+        var valores = [];
 
-    // new Chart(chart_idade, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['18–25', '26–35', '36–45', '46–59', '60+'],
-    //         datasets: [{
-    //             label: 'Mulheres',
-    //             data: [20, 7, 3, 3, 2],
-    //             backgroundColor: '#ffc714',
-    //             borderColor: '#ffc714',
-    //             borderWidth: 1
-    //         },
-    //         {
-    //             label: 'Homens',
-    //             data: [25, 15, 12, 10, 3],
-    //             backgroundColor: '#1f1f1f',
-    //             borderColor: '#1f1f1f',
-    //             borderWidth: 1
-    //         }
+        for (var i = 0; i < dadosReais.length; i++) {
+            var dadoAtual = dadosReais[i];
+            labels.push(dadoAtual.tipo_veiculo);
+            valores.push(dadoAtual.total_condutores);
+        }
 
+        var dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Distribuição de condutores por tipo de veiculo',
+                data: valores,
+                backgroundColor: [
+                    '#ffc714',
+                    '#1f1f1f'
+                ],
+            }]
+        };
 
-    //         ]
+        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoCondutorVeiculo":')
+        console.log(resposta)
 
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        var myChart = new Chart(
+            document.getElementById(`chart-tipo-veiculo`),
+            config
+        );
+    }
+
 
     // const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
 

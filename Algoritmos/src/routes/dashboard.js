@@ -39,4 +39,8 @@ router.get("/obterGraficoFaixaEtariaRegiao/:regiao", function(req, res){
     dashboardController.listarGraficoFaixaEtaria(req, res);
 })
 
+router.get("/obterCondutorVeiculoRegiao/:regiao", function(req, res){
+    dashboardController.listarGraficoCondutorVeiculo(req, res);
+})
+
 module.exports = router;
