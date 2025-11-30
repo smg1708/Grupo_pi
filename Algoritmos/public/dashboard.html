@@ -7,6 +7,8 @@
     <title>Vagas IQ | Dashboard</title>
     <link rel="icon" href="assets/VagasIQ.svg">
 
+    <script src="../js/sessao.js"></script>
+
     <link rel="stylesheet" href="styles/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,14 +22,14 @@
 
 </head>
 
-<body class="body-dash">
+<body onload="validarSessao(), carregar()" class="body-dash">
     <div class="dashboard-container">
         <div class="navbar-lateral">
             <div class="lateral-opcoes">
                 <div class="topo">
-                    <span id="foto_nome2">F</span>
+                    <span id="span_nome">F</span>
                     <div class="credenciais">
-                        <h4 id="nome_lateral">Fernando</h4>
+                        <h4 id="h4_nome">Fernando</h4>
                         <p>Administrador</p>
                     </div>
                 </div>
@@ -50,16 +52,16 @@
                 </div>
             </div>
 
-            <div class="exit">
+            <div onclick="limparSessao()" class="exit">
                 <img src="./assets/dashboard-sair.svg">
-                <a href="index.html">Sair</a>
+                <a>Sair</a>
             </div>
         </div>
 
         <div class="container">
             <div class="dashboard-navbar">
                 <h1>VagasIQ</h1>
-                <span id="foto_nome1">F</span>
+                <span id="span_empresa">Seguradora TOP</span>
             </div>
 
             <div class="dashboard-body">
@@ -68,7 +70,7 @@
                         <img src="./assets/dashboard-saudacoes.svg">
                     </span>
                     <div class="saudacoes-nome">
-                        <h1>Bom dia, <div id="nome_bomdia"></div>!</h1>
+                        <h1 id="h1_nome">Bom dia, Fernando Brandão!</h1>
                         <p>quinta-feira, 6 de novembro de 2025</p>
                     </div>
                 </div>
@@ -79,7 +81,7 @@
                             <img src="./assets/dashboard-idade.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1 id="kpi_faixaEtaria"></h1>
+                            <h1 id="kpi_idade"></h1>
                             <p>Faixa etária predominante</p>
                         </div>
                     </div>
@@ -153,36 +155,35 @@
 </body>
 
 <script>
-    window.onload = mudarNome;
 
-    function exibirDadosDashboard() {
-        sessionStorage.ID_REGIAO = ID_REGIAO;
+    function carregar() {
+        obterFaixaEtaria();
     }
 
     function obterFaixaEtaria() {
-        fetch("/dashboard/kpi_faixaEtaria", { cache: 'no-store' }).then
-        (function (response) {
-            if (response.ok) {
-                response.json()
-                .then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify
-                    (resposta)}`);
+        fetch(`/dashboard/kpiFaixaEtaria/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
+            (function (response) {
+                if (response.ok) {
+                    response.json()
+                        .then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify
+                                (resposta)}`);
 
-                    var faixaPredominante = resposta[0].faixa
-                    kpi_faixaEtaria.innerHTML = `${faixaPredominante} anos`;
+                            var faixaPredominante = resposta[0].faixaEtaria
+                            kpi_idade.innerHTML = `${faixaPredominante} anos`;
 
-                    if (faixaPredominante == '18-25') {
-                        kpi_faixaEtaria.style.color = 'red';
-                        img_idade.src = "./assets/dashboard-idade-red.svg"
-                        } else {
-                            kpi_faixaEtaria.style.color = 'green';
-                            img_idade.src = "./assets/dashboard-idade-green.svg"
-                    }
-                })
-            }
-        }).catch(function (erro) {
-            console.error(`Erro na obtenção dos dados p/ KPI Faixa Etária: ${error.message}`);
-        })
+                            if (faixaPredominante == '18-25') {
+                                kpi_idade.style.color = 'red';
+                                img_idade.src = "./assets/dashboard-idade-red.svg"
+                            } else {
+                                kpi_idade.style.color = 'green';
+                                img_idade.src = "./assets/dashboard-idade-green.svg"
+                            }
+                        })
+                }
+            }).catch(function (erro) {
+                console.error(`Erro na obtenção dos dados p/ KPI Faixa Etária: ${error.message}`);
+            })
     }
 
     // const chart_ocupacao = document.getElementById('chart-ocupacao');
@@ -313,28 +314,7 @@
     //     }
     // });
 
-    function mudarNome() {
 
-        var idUsuario = sessionStorage.ID_USUARIO;
-
-        fetch(`/usuarios/mostrarNome/${idUsuario}`, {
-        })
-            .then(function (resposta) {
-                return resposta.json();
-            })
-            .then(function (usuario) {
-
-                var nomeBomDia = usuario[0].nome
-                var primeiroNome = nomeBomDia.split(" ")[0]
-                var primeiraLetra = nomeBomDia.split(" ")[0][0]
-
-                nome_bomdia.innerText = nomeBomDia
-                nome_lateral.innerText = primeiroNome
-                foto_nome1.innerText = primeiraLetra
-                foto_nome2.innerText = primeiraLetra
-            })
-
-    }
 
 
 </script>

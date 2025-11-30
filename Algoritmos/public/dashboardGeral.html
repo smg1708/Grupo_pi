@@ -120,25 +120,25 @@
                 <div class="dashboard-principal">
 
                     <div class="dashboard-principal-cards">
-                        <div onclick="exibirDashboard(1)" class="card norte">
+                        <div onclick="exibirDashboard('Norte')" class="card norte">
                             <h1>Norte</h1>
                         </div>
 
-                        <div onclick="exibirDashboard(2)" class="card sul">
+                        <div onclick="exibirDashboard('Sul')" class="card sul">
                             <h1>Sul</h1>
                         </div>
 
-                        <div onclick="exibirDashboard(3)" class="card leste">
+                        <div onclick="exibirDashboard('Leste')" class="card leste">
                             <h1>Leste</h1>
                         </div>
                     </div>
 
                     <div class="dashboard-principal-cards">
-                        <div onclick="exibirDashboard(4)" class="card oeste">
+                        <div onclick="exibirDashboard('Oeste')" class="card oeste">
                             <h1>Oeste</h1>
                         </div>
 
-                        <div onclick="exibirDashboard(5)" class="card centro">
+                        <div onclick="exibirDashboard('Centro')" class="card centro">
                             <h1>Centro</h1>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
     }
 
     function exibirDashboard(index) {
-        sessionStorage.ID_REGIAO = index;
+        sessionStorage.NOME_REGIAO = index;
 
         window.location = "dashboard.html";
     }

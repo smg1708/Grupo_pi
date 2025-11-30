@@ -1,3 +1,4 @@
+const { listarFaixaEtariaZona } = require("../controllers/dashboardController");
 var database = require("../database/config");
 
 function listarZona() {
@@ -73,7 +74,7 @@ function listarGenero() {
     return database.executar(instrucaoSql);
 }
 
-function listarFaixa(listarZona) {
+function listarFaixaEtariaRegiao(regiao) {
     var instrucaoSql = `
         SELECT CASE
 		    WHEN TIMESTAMPDIFF(YEAR, c.dt_nasc, now()) < 26 THEN '18-25'
@@ -93,7 +94,7 @@ function listarFaixa(listarZona) {
         ON v.fk_sensor = s.id_sensor
         JOIN localizacao AS l
         ON l.id_localizacao = v.fk_localizacao
-        WHERE l.regiao = ${listarZona}
+        WHERE l.regiao = '${regiao}'
         GROUP BY faixaEtaria
         ORDER BY totalCondutores DESC;
     `;
@@ -107,5 +108,5 @@ module.exports = {
     listarFaixaEtaria,
     listarAnoVeiculo,
     listarGenero,
-    listarFaixa
+    listarFaixaEtariaRegiao
 }

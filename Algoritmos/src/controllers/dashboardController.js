@@ -59,8 +59,10 @@ function listarGenero(req, res) {
     })
 }
 
-function listarFaixa(req, res) {
-    dashboardModel.listarFaixa().then(function (resultado) {
+function listarFaixaEtariaRegiao(req, res) {
+    var regiao = req.params.regiao;
+
+    dashboardModel.listarFaixaEtariaRegiao(regiao).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -78,5 +80,5 @@ module.exports = {
     listarFaixaEtaria,
     listarAnoVeiculo,
     listarGenero,
-    listarFaixa
+    listarFaixaEtariaRegiao
 }
