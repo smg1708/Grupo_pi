@@ -243,6 +243,36 @@ function listarGraficoCondutorVeiculo(regiao) {
     return database.executar(instrucaoSql);
 }
 
+function listarGraficoIndividuoVeiculo(regiao) {
+    var instrucaoSql = `
+    SELECT
+    CASE 
+        WHEN v.seguro = 1 THEN 'Com seguro'
+        ELSE 'Sem seguro'
+        END AS status_seguro,
+        COUNT(DISTINCT c.id_condutor) AS total_condutores
+            FROM condutor AS c
+        JOIN cadastro_veiculo AS cv
+            ON cv.fk_condutor = c.id_condutor
+        JOIN veiculo AS v
+            ON v.id_veiculo = cv.fk_veiculo
+        JOIN registro AS r
+            ON r.fk_condutor = c.id_condutor
+        JOIN sensor AS s
+            ON s.id_sensor = r.fk_sensor
+        JOIN vaga AS va
+            ON va.fk_sensor = s.id_sensor
+        JOIN localizacao AS l
+            ON l.id_localizacao = va.fk_localizacao
+        WHERE l.regiao = '${regiao}'  
+        GROUP BY status_seguro
+        ORDER BY total_condutores DESC;
+        `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -253,5 +283,6 @@ module.exports = {
     listaGeneroRegiao,
     listarGraficoGenero,
     listarGraficoFaixaEtaria,
-    listarGraficoCondutorVeiculo
+    listarGraficoCondutorVeiculo,
+    listarGraficoIndividuoVeiculo
 }

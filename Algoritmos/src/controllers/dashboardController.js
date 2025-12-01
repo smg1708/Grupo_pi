@@ -155,6 +155,22 @@ function listarGraficoCondutorVeiculo(req, res) {
     })
 }
 
+function listarGraficoIndividuoVeiculo(req, res) {
+    var regiao = req.params.regiao;
+
+    dashboardModel.listarGraficoIndividuoVeiculo(regiao).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao listar Ano Veículo: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -165,5 +181,6 @@ module.exports = {
     listaGeneroRegiao,
     listarGraficoGenero,
     listarGraficoFaixaEtaria,
-    listarGraficoCondutorVeiculo
+    listarGraficoCondutorVeiculo,
+    listarGraficoIndividuoVeiculo
 }

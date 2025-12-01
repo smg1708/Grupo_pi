@@ -162,6 +162,7 @@
         obterGraficoGeneroRegiao();
         plotarGraficoGeneroRegiao();
         plotarGraficoCondutorVeiculo();
+        plotarGraficoIndividuosSeguro();
 
     }
 
@@ -322,6 +323,24 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        // grafico Proporção de indivíduos com e sem seguro.
+        fetch(`/dashboard/obterIndividuosSeguroRegiao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoIndividuosSeguro(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
     function plotarGraficoGeneroRegiao(resposta) {
@@ -440,6 +459,46 @@
 
         var myChart = new Chart(
             document.getElementById(`chart-tipo-veiculo`),
+            config
+        );
+    }
+
+    function plotarGraficoIndividuosSeguro(resposta) {
+        console.log('iniciando plotagem do gráfico de indivíduos...');
+
+        const dadosReais = resposta;
+
+        var labels = [];
+        var valores = [];
+
+        for (var i = 0; i < dadosReais.length; i++) {
+            var dadoAtual = dadosReais[i];
+            labels.push(dadoAtual.status_seguro);
+            valores.push(dadoAtual.total_condutores);
+        }
+
+        var dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Proporção de indivíduos com e sem seguro.',
+                data: valores,
+                backgroundColor: [
+                    '#ffc714',
+                    '#1f1f1f'
+                ],
+            }]
+        };
+
+        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoIndividuosSeguro":')
+        console.log(resposta)
+
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        var myChart = new Chart(
+            document.getElementById(`chart-seguro`),
             config
         );
     }
