@@ -531,7 +531,14 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
 
+.conatiner-especifica{
+    padding-bottom: 40px;
+}
+
+.container-geral{
+    padding-bottom: 0;
 }
 
 .dashboard-container .container .dashboard-navbar {
@@ -540,6 +547,8 @@ body {
     padding: 0 20px 3px 50px;
     justify-content: space-between;
     border-bottom: 1px solid #808080;
+}
+.dashboard-navbar-geral{
     width: 97%;
 }
 
@@ -602,13 +611,6 @@ body {
     gap: 10px;
 }
 
-.metrica #img_carro {
-    width: 35px;
-}
-
-.metrica #img_genero {
-    width: 40px;
-}
 
 .dashboard-body .dashboard-principal {
     display: flex;
@@ -617,7 +619,7 @@ body {
 }
 
 .dashboard-body .dashboard-principal h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
     color: #5C5C5C;
     font-style: italic;
@@ -693,7 +695,7 @@ body {
     gap: 10px;
     background-color: #f5f5f5;
     padding: 10px 20px;
-    width: 705px;
+    width: 680px;
 }
 
 .dashboard-body .dashboard-principal-esquerda .graficos {
@@ -708,7 +710,7 @@ body {
     gap: 10px;
     background-color: #F5F5F5;
     padding: 10px 20px;
-    width: 250px;
+    width: 300px;
 }
 
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres {
@@ -717,7 +719,7 @@ body {
     gap: 10px;
     background-color: #F5F5F5;
     padding: 10px 20px;
-    width: 400px;
+    width: 365px;
 }
 
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-quatro {
@@ -726,7 +728,7 @@ body {
     gap: 10px;
     background-color: #F5F5F5;
     padding: 10px 20px;
-    width: 325px;
+    width: 280px;
 }
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres p {
     font-size: 15px;

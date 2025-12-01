@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container conatiner-especifica">
             <div class="dashboard-navbar">
                 <h1>VagasIQ</h1>
                 <span id="span_empresa">Seguradora TOP</span>
@@ -88,7 +88,7 @@
 
                     <div class="metrica">
                         <span>
-                            <img id="img_carro" src="./assets/dashboard-carro.png">
+                            <img id="img_carro" src="./assets/dashboard-carro-green.svg">
                         </span>
                         <div class="metrica-titulo">
                             <h1 id="kpi_ano_veiculo"></h1>
@@ -98,40 +98,51 @@
 
                     <div class="metrica">
                         <span>
-                            <img id="img_genero" src="./assets/genero.png">
+                            <img id="img_genero" src="./assets/dashboard-motorista.svg">
+                        </span>
+                        <div class="metrica-titulo">
+                            <h1 id="kpi_seguro"></h1>
+                            <p>Percentual de veículos segurados</p>
+                        </div>
+                    </div>
+
+                    <div class="metrica">
+                        <span>
+                            <img id="img_genero" src="./assets/dashboard-motorista.svg">
                         </span>
                         <div class="metrica-titulo">
                             <h1 id="kpi_genero"></h1>
                             <p>Gênero predominante</p>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="dashboard-principal">
-                    <h2>Monitorando a área central da cidade de São Paulo em tempo real...</h2>
+                    <h2 id="h2_regiao"></h2>
 
                     <div class="dashboard-principal-body">
                         <div class="dashboard-principal-esquerda">
-                            <h1>Dashboard</h1>
-
-                            <div class="grafico-um">
-                                <h1>Ocupação das vagas por intervalo de tempo</h1>
-                                <canvas id="chart-ocupacao"></canvas>
-                            </div>
 
                             <div class="graficos">
+                                <div class="grafico-um">
+                                    <h1>Ocupação das vagas por intervalo de tempo</h1>
+                                    <canvas id="chart-ocupacao"></canvas>
+                                </div>
                                 <div class="grafico-dois">
                                     <h1>Ocupação por gênero</h1>
                                     <canvas id="chart-genero"></canvas>
                                 </div>
 
+                            </div>
+
+                            <div class="graficos">
+
                                 <div class="grafico-tres">
                                     <h1>Distribuição de faixa etária</h1>
                                     <canvas id="chart-idade"></canvas>
                                 </div>
-                            </div>
 
-                            <div class="graficos">
                                 <div class="grafico-quatro">
                                     <h1>Distribuição de condutores por tipo de veiculo</h1>
                                     <canvas id="chart-tipo-veiculo"></canvas>
@@ -141,7 +152,6 @@
                                     <h1>Proporção de indivíduos com e sem seguro.</h1>
                                     <canvas id="chart-seguro"></canvas>
                                 </div>
-
                             </div>
 
                         </div>
@@ -206,10 +216,10 @@
 
                             if (dataVeiculo >= '2020') {
                                 kpi_ano_veiculo.style.color = 'red';
-                                img_carro.src = "./assets/dashboard-carro-red.png"
+                                img_carro.src = "./assets/dashboard-carro-red.svg";
                             } else {
                                 kpi_ano_veiculo.style.color = 'green';
-                                img_carro.src = "./assets/dashboard-carro-green.png"
+                                img_carro.src = "./assets/dashboard-carro-green.svg";
                             }
                         })
                 }
@@ -227,6 +237,7 @@
                             console.log(`Dados recebidos: ${JSON.stringify
                                 (resposta)}`);
 
+                            h2_regiao.innerHTML = `Monitorando a região <b>${sessionStorage.NOME_REGIAO}</b> da cidade de São Paulo em tempo real...`;
                             var generoPredominante = resposta[0].generoPredominante
                             kpi_genero.innerHTML = `${generoPredominante}`;
                         })
@@ -346,13 +357,12 @@
     function plotarGraficoGeneroRegiao(resposta) {
         console.log('iniciando plotagem do gráfico de gênero...');
 
-        const dadosReais = resposta;
 
         var labels = [];
         var valores = [];
 
-        for (var i = 0; i < dadosReais.length; i++) {
-            var dadoAtual = dadosReais[i];
+        for (var i = 0; i < resposta.length; i++) {
+            var dadoAtual = resposta[i];
             labels.push(dadoAtual.generoPredominante);
             valores.push(dadoAtual.totalCondutores);
         }
@@ -388,39 +398,44 @@
 
         const dadosReais = resposta;
 
+        var valoresFeminino = [];
+        var valoresMasculino = [];
         var labels = [];
-        var valores = [];
 
         for (var i = 0; i < dadosReais.length; i++) {
             var dadoAtual = dadosReais[i];
             labels.push(dadoAtual.faixaEtaria);
-            valores.push(dadoAtual.totalCondutores);
+
+            if (dadoAtual.genero == 'Feminino') {
+                valoresFeminino.push(dadoAtual.totalCondutores);
+            } else {
+                valoresMasculino.push(dadoAtual.totalCondutores);
+            }
         }
+        console.log(dadosReais)
 
-        var dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Distribuição de Faixa Etária por Gênero',
-                data: valores,
-                backgroundColor: [
-                    '#ffc714',
-                    '#1f1f1f'
-                ],
-            }]
-        };
+        const chart_idade = document.getElementById('chart-idade');
 
-        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoGeneroRegiao":')
-        console.log(resposta)
-
-        const config = {
+        new Chart(chart_idade, {
             type: 'bar',
-            data: dados,
-        };
-
-        var myChart = new Chart(
-            document.getElementById(`chart-idade`),
-            config
-        );
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Mulheres',
+                    data: valoresFeminino,
+                    backgroundColor: '#ffc714',
+                    borderColor: '#ffc714',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Homens',
+                    data: valoresMasculino,
+                    backgroundColor: '#1f1f1f',
+                    borderColor: '#1f1f1f',
+                    borderWidth: 1
+                }]
+            }
+        });
     }
 
     function plotarGraficoCondutorVeiculo(resposta) {
@@ -437,30 +452,29 @@
             valores.push(dadoAtual.total_condutores);
         }
 
-        var dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Distribuição de condutores por tipo de veiculo',
-                data: valores,
-                backgroundColor: [
-                    '#ffc714',
-                    '#1f1f1f'
-                ],
-            }]
-        };
+        const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
 
-        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoCondutorVeiculo":')
-        console.log(resposta)
-
-        const config = {
+        new Chart(chart_tipoVeiculo, {
             type: 'bar',
-            data: dados,
-        };
-
-        var myChart = new Chart(
-            document.getElementById(`chart-tipo-veiculo`),
-            config
-        );
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Quantidade de veículo',
+                    data: valores,
+                    backgroundColor: '#ffc714',
+                    borderColor: '#ffc714',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
     function plotarGraficoIndividuosSeguro(resposta) {
@@ -477,56 +491,35 @@
             valores.push(dadoAtual.total_condutores);
         }
 
-        var dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Proporção de indivíduos com e sem seguro.',
-                data: valores,
-                backgroundColor: [
-                    '#ffc714',
-                    '#1f1f1f'
-                ],
-            }]
-        };
 
-        console.log('Estes dados foram recebidos pela funcao "obterGrafico" e passados para "plotarGraficoIndividuosSeguro":')
-        console.log(resposta)
+        const chart_seguro = document.getElementById('chart-seguro');
 
-        const config = {
+        new Chart(chart_seguro, {
             type: 'bar',
-            data: dados,
-        };
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Quantidade de condutores ',
+                    data: valores,
+                    backgroundColor: ['#1f1f1f'],
+                    borderColor: ['#1f1f1f'],
+                    borderWidth: 1
+                }]
 
-        var myChart = new Chart(
-            document.getElementById(`chart-seguro`),
-            config
-        );
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
 
-    // const chart_tipoVeiculo = document.getElementById('chart-tipo-veiculo');
 
-    // new Chart(chart_tipoVeiculo, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Caminhão', 'Moto', 'Carro'],
-    //         datasets: [{
-    //             label: 'Quantidade de veículo',
-    //             data: [10, 20, 70],
-    //             backgroundColor: '#ffc714',
-    //             borderColor: '#ffc714',
-    //             borderWidth: 1
-    //         }]
-    //     },
-    //     options: {
-    //         indexAxis: 'y',
-    //         scales: {
-    //             x: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
 
     // const chart_seguro = document.getElementById('chart-seguro');
 

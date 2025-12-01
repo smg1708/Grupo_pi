@@ -83,7 +83,8 @@ function listarFaixaEtariaRegiao(regiao) {
 		    WHEN TIMESTAMPDIFF(YEAR, dt_nasc, now()) < 60 THEN '46-59'
 		    ELSE '+60'
 	    END AS faixaEtaria,
-	    COUNT(c.id_condutor) AS totalCondutores
+	    COUNT(c.id_condutor) AS totalCondutores,
+        genero
         FROM condutor AS c JOIN cadastro_veiculo AS cv
         ON c.id_condutor = cv.fk_condutor
         JOIN registro AS r 
@@ -95,7 +96,7 @@ function listarFaixaEtariaRegiao(regiao) {
         JOIN localizacao AS l
         ON l.id_localizacao = v.fk_localizacao
         WHERE l.regiao = '${regiao}'
-        GROUP BY faixaEtaria
+        GROUP BY faixaEtaria, genero
         ORDER BY totalCondutores DESC;
     `;
 
