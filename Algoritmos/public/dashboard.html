@@ -237,36 +237,36 @@
             })
     }
 
-    // const chart_ocupacao = document.getElementById('chart-ocupacao');
+     const chart_ocupacao = document.getElementById('chart-ocupacao');
 
-    // new Chart(chart_ocupacao, {
-    //     type: 'line',
-    //     data: {
-    //         labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-    //         datasets: [{
-    //             label: 'Real',
-    //             data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
-    //             backgroundColor: '#ffc714',
-    //             borderColor: '#ffc714',
-    //             borderWidth: 3
-    //         }, {
-    //             label: 'Previsão',
-    //             data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
-    //             borderColor: '#ffc714',
-    //             borderWidth: 2,
-    //             borderDash: [5, 5]
-    //         }
+     new Chart(chart_ocupacao, {
+         type: 'line',
+         data: {
+             labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+             datasets: [{
+                 label: 'Real',
+                 data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
+                 backgroundColor: '#ffc714',
+                 borderColor: '#ffc714',
+                 borderWidth: 3
+             }, {
+                 label: 'Previsão',
+                 data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
+                 borderColor: '#ffc714',
+                 borderWidth: 2,
+                 borderDash: [5, 5]
+             }
 
-    //         ]
-    //     },
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
+             ]
+         },
+         options: {
+             scales: {
+                 y: {
+                     beginAtZero: true
+                 }
+             }
+         }
+     });
 
 
     function obterGraficoGeneroRegiao() {
