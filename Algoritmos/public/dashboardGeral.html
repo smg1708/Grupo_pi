@@ -81,7 +81,7 @@
                             <img id="" src="./assets/dashboard-mapa-red.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1 id="kpi_zona">Centro</h1>
+                            <h1 id="kpi_zona"></h1>
                             <p>Zona com menos segurados</p>
                         </div>
                     </div>
@@ -91,17 +91,17 @@
                             <img id="img_idade" src="./assets/dashboard-idade.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1 id="kpi_idade">25-35 anos</h1>
+                            <h1 id="kpi_idade"></h1>
                             <p>Faixa-etária predominante</p>
                         </div>
                     </div>
 
                     <div class="metrica">
                         <span>
-                            <img id="img_carro" src="./assets/dashboard-carro.png">
+                            <img id="img_carro" src="./assets/das">
                         </span>
                         <div class="metrica-titulo">
-                            <h1 id="kpi_ano_veiculo">2016</h1>
+                            <h1 id="kpi_ano_veiculo"></h1>
                             <p>Ano veículo predominante</p>
                         </div>
                     </div>
@@ -213,6 +213,14 @@
                     .then(function (resposta) {
                         var anoVeiculo = resposta[0].ano_veiculo;
                         kpi_ano_veiculo.innerHTML = anoVeiculo;
+
+                        if (anoVeiculo < 2020) {
+                            kpi_ano_veiculo.style.color = `green`
+                            img_carro.src = `./assets/dashboard-carro-green.svg`
+                        } else {
+                            kpi_ano_veiculo.style.color = `red`
+                            img_carro.src = `./assets/dashboard-carro-red.svg`
+                        }
 
                         // DEFINIR CORES AQUI
                     })

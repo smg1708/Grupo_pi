@@ -101,16 +101,6 @@
                             <img id="img_genero" src="./assets/dashboard-motorista.svg">
                         </span>
                         <div class="metrica-titulo">
-                            <h1 id="kpi_seguro"></h1>
-                            <p>Percentual de veículos segurados</p>
-                        </div>
-                    </div>
-
-                    <div class="metrica">
-                        <span>
-                            <img id="img_genero" src="./assets/dashboard-motorista.svg">
-                        </span>
-                        <div class="metrica-titulo">
                             <h1 id="kpi_genero"></h1>
                             <p>Gênero predominante</p>
                         </div>
@@ -214,12 +204,12 @@
                             var dataVeiculo = resposta[0].ano_veiculo
                             kpi_ano_veiculo.innerHTML = `Ano ${dataVeiculo}`;
 
-                            if (dataVeiculo >= '2020') {
-                                kpi_ano_veiculo.style.color = 'red';
-                                img_carro.src = "./assets/dashboard-carro-red.svg";
-                            } else {
+                            if (dataVeiculo < 2020) {
                                 kpi_ano_veiculo.style.color = 'green';
                                 img_carro.src = "./assets/dashboard-carro-green.svg";
+                            } else {
+                                kpi_ano_veiculo.style.color = 'red';
+                                img_carro.src = "./assets/dashboard-carro-red.svg";
                             }
                         })
                 }
