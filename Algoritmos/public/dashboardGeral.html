@@ -71,7 +71,7 @@
                     </span>
                     <div class="saudacoes-nome">
                         <h1 id="h1_nome">Bom dia, Fernando Brandão!</h1>
-                        <p>quinta-feira, 6 de novembro de 2025</p>
+                        <p id="dia_da_semana">quinta-feira, 6 de novembro de 2025</p>
                     </div>
                 </div>
 
@@ -158,6 +158,21 @@
         obterDadosFaixaEtaria();
         obterDadosAnoVeiculo();
         obterDadosGenero();
+    atualizarDiaSemana()
+    }
+
+    function atualizarDiaSemana(){
+        var dataAtual = new Date();
+
+        var diasDaSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+        var mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        var nomeDia = diasDaSemana[dataAtual.getDay()];
+        var diaDoMes = dataAtual.getDate();
+        var nomeMes = mesesDoAno[dataAtual.getMonth()];
+        var ano = dataAtual.getFullYear();
+
+        dia_da_semana.innerHTML=`${nomeDia}, ${diaDoMes} de ${nomeMes} de ${ano};`
     }
 
     function exibirDashboard(index) {
