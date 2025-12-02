@@ -76,20 +76,29 @@
             // insere os dados no banco de dados (se habilitado)
             if (HABILITAR_OPERACAO_INSERIR) {
 
+            var lista_fk = [];
+
                 // este insert irá inserir os dados na tabela "medida"
-                await poolBancoDados.execute(
-                    'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
-                    [sensorDigital, fk_sensor]
-                );
+                
+                    for (var i = 0; i < lista_fk.length; i++) {
+                    if (lista_fk[i] == fk_sensor) {
+                        console.log("Já existe essa fk");
+                    } else {
+                        await poolBancoDados.execute(
+                        'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
+                        [sensorDigital, fk_sensor])
+                        lista_fk.push(fk_sensor)
+                    }
+                };
                 console.log("valores inseridos no banco: " + sensorDigital,fk_sensor);
             }
-        });
 
     // DETECTA ERROS DE CONEXÃO COM A PORTA SERIAL
         arduino.on('error', (mensagem) => {
             console.error(`Erro no arduino (Mensagem: ${mensagem}`)
         });
     }
+)};
 
 
 
