@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas IQ | Suporte</title>
+
+    <link rel="icon" href="assets/VagasIQ.svg">
+    <script src="../js/sessao.js"></script>
+
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Unbounded:wght@200..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body onload="validarSessaoSuporte()">
+    <div class="dashboard-container">
+        <div class="navbar-lateral">
+            <div class="lateral-opcoes">
+                <div class="topo">
+                    <span id="span_nome">S</span>
+                    <div class="credenciais">
+                        <h4 id="h4_nome">Samuel</h4>
+                        <p>Suporte</p>
+                    </div>
+                </div>
+
+                <div class="opcoes">
+                    <div class="opcao opcao-selecionada">
+                        <img src="./assets/teste.png" width="22px">
+                        <span>Fluxograma</span>
+                    </div>
+
+                    <a href="./docs/documentacaoVagasIQ.pdf" download="documentacaoVagasIQ.pdf"
+                        class="opcao opcao-link">
+                        <img src="./assets/suporte-documentacao.svg">
+                        <span>Documentação</span>
+                    </a>
+
+                    <a class="opcao opcao-link">
+                        <img src="./assets/suporte-jira.svg">
+                        <span>Jira</span>
+                    </a>
+                </div>
+            </div>
+
+            <div onclick="limparSessao()" class="exit">
+                <img src="./assets/dashboard-sair.svg">
+                <a>Sair</a>
+            </div>
+        </div>
+
+        <div class="container container-geral">
+            <div class="dashboard-navbar dashboard-navbar-geral">
+                <h1>VagasIQ</h1>
+                <span id="span_empresa">Suporte Nível 3</span>
+            </div>
+
+            <div class="dashboard-body suporte-body">
+                <img id="fluxograma-problema" src="./assets/fluxograma-problema.png">
+
+
+                <div onclick="exibirBob()" id="div_iconeBob">
+                    <img src="./assets/suporte-ia.png">
+                </div>
+
+                <div class="container-bobIA" id="div_bobIA">
+                    <div class="bobIA-header">
+                            <img id="img-suporte-ia" src="./assets/suporte-ia.png">
+                        <h1>Chat de Suporte</h1>
+                        <button onclick="ocultarBob()" id="botao-fechar">
+                            <img src="./assets/suporte-fechar.png">
+                        </button>
+                    </div>
+                    <div class="bobIA-principal">
+                        <div class="area-resposta">
+                            <div class="caixa-mensagem" id="div_mostrar_pergunta"></div>
+                            <div class="caixa-mensagem" id="resposta"></div>
+                        </div>
+                        <div class="area-pergunta">
+                            <input placeholder="Tire sua dúvida" id="input_pergunta">
+                            <button id="botao-enviar" onclick="gerarResposta()">
+                                <img src="./assets/send.png">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function exibirBob() {
+        div_bobIA.style.display = 'flex';
+        div_iconeBob.style.display = 'none';
+    }
+    function ocultarBob() {
+        div_bobIA.style.display = 'none';
+        div_iconeBob.style.display = 'flex';
+        div_mostrar_pergunta.style.display = 'none'
+        resposta.style.display = 'none';
+    }
+
+    async function gerarResposta() {
+        var pergunta = document.getElementById('input_pergunta').value;
+        div_mostrar_pergunta.innerText = pergunta;
+
+        div_mostrar_pergunta.style.display = 'block';
+        resposta.style.display = 'none';
+        input_pergunta.value = '';
+
+        const response = await fetch('/suporte/perguntar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pergunta })
+        });
+
+        const data = await response.json();
+
+        resposta.style.display = 'block';
+        document.getElementById('resposta').innerText = data.resultado;
+    }
+</script>

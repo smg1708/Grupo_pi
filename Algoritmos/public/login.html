@@ -91,17 +91,25 @@
 </html>
 
 <script>
- 
+
     var cont = 3;
 
     function entrar() {
         var email = input_email.value;
         var senha = input_senha.value;
+        var nome = 'Samuel';
 
         if (email == "" && senha == "") {
             alert("Campos incorretos\n Verifique os campos e tente novamente");
             return false;
-        } else {
+        } else if (email == "samuel@suporte.vagasiq.com" && senha == "samuel123") {
+            sessionStorage.EMAIL_USUARIO = email;
+            sessionStorage.NOME_USUARIO = nome;
+
+            window.location.href = "./suporte.html";
+        }
+
+        else {
 
         }
         console.log("FORM LOGIN: ", email);
