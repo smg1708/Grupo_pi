@@ -158,12 +158,10 @@
     function carregar() {
         obterFaixaEtaria();
         obterDadosAnoVeiculo();
-        obterGeneroRegiao();
         obterGraficoGeneroRegiao();
         plotarGraficoGeneroRegiao();
         plotarGraficoCondutorVeiculo();
-        plotarGraficoIndividuosSeguro();
-        
+        plotarGraficoIndividuosSeguro();        
     }
 
     function atualizarDiaSemana() {
@@ -183,6 +181,7 @@
     }
 
     atualizarDiaSemana();
+    obterGeneroRegiao();
 
     function obterFaixaEtaria() {
         fetch(`/dashboard/kpiFaixaEtaria/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
