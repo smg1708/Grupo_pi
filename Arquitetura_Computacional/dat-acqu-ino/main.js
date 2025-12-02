@@ -32,8 +32,8 @@
         let poolBancoDados = mysql.createPool(
             {
                 host: 'localhost',
-                user: 'dat_acq_ino',
-                password: 'Sptech#2024',
+                user: 'data_acq_ino',
+                password: 'SPTech#2025',
                 database: 'VagasIQ',
                 port: 3307
             }
@@ -71,19 +71,18 @@
             // armazena os valores dos sensores nos arrays correspondentes
             //valoresSensorAnalogico.push(sensorAnalogico);
             valoresSensorDigital.push(sensorDigital);
-
+            
+            const fk_sensor = Math.floor(Math.random()*40+1); console.log(fk_sensor);
             // insere os dados no banco de dados (se habilitado)
             if (HABILITAR_OPERACAO_INSERIR) {
 
                 // este insert irá inserir os dados na tabela "medida"
                 await poolBancoDados.execute(
-                    'INSERT INTO registro (situacao) VALUES (?);',
-                    [sensorDigital]
+                    'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
+                    [sensorDigital, fk_sensor]
                 );
-                console.log("valores inseridos no banco: " + sensorDigital);
-
+                console.log("valores inseridos no banco: " + sensorDigital,fk_sensor);
             }
-
         });
 
     // DETECTA ERROS DE CONEXÃO COM A PORTA SERIAL
