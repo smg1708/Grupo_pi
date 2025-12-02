@@ -171,6 +171,22 @@ function listarGraficoIndividuoVeiculo(req, res) {
     })
 }
 
+function listarGraficoOcupacao(req, res) {
+    var regiao = req.params.regiao;
+
+    dashboardModel.listarGraficoOcupacao(regiao).then(function (resultado) {
+        if (resultado) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao listar a ocupacao: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -182,5 +198,6 @@ module.exports = {
     listarGraficoGenero,
     listarGraficoFaixaEtaria,
     listarGraficoCondutorVeiculo,
-    listarGraficoIndividuoVeiculo
+    listarGraficoIndividuoVeiculo,
+    listarGraficoOcupacao
 }

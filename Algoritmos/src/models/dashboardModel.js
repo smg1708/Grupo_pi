@@ -107,6 +107,50 @@ function listarGraficoIndividuoVeiculo(regiao) {
     return database.executar(instrucaoSql);
 }
 
+function listarGraficoOcupacao(regiao) {
+
+    var sqlAtivo = `
+        select l.regiao as regiao,
+            sum(r.situacao = 1) as ocupados,
+            r.dt_registro as data,
+            count(*) as total_sensores
+        from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+        where l.regiao = '${regiao}'
+        group by r.dt_registro
+        order by r.dt_registro;
+    `;
+
+    var sqlTotal = `
+        select l.regiao as regiao,
+            count(distinct s.id_sensor) as total_sensores,
+            max(r.dt_registro) as data
+        from localizacao as l 
+        join vaga as v 
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+        where l.regiao = '${regiao}'
+        group by l.regiao;
+    `;
+
+    return database.executar(sqlAtivo).then(resultado1 => {
+        return database.executar(sqlTotal).then(resultado2 => {
+            return {
+                sensores: resultado1,
+                resumo: resultado2[0]
+            };
+        });
+    });
+}
+
 module.exports = {
     listarZona,
     listarFaixaEtaria,
@@ -118,5 +162,6 @@ module.exports = {
     listarGraficoGenero,
     listarGraficoFaixaEtaria,
     listarGraficoCondutorVeiculo,
-    listarGraficoIndividuoVeiculo
+    listarGraficoIndividuoVeiculo,
+    listarGraficoOcupacao
 }

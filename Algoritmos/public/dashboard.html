@@ -237,36 +237,36 @@
             })
     }
 
-     const chart_ocupacao = document.getElementById('chart-ocupacao');
+    //  const chart_ocupacao = document.getElementById('chart-ocupacao');
 
-     new Chart(chart_ocupacao, {
-         type: 'line',
-         data: {
-             labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-             datasets: [{
-                 label: 'Real',
-                 data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
-                 backgroundColor: '#ffc714',
-                 borderColor: '#ffc714',
-                 borderWidth: 3
-             }, {
-                 label: 'Previsão',
-                 data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
-                 borderColor: '#ffc714',
-                 borderWidth: 2,
-                 borderDash: [5, 5]
-             }
+    //  new Chart(chart_ocupacao, {
+    //      type: 'line',
+    //      data: {
+    //          labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+    //          datasets: [{
+    //              label: 'Real',
+    //              data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
+    //              backgroundColor: '#ffc714',
+    //              borderColor: '#ffc714',
+    //              borderWidth: 3
+    //          }, {
+    //              label: 'Previsão',
+    //              data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
+    //              borderColor: '#ffc714',
+    //              borderWidth: 2,
+    //              borderDash: [5, 5]
+    //          }
 
-             ]
-         },
-         options: {
-             scales: {
-                 y: {
-                     beginAtZero: true
-                 }
-             }
-         }
-     });
+    //          ]
+    //      },
+    //      options: {
+    //          scales: {
+    //              y: {
+    //                  beginAtZero: true
+    //              }
+    //          }
+    //      }
+    //  });
 
 
     function obterGraficoGeneroRegiao() {
@@ -342,6 +342,30 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        // grafico de ocupação por vaga
+
+        fetch(`/dashboard/obterDadosOcupacao/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarGraficoOcupacao(resposta);
+
+                    iniciarAtualizacoes();
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+        function iniciarAtualizacoes() {
+            setTimeout(() => atualizarOcupacao(), 300000);
+        }
+
     }
 
     function plotarGraficoGeneroRegiao(resposta) {
@@ -508,7 +532,70 @@
         });
     }
 
+    var chartOcupacao = null;
+    
+    function plotarGraficoOcupacao(resposta) {
+        
+        var labels = [];
+        var valores = [];
 
+        var sensores = resposta.sensores
+        var totalSensores = Number(resposta.resumo.total_sensores) || 1;
+
+        for (var i = 0; i < sensores.length; i++) {
+            labels.push(sensores[i].data)
+            var ocupados = Number(sensores[i].ocupados) || 0;
+            
+            var porcentagemOcupacao = (ocupados / totalSensores) * 100
+            valores.push(Number(porcentagemOcupacao.toFixed(0)))
+        }
+        
+        const ctx = document.getElementById("chart-ocupacao");
+
+        if (chartOcupacao == null) {
+            chartOcupacao = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Ocupação por tempo',
+                        data: valores,
+                        backgroundColor: '#1e1e1e',
+                        borderColor: '#1e1e1e',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+                }
+            )
+        } else {
+            chartOcupacao.data.labels = labels;
+            chartOcupacao.data.datasets[0].data = valores;
+            chartOcupacao.update();
+        }
+
+        console.log(labels, valores)
+
+    }
+    
+    function atualizarOcupacao() {
+        var regiao = sessionStorage.NOME_REGIAO;
+
+        fetch(`/dashboard/obterDadosOcupacao/${regiao}`)
+            .then(r => r.json())
+            .then(resposta => {
+                plotarGraficoOcupacao(resposta);
+
+                setTimeout(() => atualizarOcupacao(), 300000);
+            })
+            .catch(e => console.error("Erro ao atualizar: ", e));
+    }
 
 
     // const chart_seguro = document.getElementById('chart-seguro');

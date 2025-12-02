@@ -47,4 +47,8 @@ router.get("/obterIndividuosSeguroRegiao/:regiao", function(req, res){
     dashboardController.listarGraficoIndividuoVeiculo(req, res);
 })
 
+router.get("/obterDadosOcupacao/:regiao", function(req, res){
+    dashboardController.listarGraficoOcupacao(req, res);
+})
+
 module.exports = router;
