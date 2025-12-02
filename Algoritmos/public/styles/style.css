@@ -1,4 +1,4 @@
-html{
+html {
     scroll-behavior: smooth;
 }
 
@@ -177,7 +177,8 @@ body {
 
 }
 
-.div_conteudo-valores, .div_valor {
+.div_conteudo-valores,
+.div_valor {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -286,7 +287,8 @@ body {
 
 }
 
-.div_card h3,h4 {
+.div_card h3,
+h4 {
     color: #0c0c0c;
 }
 
@@ -332,7 +334,8 @@ body {
     margin-bottom: 0px;
 }
 
-.contato .input_campo, .input_campo-msg {
+.contato .input_campo,
+.input_campo-msg {
     height: 45px;
     width: 420px;
     border: none;
@@ -425,7 +428,7 @@ body {
 
 /* Dashboard */
 
-.body-dash{
+.body-dash {
     height: 100vh;
 }
 
@@ -448,7 +451,7 @@ body {
         PRENDE A NAVBAR LATERAL NO EIXO 0 DA PÁGINA
     */
     top: 0;
-    
+
     /* prende a navbar lateral e não dá overlap - cada div tem seu espaço não se atropelam e nem se atrapalham */
     position: sticky;
 }
@@ -510,6 +513,11 @@ body {
     font-weight: bolder;
 }
 
+.opcao-link {
+    text-decoration: none;
+    color: #808080;
+}
+
 .dashboard-container .navbar-lateral .opcoes .opcao-selecionada {
     text-decoration: underline;
 }
@@ -533,11 +541,11 @@ body {
     width: 100%;
 }
 
-.conatiner-especifica{
+.conatiner-especifica {
     padding-bottom: 40px;
 }
 
-.container-geral{
+.container-geral {
     padding-bottom: 0;
 }
 
@@ -548,7 +556,8 @@ body {
     justify-content: space-between;
     border-bottom: 1px solid #808080;
 }
-.dashboard-navbar-geral{
+
+.dashboard-navbar-geral {
     width: 97%;
 }
 
@@ -730,21 +739,23 @@ body {
     padding: 10px 20px;
     width: 280px;
 }
+
 .dashboard-body .dashboard-principal-esquerda .graficos .grafico-tres p {
     font-size: 15px;
 }
 
-#kpi_zona{
+#kpi_zona {
     color: #ff0000;
 }
 
-.dashboard-principal-cards{
+.dashboard-principal-cards {
     display: flex;
     gap: 30px;
     flex-direction: row;
     justify-content: center;
 }
-.dashboard-principal-cards .card{
+
+.dashboard-principal-cards .card {
     width: 220px;
     height: 140px;
     display: flex;
@@ -759,24 +770,24 @@ body {
     background-repeat: no-repeat;
 }
 
-.norte:hover{
+.norte:hover {
     background-image: url("../assets/norte.png");
 }
 
-.sul:hover{
+.sul:hover {
     background-image: url("../assets/sul.png");
 }
 
-.leste:hover{
+.leste:hover {
     background-image: url("../assets/leste.png");
 }
 
-.oeste:hover{
+.oeste:hover {
     background-image: url("../assets/oeste.png");
 }
 
-.centro:hover{
-    background-image: url("../assets/centro.png");    
+.centro:hover {
+    background-image: url("../assets/centro.png");
     background-size: 40%;
 }
 
@@ -886,3 +897,140 @@ body {
 
 
 /*Fim Login*/
+
+/* BOB IA Início */
+#div_iconeBob{
+    display: flex;
+    background-color: #ffc714;
+    width: 70px;
+    height: 70px;
+    align-self: flex-end;
+    border-radius: 25px 25px 0 25px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#div_iconeBob img{
+    width: 40px;
+}
+
+.suporte-body {
+    gap: 0;
+    margin: 30px 0 30px 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#fluxograma-problema {
+    width: 680px;
+}
+
+.container-bobIA {
+    display: none;
+    flex-direction: column;
+    align-self: flex-end;
+    width: 30%;
+    box-shadow: -2px 2px 20px #0c0c0c44;
+}
+
+.bobIA-principal {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.bobIA-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1E1E1E;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.bobIA-header h1 {
+    font-size: 16px;
+    color: #fff;
+}
+
+.area-pergunta {
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 30px;
+    border: 1px solid #b1b0b0;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.area-pergunta input {
+    width: 80%;
+    border: none;
+    border-radius: 30px;
+    padding-left: 10px;
+}
+
+.area-pergunta input:focus {
+    outline: none;
+}
+
+#botao-enviar {
+    background-color: #ffc714;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+#botao-enviar img {
+    width: 15px;
+}
+
+#botao-fechar {
+    border: none;
+    background-color: #1E1E1E;
+    cursor: pointer;
+}
+
+#botao-fechar img {
+    width: 12px;
+}
+#img-suporte-ia{
+    width: 20px;
+}
+
+
+
+.area-resposta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#div_mostrar_pergunta {
+    background-color: #ffc714;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 25px 25px 0 25px;
+    align-self: flex-end;
+    display: none;
+}
+
+#resposta {
+    padding: 10px;
+    display: none;
+    font-size: 12px;
+    border-radius: 25px 25px 25px 0;
+    background-color: #1E1E1E;
+    color: #fff;
+    align-self: flex-start;
+}
+
+.caixa-mensagem {
+    width: 75%;
+}
