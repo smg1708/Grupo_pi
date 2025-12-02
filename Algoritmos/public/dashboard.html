@@ -71,7 +71,7 @@
                     </span>
                     <div class="saudacoes-nome">
                         <h1 id="h1_nome">Bom dia, Fernando Brandão!</h1>
-                        <p>quinta-feira, 6 de novembro de 2025</p>
+                        <p id="dia_da_semana">quinta-feira, 6 de novembro de 2025</p>
                     </div>
                 </div>
 
@@ -158,13 +158,30 @@
     function carregar() {
         obterFaixaEtaria();
         obterDadosAnoVeiculo();
-        obterGeneroRegiao();
         obterGraficoGeneroRegiao();
         plotarGraficoGeneroRegiao();
         plotarGraficoCondutorVeiculo();
-        plotarGraficoIndividuosSeguro();
-
+        plotarGraficoIndividuosSeguro();        
     }
+
+    function atualizarDiaSemana() {
+        var dataAtual = new Date();
+
+        var diasDaSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+        var mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        var nomeDia = diasDaSemana[dataAtual.getDay()];
+        var diaDoMes = dataAtual.getDate();
+        var nomeMes = mesesDoAno[dataAtual.getMonth()];
+        var ano = dataAtual.getFullYear();
+
+        console.log(`${nomeDia}, ${diaDoMes} de ${nomeMes} de ${ano};`)
+
+        dia_da_semana.innerHTML = `${nomeDia}, ${diaDoMes} de ${nomeMes} de ${ano};`
+    }
+
+    atualizarDiaSemana();
+    obterGeneroRegiao();
 
     function obterFaixaEtaria() {
         fetch(`/dashboard/kpiFaixaEtaria/${sessionStorage.NOME_REGIAO}`, { cache: 'no-store' }).then
@@ -236,37 +253,6 @@
                 console.error(`Erro na obtenção dos dados p/ KPI Ano Veículo: ${error.message}`);
             })
     }
-
-    //  const chart_ocupacao = document.getElementById('chart-ocupacao');
-
-    //  new Chart(chart_ocupacao, {
-    //      type: 'line',
-    //      data: {
-    //          labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-    //          datasets: [{
-    //              label: 'Real',
-    //              data: [10, 5, 8, 8, 8, 15, 30, 45, 65, 70, 67, 45],
-    //              backgroundColor: '#ffc714',
-    //              borderColor: '#ffc714',
-    //              borderWidth: 3
-    //          }, {
-    //              label: 'Previsão',
-    //              data: [20, 10, 8, 8, 8, 15, 25, 50, 67, 75, 70, 45],
-    //              borderColor: '#ffc714',
-    //              borderWidth: 2,
-    //              borderDash: [5, 5]
-    //          }
-
-    //          ]
-    //      },
-    //      options: {
-    //          scales: {
-    //              y: {
-    //                  beginAtZero: true
-    //              }
-    //          }
-    //      }
-    //  });
 
 
     function obterGraficoGeneroRegiao() {
@@ -533,9 +519,9 @@
     }
 
     var chartOcupacao = null;
-    
+
     function plotarGraficoOcupacao(resposta) {
-        
+
         var labels = [];
         var valores = [];
 
@@ -545,11 +531,11 @@
         for (var i = 0; i < sensores.length; i++) {
             labels.push(sensores[i].data)
             var ocupados = Number(sensores[i].ocupados) || 0;
-            
+
             var porcentagemOcupacao = (ocupados / totalSensores) * 100
             valores.push(Number(porcentagemOcupacao.toFixed(0)))
         }
-        
+
         const ctx = document.getElementById("chart-ocupacao");
 
         if (chartOcupacao == null) {
@@ -572,7 +558,7 @@
                         }
                     }
                 }
-                }
+            }
             )
         } else {
             chartOcupacao.data.labels = labels;
@@ -583,7 +569,7 @@
         console.log(labels, valores)
 
     }
-    
+
     function atualizarOcupacao() {
         var regiao = sessionStorage.NOME_REGIAO;
 
@@ -596,36 +582,7 @@
             })
             .catch(e => console.error("Erro ao atualizar: ", e));
     }
-
-
-    // const chart_seguro = document.getElementById('chart-seguro');
-
-    // new Chart(chart_seguro, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: ['Tem seguro', 'Não tem seguro'],
-    //         datasets: [{
-    //             label: 'Quantidade de condutores ',
-    //             data: [30, 70],
-    //             backgroundColor: ['#1f1f1f'],
-    //             borderColor: ['#1f1f1f'],
-    //             borderWidth: 1
-    //         }]
-
-    //     },
-    //     options: {
-    //         indexAxis: 'y',
-    //         scales: {
-    //             x: {
-    //                 beginAtZero: true
-    //             }
-    //         }
-    //     }
-    // });
-
-
-
-
+    
 </script>
 
 </html>
