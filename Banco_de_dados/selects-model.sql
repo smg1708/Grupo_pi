@@ -44,8 +44,7 @@ SELECT ano_veiculo,
        COUNT(*) AS totalVeiculos
 	FROM veiculo
 	GROUP BY ano_veiculo
-	ORDER BY totalVeiculos DESC
-	LIMIT 1;
+	ORDER BY totalVeiculos DESC;
     
 SELECT * FROM view_ano_veiculo;	
     
@@ -107,8 +106,7 @@ SELECT ano_veiculo,
         JOIN localizacao AS l
         ON l.id_localizacao = v.fk_localizacao
 	GROUP BY ano_veiculo, regiao
-	ORDER BY regiao, ano_veiculo, totalVeiculos DESC
-	LIMIT 1;
+	ORDER BY regiao, ano_veiculo, totalVeiculos DESC;
     
 SELECT * FROM view_ano_veiculo_regiao
 WHERE regiao = 'Centro';
@@ -132,8 +130,9 @@ SELECT l.regiao AS regiao,
         JOIN localizacao AS l
         ON l.id_localizacao = v.fk_localizacao
     GROUP BY generoPredominante, regiao
-	ORDER BY totalCondutores DESC
-    LIMIT 1;
+	ORDER BY totalCondutores DESC;
+
+DROP VIEW view_genero_regiao;
 
 SELECT * FROM view_genero_regiao
 WHERE regiao = 'Sul';
