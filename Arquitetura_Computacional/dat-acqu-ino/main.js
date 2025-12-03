@@ -32,7 +32,7 @@
         let poolBancoDados = mysql.createPool(
             {
                 host: 'localhost',
-                user: 'data_acq_ino',
+                user: 'web_data_viz',
                 password: 'SPTech#2025',
                 database: 'VagasIQ',
                 port: 3307
@@ -40,10 +40,17 @@
         ).promise();
 
     // DETECTA ERROS DE CONEXÃO COM O ARDUINO
+        // const portas = await serialport.SerialPort.list();
+        // const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
+        // if (!portaArduino) {
+        //     throw new Error('O arduino não foi encontrado em nenhuma porta serial'); // caso não 
+        // }
+
         const portas = await serialport.SerialPort.list();
-        const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
+        console.log(portas);
+        const portaArduino = portas.find((porta) => (porta.vendorId == 2341 && porta.productId == 43) || (porta.vendorId == '10C4' && porta.productId == 'EA60')); // Adicinado o arduino da Isa
         if (!portaArduino) {
-            throw new Error('O arduino não foi encontrado em nenhuma porta serial'); // caso não 
+            throw new Error('O arduino não foi encontrado em nenhuma porta serial');
         }
 
         // configura a porta serial com o baud rate especificado
@@ -73,17 +80,32 @@
             valoresSensorDigital.push(sensorDigital);
             
             const fk_sensor = Math.floor(Math.random()*40+1); console.log(fk_sensor);
+            const id_cadastro_veiculo = Math.floor(Math.random()*40+1); console.log(id_cadastro_veiculo);
             // insere os dados no banco de dados (se habilitado)
             if (HABILITAR_OPERACAO_INSERIR) {
 
-                
-
                 // este insert irá inserir os dados na tabela "medida"
-                await poolBancoDados.execute(
-                    'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
-                    [sensorDigital, fk_sensor]
-                );
-                console.log("valores inseridos no banco: " + sensorDigital,fk_sensor);
+                // await poolBancoDados.execute(
+                //     'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
+                //     [sensorDigital, fk_sensor]
+                // );
+
+                // for (var i = 0; i <= 5; i++) {
+                    if (sensorDigital == 1) {
+                        await poolBancoDados.execute(
+                            `insert into registro (fk_sensor, situacao, dt_registro, fk_condutor, fk_veiculo, fk_cadastro_veiculo)
+                            select ${fk_sensor}, ${sensorDigital}, now(), fk_condutor, fk_veiculo, id_cadastro_veiculo
+                            from cadastro_veiculo
+                            where id_cadastro_veiculo = ${id_cadastro_veiculo};`
+                        )
+                        console.log("valores inseridos no banco: " + sensorDigital,fk_sensor);
+                    } else {
+                        await poolBancoDados.execute(
+                        'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
+                        [sensorDigital, fk_sensor]
+                    );
+                    }
+                // }
             }
         });
 

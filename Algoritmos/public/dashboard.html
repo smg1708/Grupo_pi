@@ -344,7 +344,7 @@
             });
 
         function iniciarAtualizacoes() {
-            setTimeout(() => atualizarOcupacao(), 300000);
+            setTimeout(() => atualizarOcupacao(), 10000);
         }
 
     }
@@ -573,7 +573,7 @@
             .then(resposta => {
                 plotarGraficoOcupacao(resposta);
 
-                setTimeout(() => atualizarOcupacao(), 300000);
+                setTimeout(() => atualizarOcupacao(), 10000);
             })
             .catch(e => console.error("Erro ao atualizar: ", e));
     }
