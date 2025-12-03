@@ -40,7 +40,8 @@
                         <span>Dashboard</span>
                     </a>
 
-                    <a href="https://vagasiq.atlassian.net/servicedesk/customer/portals" class="opcao opcao-link" target="_blank">
+                    <a href="https://vagasiq.atlassian.net/servicedesk/customer/portals" class="opcao opcao-link"
+                        target="_blank">
                         <img src="./assets//dashboard-suporte.svg">
                         <span>Contato</span>
                     </a>
@@ -156,7 +157,7 @@
         obterGraficoGeneroRegiao();
         plotarGraficoGeneroRegiao();
         plotarGraficoCondutorVeiculo();
-        plotarGraficoIndividuosSeguro();        
+        plotarGraficoIndividuosSeguro();
     }
 
     function atualizarDiaSemana() {
@@ -344,7 +345,7 @@
             });
 
         function iniciarAtualizacoes() {
-            setTimeout(() => atualizarOcupacao(), 10000);
+            setTimeout(() => atualizarOcupacao(), 5000);
         }
 
     }
@@ -517,44 +518,43 @@
 
     function plotarGraficoOcupacao(resposta) {
 
+        
         var labels = [];
         var valores = [];
+        
+        for (var i = 0; i < resposta.length; i++) {
+            
+            var dadoAtual = resposta[i];
+            labels.push(dadoAtual.horario);
 
-        var sensores = resposta.sensores
-        var totalSensores = Number(resposta.resumo.total_sensores) || 1;
-
-        for (var i = 0; i < sensores.length; i++) {
-            labels.push(sensores[i].data)
-            var ocupados = Number(sensores[i].ocupados) || 0;
-
-            var porcentagemOcupacao = (ocupados / totalSensores) * 100
-            valores.push(Number(porcentagemOcupacao.toFixed(0)))
+            var porcentagem = dadoAtual.total_ocupados / dadoAtual.total_sensores * 10;
+            valores.push(porcentagem);
         }
 
         const ctx = document.getElementById("chart-ocupacao");
 
         if (chartOcupacao == null) {
-            chartOcupacao = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Ocupação por tempo',
-                        data: valores,
-                        backgroundColor: '#1e1e1e',
-                        borderColor: '#1e1e1e',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+        chartOcupacao = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Percentual de Ocupação',
+                    data: valores,
+                    backgroundColor: '#ffc714',
+                    borderColor: '#ffc714',
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-            )
+        }
+        )
         } else {
             chartOcupacao.data.labels = labels;
             chartOcupacao.data.datasets[0].data = valores;
@@ -573,11 +573,11 @@
             .then(resposta => {
                 plotarGraficoOcupacao(resposta);
 
-                setTimeout(() => atualizarOcupacao(), 10000);
+                setTimeout(() => atualizarOcupacao(), 5000);
             })
             .catch(e => console.error("Erro ao atualizar: ", e));
     }
-    
+
 </script>
 
 </html>

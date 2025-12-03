@@ -1,6 +1,6 @@
 CREATE DATABASE VagasIQ;
 USE VagasIQ;
-   
+
 CREATE TABLE seguradora (
 	id_seguradora INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(80),
@@ -68,6 +68,7 @@ CREATE TABLE veiculo (
 );
 
 CREATE TABLE cadastro_veiculo (
+	id_cadastro_veiculo INT AUTO_INCREMENT,
 	fk_condutor INT,
 		CONSTRAINT fk_condutor_cadastro
 			FOREIGN KEY (fk_condutor)
@@ -77,11 +78,11 @@ CREATE TABLE cadastro_veiculo (
 			FOREIGN KEY (fk_veiculo)
 				REFERENCES veiculo(id_veiculo),
 	dt_cadastro DATE,
-	PRIMARY KEY (fk_condutor, fk_veiculo)
+	PRIMARY KEY (id_cadastro_veiculo, fk_condutor, fk_veiculo)
 );
 
 CREATE TABLE registro (
-	id_registro INT,
+	id_registro INT AUTO_INCREMENT,
     fk_sensor INT,
 		CONSTRAINT fk_sensor_registro
 			FOREIGN KEY (fk_sensor)
@@ -96,6 +97,9 @@ CREATE TABLE registro (
 		CONSTRAINT fk_veiculo
 			FOREIGN KEY (fk_veiculo)
 				REFERENCES cadastro_veiculo(fk_veiculo),
+	fk_cadastro_veiculo int,
+    foreign key (fk_cadastro_veiculo)
+		references cadastro_veiculo(id_cadastro_veiculo),
 	PRIMARY KEY (id_registro, fk_sensor)
 );
 
@@ -190,83 +194,82 @@ INSERT INTO sensor (estado_sensor) VALUES
 ('Ativo'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
 ('Ativo'),
-('Desativo'),
-('Ativo'),
-('Ativo'),
-('Desativo'),
-('Ativo'),
-('Desativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
-('Desativo'),
+('Desativado'),
+('Ativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
-('Ativo'),
-('Desativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
+('Ativo'),
+('Desativado'),
 ('Ativo'),
 ('Ativo'),
-('Desativo'),
+('Desativado'),
+('Ativo'),
+('Ativo'),
+('Desativado'),
 ('Ativo');
 
 
 INSERT INTO vaga (apelido, fk_localizacao, fk_sensor) VALUES
-('A1', 1, 4),
-('A2', 1, 3),
-('A3', 1, 7),
-('A4', 1, 2),
-('A5', 1, 8),
-('B1', 2, 4),
-('B2', 2, 9),
-('B3', 2, 6),
-('B4', 2, 1),
-('B5', 2, 7),
-('C1', 3, 8),
-('C2', 3, 3),
-('C3', 3, 5),
-('C4', 3, 2),
-('C5', 3, 1),
-('C6', 3, 10),
-('D1', 4, 6),
-('D2', 4, 1),
-('D3', 4, 9),
-('D4', 4, 7),
-('D5', 4, 2),
-('D6', 4, 5),
-('E1', 5, 5),
-('E2', 5, 3),
-('E3', 5, 7),
-('E4', 5, 9),
-('E5', 5, 2),
-('F1', 6, 8),
-('F2', 6, 2),
-('F3', 6, 4),
-('F4', 6, 6),
-('G1', 7, 9),
-('G2', 7, 4),
-('G3', 7, 1),
-('H1', 8, 6),
-('H2', 8, 10),
-('H3', 8, 3),
-('I1', 9, 1),
-('I2', 9, 7),
-('J1', 10, 5),
-('J2', 10, 2);
+('A1', 1, 1),
+('A2', 1, 2),
+('A3', 1, 3),
+('A4', 1, 4),
+('A5', 1, 5),
+('B1', 2, 6),
+('B2', 2, 7),
+('B3', 2, 8),
+('B4', 2, 9),
+('B5', 2, 10),
+('C1', 3, 11),
+('C2', 3, 12),
+('C3', 3, 13),
+('C4', 3, 14),
+('C5', 3, 15),
+('C6', 3, 16),
+('D1', 4, 17),
+('D2', 4, 18),
+('D3', 4, 19),
+('D4', 4, 20),
+('D5', 4, 21),
+('D6', 4, 22),
+('E1', 5, 23),
+('E2', 5, 24),
+('E3', 5, 25),
+('E4', 5, 26),
+('E5', 5, 27),
+('F1', 6, 28),
+('F2', 6, 29),
+('F3', 6, 30),
+('F4', 6, 31),
+('G1', 7, 32),
+('G2', 7, 33),
+('G3', 7, 34),
+('H1', 8, 35),
+('H2', 8, 36),
+('H3', 8, 37),
+('I1', 9, 38),
+('I2', 9, 39),
+('J1', 10, 40);
 
 INSERT INTO condutor (genero, dt_nasc) VALUES
 ('M', '1990-05-12'),
@@ -393,7 +396,7 @@ INSERT INTO cadastro_veiculo (fk_condutor, fk_veiculo, dt_cadastro) VALUES
 (38, 17, '2025-11-30'),
 (39, 18, '2025-12-01'),
 (40, 19, '2025-12-02');
-    
+
 INSERT INTO registro (id_registro, fk_sensor, situacao, fk_condutor, fk_veiculo) VALUES
 (1, 1, 0, 1, 1),
 (2, 2, 1, 2, 2),
@@ -606,4 +609,9 @@ select localizacao.*,
 FROM
 	localizacao JOIN vaga
 		ON id_localizacao = fk_localizacao; 
+        
+select * from registro order by dt_registro desc;
+        
+        select * from vaga join localizacao on fk_localizacao = id_localizacao;
+        select * from registro;
 	

@@ -109,46 +109,36 @@ function listarGraficoIndividuoVeiculo(regiao) {
 
 function listarGraficoOcupacao(regiao) {
 
-    var sqlAtivo = `
-        select l.regiao as regiao,
-            sum(r.situacao = 1) as ocupados,
-            r.dt_registro as data,
-            count(*) as total_sensores
-        from localizacao as l 
-        join vaga as v  
-            on l.id_localizacao = v.fk_localizacao
-        join sensor as s 
-            on v.fk_sensor = s.id_sensor
-        join registro as r 
-            on s.id_sensor = r.fk_sensor
-        where l.regiao = '${regiao}'
-        group by r.dt_registro
-        order by r.dt_registro;
+    var instrucaoSql = `
+
+SELECT 
+    DATE_FORMAT(r.dt_registro, '%H:%i') AS horario,
+
+    (
+        SELECT COUNT(id_sensor)
+        FROM sensor 
+        JOIN vaga ON fk_sensor = id_sensor
+        JOIN localizacao ON fk_localizacao = id_localizacao
+        WHERE regiao = '${regiao}'
+    ) AS total_sensores,
+
+    SUM(r.situacao = 1) AS total_ocupados
+
+FROM registro r
+JOIN sensor s ON r.fk_sensor = s.id_sensor
+JOIN vaga v ON s.id_sensor = v.fk_sensor
+JOIN localizacao l ON v.fk_localizacao = l.id_localizacao
+
+WHERE l.regiao = '${regiao}'
+
+GROUP BY horario
+ORDER BY horario;
+
+
     `;
 
-    var sqlTotal = `
-        select l.regiao as regiao,
-            count(distinct s.id_sensor) as total_sensores,
-            max(r.dt_registro) as data
-        from localizacao as l 
-        join vaga as v 
-            on l.id_localizacao = v.fk_localizacao
-        join sensor as s 
-            on v.fk_sensor = s.id_sensor
-        join registro as r 
-            on s.id_sensor = r.fk_sensor
-        where l.regiao = '${regiao}'
-        group by l.regiao;
-    `;
-
-    return database.executar(sqlAtivo).then(resultado1 => {
-        return database.executar(sqlTotal).then(resultado2 => {
-            return {
-                sensores: resultado1,
-                resumo: resultado2[0]
-            };
-        });
-    });
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {

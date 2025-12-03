@@ -32,8 +32,8 @@
         let poolBancoDados = mysql.createPool(
             {
                 host: 'localhost',
-                user: 'web_data_viz',
-                password: 'SPTech#2025',
+                user: 'aluno',
+                password: 'Sptech#2024',
                 database: 'VagasIQ',
                 port: 3307
             }
@@ -101,10 +101,34 @@
                         console.log("valores inseridos no banco: " + sensorDigital,fk_sensor);
                     } else {
                         await poolBancoDados.execute(
-                        'INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);',
+                        `INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);`,
                         [sensorDigital, fk_sensor]
+                        
                     );
                     }
+
+                    for (let i = 0; i < 9; i++) {
+
+                        const fk_sensor = Math.floor(Math.random()*40+1); console.log(fk_sensor);
+                        const id_cadastro_veiculo = Math.floor(Math.random()*40+1); console.log(id_cadastro_veiculo);
+                        const situacao = Math.floor(Math.random()*2); console.log(situacao);
+
+                        if (situacao == 1) {
+                            await poolBancoDados.execute(
+                                `insert into registro (fk_sensor, situacao, dt_registro, fk_condutor, fk_veiculo, fk_cadastro_veiculo)
+                                select ${fk_sensor}, ${situacao}, now(), fk_condutor, fk_veiculo, id_cadastro_veiculo
+                                from cadastro_veiculo
+                                where id_cadastro_veiculo = ${id_cadastro_veiculo};`
+                            );
+                        } else {
+                            await poolBancoDados.execute(
+                                `INSERT INTO registro (situacao, fk_sensor) VALUES (?, ?);`,
+                                [situacao, fk_sensor]
+                            );
+                        }
+
+                    console.log("valores inseridos no banco(arduinosEspalhados): " + situacao, fk_sensor);
+                }
                 // }
             }
         });

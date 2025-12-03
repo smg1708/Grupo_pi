@@ -132,8 +132,6 @@ SELECT l.regiao AS regiao,
     GROUP BY generoPredominante, regiao
 	ORDER BY totalCondutores DESC;
 
-DROP VIEW view_genero_regiao;
-
 SELECT * FROM view_genero_regiao
 WHERE regiao = 'Sul';
 
@@ -251,3 +249,134 @@ SELECT * FROM view_individuo_seguro
 WHERE regiao = 'Sul';	
         
 SHOW TABLES;
+        
+        select l.regiao as regiao,
+            sum(r.situacao = 1) as ocupados,
+            extract(hour from r.dt_registro) as data,
+            count(*) as total_sensores
+        from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+        where l.regiao = 'sul'
+        group by r.dt_registro
+        order by r.dt_registro;
+        
+        select l.regiao as regiao,
+            (sum(distinct(r.situacao))) as ultimo,
+            extract(hour from r.dt_registro) as data,
+            (select count(id_sensor) from sensor) as total_sensores
+        from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+        where l.regiao = 'sul'
+        group by r.dt_registro
+        order by r.dt_registro;
+        
+select count(distinct fk_sensor) from registro order by dt_registro;
+        
+select l.regiao, 
+(select count(id_sensor) as total_sensores_regiao
+	from sensor join vaga on fk_sensor = id_sensor
+		join localizacao on fk_localizacao = id_localizacao
+        where regiao = 'centro') as total_sensores,
+(select count(distinct fk_sensor) from registro where situacao = 1 order by dt_registro desc) as total_ocupados,
+date_format(dt_registro, '%H:%i') as data
+from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+		where l.regiao = 'Centro'
+		group by l.regiao, total_ocupados, data;
+        
+select count(id_sensor) as total_sensores_regiao
+	from sensor join vaga on fk_sensor = id_sensor
+		join localizacao on fk_localizacao = id_localizacao
+        where regiao = 'centro';
+-- 1,2,12,13,33
+
+select * from vaga;
+select * from usuario;
+select count(distinct(r.situacao)),
+	l.regiao 
+from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+		where l.regiao = 'Centro';
+        
+        SELECT * FROM view_condutores_veiculo_regiao
+    WHERE regiao = 'Norte';
+select count(distinct fk_sensor) from registro where situacao = 1 order by dt_registro desc;
+
+
+SELECT fk_sensor, situacao, dt_registro
+FROM registro
+ORDER BY dt_registro DESC
+LIMIT 20;
+
+select * from registro;
+
+SELECT 
+    ultimo_registro.horario,
+
+    -- total de sensores fixo
+    (
+        SELECT COUNT(id_sensor)
+        FROM sensor 
+        JOIN vaga ON fk_sensor = id_sensor
+        JOIN localizacao ON fk_localizacao = id_localizacao
+        WHERE regiao = 'Sul'
+    ) AS total_sensores,
+
+    -- quantos estão ocupados
+    SUM(ultimo_registro.situacao = 1) AS total_ocupados
+
+FROM (
+    SELECT 
+        fk_sensor,
+        situacao,
+        DATE_FORMAT(dt_registro, '%H:%i') AS horario
+    FROM registro r1
+    WHERE dt_registro = (
+        SELECT MAX(r2.dt_registro)
+        FROM registro r2
+        WHERE r2.fk_sensor = r1.fk_sensor
+    )
+) AS ultimo_registro
+
+JOIN sensor s ON ultimo_registro.fk_sensor = s.id_sensor
+JOIN vaga v ON s.id_sensor = v.fk_sensor
+JOIN localizacao l ON v.fk_localizacao = l.id_localizacao
+
+WHERE l.regiao = 'Sul'
+
+GROUP BY ultimo_registro.horario
+ORDER BY ultimo_registro.horario;
+
+select l.regiao,
+	v.apelido
+        from localizacao as l 
+        join vaga as v  
+            on l.id_localizacao = v.fk_localizacao
+        join sensor as s 
+            on v.fk_sensor = s.id_sensor
+        join registro as r 
+            on s.id_sensor = r.fk_sensor
+        where l.regiao = 'sul';
+        
+        select * from vaga;
+        select * from registro;

@@ -172,7 +172,7 @@ function listarGraficoIndividuoVeiculo(req, res) {
 }
 
 function listarGraficoOcupacao(req, res) {
-    var regiao = req.params.regiao;
+    var regiao = req.params.regiao; console.log('ERRO AQUI:',regiao)
 
     dashboardModel.listarGraficoOcupacao(regiao).then(function (resultado) {
         if (resultado) {
