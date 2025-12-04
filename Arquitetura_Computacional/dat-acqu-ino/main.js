@@ -31,7 +31,7 @@
     // CONEXÃO COM O BANCO DE DADOS
         let poolBancoDados = mysql.createPool(
             {
-                host: 'localhost',
+                host: '10.18.32.106',
                 user: 'aluno',
                 password: 'Sptech#2024',
                 database: 'VagasIQ',

@@ -155,9 +155,6 @@
         obterFaixaEtaria();
         obterDadosAnoVeiculo();
         obterGraficoGeneroRegiao();
-        plotarGraficoGeneroRegiao();
-        plotarGraficoCondutorVeiculo();
-        plotarGraficoIndividuosSeguro();
     }
 
     function atualizarDiaSemana() {
@@ -259,7 +256,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
+                    console.log('aaaaaaaaa',resposta)
                     plotarGraficoGeneroRegiao(resposta);
 
                 });
@@ -352,7 +349,7 @@
 
     function plotarGraficoGeneroRegiao(resposta) {
         console.log('iniciando plotagem do gráfico de gênero...');
-
+        console.log(resposta)
 
         var labels = [];
         var valores = [];
@@ -396,11 +393,13 @@
 
         var valoresFeminino = [];
         var valoresMasculino = [];
-        var labels = [];
+        var labels = ['18-25', '26-35', '36-45', '46-59', '60+'];
 
         for (var i = 0; i < dadosReais.length; i++) {
             var dadoAtual = dadosReais[i];
-            labels.push(dadoAtual.faixaEtaria);
+            // if (!labels.includes(dadoAtual.faixaEtaria)) {
+            //     labels.push(dadoAtual.faixaEtaria);
+            // }
 
             if (dadoAtual.genero == 'Feminino') {
                 valoresFeminino.push(dadoAtual.totalCondutores);

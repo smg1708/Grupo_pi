@@ -118,7 +118,7 @@ SELECT l.regiao AS regiao,
 		WHEN genero = 'F' THEN 'Feminino'
 		ELSE 'Masculino'
     END AS generoPredominante,
-    COUNT(id_condutor) AS totalCondutores
+    COUNT(distinct id_condutor) AS totalCondutores
     FROM condutor AS c JOIN cadastro_veiculo AS cv
         ON c.id_condutor = cv.fk_condutor
         JOIN registro AS r 
@@ -380,3 +380,5 @@ select l.regiao,
         
         select * from vaga;
         select * from registro;
+        select * from condutor;
+        select * from view_genero_regiao;
