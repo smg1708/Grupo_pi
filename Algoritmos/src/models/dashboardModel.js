@@ -111,28 +111,28 @@ function listarGraficoOcupacao(regiao) {
 
     var instrucaoSql = `
 
-SELECT 
-    DATE_FORMAT(r.dt_registro, '%H:%i') AS horario,
+    SELECT 
+        DATE_FORMAT(r.dt_registro, '%H:%i') AS horario,
 
-    (
-        SELECT COUNT(id_sensor)
-        FROM sensor 
-        JOIN vaga ON fk_sensor = id_sensor
-        JOIN localizacao ON fk_localizacao = id_localizacao
-        WHERE regiao = '${regiao}'
-    ) AS total_sensores,
+        (
+            SELECT COUNT(id_sensor)
+            FROM sensor 
+            JOIN vaga ON fk_sensor = id_sensor
+            JOIN localizacao ON fk_localizacao = id_localizacao
+            WHERE regiao = '${regiao}'
+        ) AS total_sensores,
 
-    SUM(r.situacao = 1) AS total_ocupados
+        SUM(r.situacao = 1) AS total_ocupados
 
-FROM registro r
-JOIN sensor s ON r.fk_sensor = s.id_sensor
-JOIN vaga v ON s.id_sensor = v.fk_sensor
-JOIN localizacao l ON v.fk_localizacao = l.id_localizacao
+    FROM registro r
+    JOIN sensor s ON r.fk_sensor = s.id_sensor
+    JOIN vaga v ON s.id_sensor = v.fk_sensor
+    JOIN localizacao l ON v.fk_localizacao = l.id_localizacao
 
-WHERE l.regiao = '${regiao}'
+    WHERE l.regiao = '${regiao}'
 
-GROUP BY horario
-ORDER BY horario;
+    GROUP BY horario
+    ORDER BY horario;
 
 
     `;
